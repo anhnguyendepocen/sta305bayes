@@ -269,3 +269,50 @@ div.warning:before {
 .widgetframe {
     margin-bottom: 2em;
 }
+
+.Algo {
+  padding: 1em;
+  background: #49c3ff;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+.Example {
+  padding: 1em;
+  background: white;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+div.Example:before {
+    content: "Exemple :";
+    font-weight: bold;
+    left: 20px;
+}
+
+.MyDef {
+  padding: 1em;
+  background: #9fffb4;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+div.MyDef:before {
+    content: "Définition :";
+    font-weight: bold;
+    left: 200px;
+}
+
+.MyProp {
+  padding: 1em;
+  background: #ff9f9f;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+div.MyProp:before {
+    content: "Propriété :";
+    font-weight: bold;
+    left: 20px;
+}
+
