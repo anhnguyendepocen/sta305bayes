@@ -1,0 +1,49 @@
+---
+title: ""
+linktitle: "Le paradigme bayésien"
+date: "2020-11-30"
+read_date: "2020-11-30"
+menu:
+  cours:
+    parent: "I Introduction à l'analyse bayésienne"
+    weight: 3
+type: docs
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
+slides: "01-slides"
+output:
+  blogdown::html_page:
+    toc: false
+---
+
+
+
+<div id="le-paradigme-bayésien" class="section level2">
+<h2>Le paradigme bayésien</h2>
+<div id="le-théorème-de-bayes" class="section level3">
+<h3>Le théorème de Bayes</h3>
+<p>Le terme <em>bayésien</em> provient du nom du révérend Thomas Bayes (Angleterre, XVIII<sup>ème</sup>). En 1763, ce dernier publie un article<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> (posthume) dans lequel il expose le théorème suivant :
+<span class="math display">\[\Pr(A|E)=\frac{\Pr(E|A)\Pr(A)}{\Pr(E|A)\Pr(A) + \Pr(E|\bar{A})\Pr(\bar{A})}=\frac{\Pr(E|A)\Pr(A)}{\Pr(E)}\]</span>
+La postérité désigne ce théorème sous le nom de <em>théorème de Bayes</em>. Ce dernier en donne en réalité une version continue dans son travail :
+<span class="math display">\[g(x|y)=\frac{f(y|x)g(x)}{\int f(y|x)g(x)\,\text{d}x}\]</span>
+où <span class="math inline">\(X\)</span> et <span class="math inline">\(Y\)</span> sont deux variables aléatoires connaissant les réalisations <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span>, <span class="math inline">\(f(y|x)\)</span> représente la distribution conditionnelle de <span class="math inline">\(Y\)</span> sachant la réalisation de <span class="math inline">\(X\)</span>, et <span class="math inline">\(g(x)\)</span> la distribution marginale de <span class="math inline">\(X\)</span>. Le mathématicien français Laplace a également retrouvé ces résultats, de manière indépendante. Laplace et Bayes ont tous les deux poussé ces travaux en décrivant l’incertitude sur les paramètres <span class="math inline">\(\theta\)</span> d’un modèle paramétrique <span class="math inline">\(f(y|\theta)\)</span> par une distribution de probabilité <span class="math inline">\(\pi\)</span>. Le théorème de Bayes s’écrit alors :
+<span class="math display">\[p(\theta|y)=\frac{f(y|\theta)\pi(\theta)}{\int f(y|\theta)\pi(\theta)\,\text{d}\theta}\]</span></p>
+<p>La différence fondamentale entre l’approche fréquentiste et l’approche bayésienne est donc que cette dernière considère les paramètres non pas comme fixes (i.e. pour lesquels il existe une vraie valeur), mais plutôt comme des variables aléatoires. Il s’agit donc d’une différence philosophique profonde même si les ponts entre les deux approches sont nombreux.</p>
+<p>Cette manière de considérer les paramètres comme des variables aléatoires induit une distribution marginale <span class="math inline">\(\pi(\theta)\)</span>. Cette distribution est appelée <em>a priori</em> (ou parfois <em>prior</em>, ce qui est un anglicisme). Sa spécification est à la fois un atout de l’analyse bayésienne, puisqu’elle permet de formaliser les hypothèses sur l’objet d’étude et d’en tenir compte dans la modélisation, mais aussi une faiblesse puisqu’elle introduit nécessairement une subjectivité dans l’analyse. Ces deux facettes d’une même pièce seront d’ailleurs tour à tour mises en avant par les bayésiens tout comme par leurs détracteurs.</p>
+</div>
+<div id="bayésiens-vs.-fréquentistes-un-débat-dépassé" class="section level3">
+<h3>Bayésiens vs. Fréquentistes : un débat dépassé</h3>
+<p>Les idées du révérend Bayes, retrouvées indépendamment puis approfondies par Laplace, ont eu une influence profonde sur le développement de la statistique au cours de la deuxième moitié du XVIII<sup>ème</sup> siècle et du XIX<sup>ème</sup>. Mais avec la naissance de la statistique moderne au tournant du XX<sup>ème</sup> avec Galton et Pearson, puis ensuite avec Fisher et Neymann en particulier, théorie fréquentiste est devenue dominante. Ce n’est qu’à la fin du XX<sup>ème</sup> siècle que la statistique bayésienne est revenue sur le devant de la scène, notamment grâce à l’avènement de l’ordinateur et au développement de méthodes numériques efficace qui ont permis de dépasser certaines limitations auparavant présentes dans l’analyse bayésienne.</p>
+<p>Sous l’influence de Fisher notamment, qui a fermement marqué son rejet du raisonnement bayésien, le XX<sup>ème</sup> siècle a vu la communauté statistique se scinder en deux entre les partisans de l’approche bayésienne et les tenants de l’approche fréquentiste (considérant les paramètres comme fixes), avec parfois des débats virulents opposant les deux communautés.</p>
+<p>Aujourd’hui, ces querelles de chapelles sont dépassées, en partie grâce aux succès pratiques qu’ont rencontrés chacune des deux approches sur des problèmes modernes et complexes, notamment dans le domaine de la santé. De plus, un certain nombre de méthodes, telles que par exemple les méthodes bayésiennes empiriques, se situent à la frontière entre les deux approches et permettent de faire le pont entre elles. Le (bio)-statisticien d’aujourd’hui se doit donc d’être pragmatique et versatile, intégrant l’analyse bayésienne dans sa boîte à outils pour résoudre les problèmes auxquels il est confronté.</p>
+<blockquote>
+<p>“<em>Être ou ne pas être bayésien, là n’est plus la question : il s’agit d’utiliser à bon escient les outils adaptés quand cela est necessaire.</em>” — Gilbert Saporta</p>
+</blockquote>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>T. Bayes, 1763. An essay towards solving a problem in the doctrine of chances, <em>The Philosophical Transactions of the Royal Society</em>, <strong>53</strong>: 370-418.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>

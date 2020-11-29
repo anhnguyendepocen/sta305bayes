@@ -1,0 +1,186 @@
+---
+title: ""
+linktitle: "Algorithmes MCMC"
+date: "2020-11-30"
+read_date: "2020-11-30"
+menu:
+  cours:
+    parent: "III Calcul numérique pour l'analyse bayésienne"
+    weight: 3
+type: docs
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
+slides: "01-slides"
+output:
+  blogdown::html_page:
+    toc: false
+---
+
+
+
+<div id="algorithmes-mcmc" class="section level2">
+<h2>Algorithmes MCMC</h2>
+<p>Le principe des algorithmes MCMC est de construire une chaîne de Markov visitant l’espace des paramètres dont la loi de probabilité invariante est la loi <em>a posteriori</em>.</p>
+<div id="chaînes-de-markov" class="section level3">
+<h3>Chaînes de Markov</h3>
+<p>Une chaîne de Markov est un processus stochastique à temps discret. On peut la définir comme une suite de variables aléatoires <span class="math inline">\(X_0\)</span>, <span class="math inline">\(X_1\)</span>, <span class="math inline">\(X_2\)</span>, <span class="math inline">\(X_3\)</span>, … (toutes définies sur le même espace) possédant la <strong>propriété de Markov</strong> (“sans mémoire”) :
+<span class="math display">\[p(X_i = x | X_0 = x_0, X_1 = x_1, \dots , X_{i-1} = x_{i-1}) = p(X_i = x |X_{i-1} = x_{i-1})\]</span>
+L’ensemble des valeurs possible pour <span class="math inline">\(X_i\)</span> est appelé **espace d’état* et est noté <span class="math inline">\(E\)</span>.</p>
+<p>Une chaîne de Markov est déterminée par deux paramètres :</p>
+<ol style="list-style-type: decimal">
+<li>sa distribution initiale <span class="math inline">\(p(X_0)\)</span></li>
+<li>son noyau de transition <span class="math inline">\(T(x,A) = p(X_i \in A | X_{i-1} = x)\)</span></li>
+</ol>
+<p>Dans la suite, on ne va considérer que des chaines de Markov <strong>homogènes</strong>, c’est-à-dire qui vérifient :
+<span class="math display">\[p(X_{i+1} = x|X_i = y) = p(X_i = x|X_{i-1} = y)\]</span></p>
+<div class="MyProp">
+<p>Une chaîne de Markov est dite <strong>irréductible</strong> : si tous les ensembles de probabilité non nulle peuvent être atteints à partir de tout point de départ (i.e. tout état est accessible à partir de n’importe quel autre).</p>
+</div>
+<div class="MyProp">
+<p>Une chaîne de Markov est dite <strong>récurrente</strong> si les trajectoires <span class="math inline">\((X_i)\)</span> passent une infinité de fois dans tout ensemble de probabilité non nulle de l’espace d’état.</p>
+</div>
+<div class="MyProp">
+<p>Une chaîne de Markov est dite <strong>apériodique</strong> si rien n’induit un comportement périodique des trajectoires.</p>
+</div>
+<div class="MyDef">
+<p>Une distribution de probabilité <span class="math inline">\(\tilde{p}\)</span> est appelée <strong>loi invariante</strong> (ou <strong>loi stationnaire</strong>) pour une chaîne de Markov si elle vérifie la propriété suivante : si <span class="math inline">\(X_i\)</span> suit <span class="math inline">\(\tilde{p}\)</span>, alors <span class="math inline">\(X_{i+1}\)</span> (et les éléments suivants) sont nécessairement distribués suivant <span class="math inline">\(\tilde{p}\)</span>.</p>
+</div>
+<p>
+<em>Remarque</em> : Une chaîne de Markov peut admettre plusieurs lois stationnaires.</p>
+<p>
+<em><strong>Théorème ergodique</strong> (espace infini)</em> : Une chaîne de Markov irréductible et récurrente positive (i.e. le temps de retour moyen est fini) admet une unique loi de probabilité invariante <span class="math inline">\(\tilde{p}\)</span>. Si cette chaîne de Markov est de plus apériodique, alors elle converge en loi vers <span class="math inline">\(\tilde{p}\)</span>.</p>
+<div class="Example">
+<p>Bébé 👶<br />
+Nous allons maintenant développer un exemple d’une chaîne de Markov à espace d’état discret. Supposons que l’état de Bébé, suive à chaque minute une chaîne de Markov discrète à trois états : dormir (D), manger (M), changer la couche (C). Ainsi, son état dans une minute ne dépend que de son état actuel, et pas des minutes précédentes. Supposons que la matrice des probabilités de transition soit alors la suivante :
+<span class="math display">\[P = 
+\begin{pmatrix}
+X_i/X_{i+1} &amp; D &amp; M &amp; C \\
+D &amp; 0.9 &amp; 0.05 &amp; 0.05\\
+M &amp; 0.7 &amp; 0 &amp; 0.3\\
+C &amp; 0.8 &amp; 0 &amp; 0.2\\
+\end{pmatrix}\]</span></p>
+<p>👉 1) Selon vous, la chaîne est-elle irréductible? Récurrente? Apériodique? (on pourra s’aider d’un graphique représentant les différents états et leurs transitions)<br />
+<span class="math inline">\(\quad\)</span><br />
+</p>
+<p>👉  2) Supposons que Bébé dorme. Que fait-il 2 min après? et 10 min après ?<br />
+<span class="math display">\[x_0 = \phantom{\begin{pmatrix}
+1 \\
+0 \\
+0 \\
+\end{pmatrix}^T} \quad x_2=x_0P^2 = \phantom{\begin{pmatrix}
+0.885 \\
+0.045 \\
+0.070 \\
+\end{pmatrix}^T} 
+\quad x_{10}=\phantom{x_2P^{8} = x_0P^{10} = \begin{pmatrix}
+0.884 \\
+0.044 \\
+0.072 \\
+\end{pmatrix}^T}\]</span></p>
+<p>👉 3) Supposons maintenant se couche soit en train d’être changée. Que fait-il 10 min après ?<br />
+<span class="math display">\[x_0 = \phantom{\begin{pmatrix}
+0 \\
+0 \\
+1 \\
+\end{pmatrix}^T} \quad x_{10} = \phantom{x_0P^{10} = \begin{pmatrix}
+0.884 \\
+0.044 \\
+0.072 \\
+\end{pmatrix}^T}\]</span></p>
+<p>Ici la loi est apériodique, récurrente et irréductible, il y a donc une loi stationnaire : <span class="math inline">\(\tilde{p}=\tilde{p}P\)</span>.</p>
+</div>
+</div>
+<div id="échantillonnage-mcmc" class="section level3">
+<h3>Échantillonnage MCMC</h3>
+<div id="algorithmes-mcmc-principe-général" class="section level4">
+<h4>Algorithmes MCMC : principe général</h4>
+<p>Le principe général des algorithmes MCMC est le suivant : pour produire une approximation acceptable d’une intégrale ou d’une autre fonctionnelle d’une distribution d’intérêt (i.e. la loi <em>a posteriori</em>), il suffit de générer une chaîne de Markov dont la distribution limite est la distribution d’intérêt (i.e. la loi <em>a posteriori</em>), puis d’y appliquer la méthode de Monte-Carlo.</p>
+<p>Il faut donc avoir une <strong>double convergence</strong> :</p>
+<ol style="list-style-type: decimal">
+<li>la convergence de la chaîne de Markov vers sa distribution stationnaire : <span class="math inline">\(\forall X_0,\, X_n\underset{{n\to+\infty}}{\xrightarrow{\quad\mathcal{L}\quad}} \tilde{p}\)</span></li>
+<li>la convergence de Monte-Carlo, une fois la distribution stationnaire atteinte : <span class="math inline">\(\frac{1}{N}\sum_{i=1}^N f(X_{n+i}) \underset{N\to+\infty}{\xrightarrow{\qquad~~}} \mathbb{E}[f(X)]\)</span></li>
+</ol>
+<p><span class="math display">\[\overbrace{X_0\rightarrow X_1 \rightarrow X_2\rightarrow \dots \rightarrow X_n}^\text{convergence de la chaîne de Markov}%
+\rightarrow \overbrace{X_{n+1} \rightarrow X_{n+2} \rightarrow \dots \rightarrow X_{n+N}}^\text{échantillon de Monte-Carlo}\]</span></p>
+<p>Les algorithmes MCMC utilisent une approche d’acceptation-rejet :</p>
+<div class="Algo">
+<ol style="list-style-type: decimal">
+<li>Initialiser <span class="math inline">\(x^{(0)}\)</span></li>
+<li>Pour <span class="math inline">\(t = 1, \dots, n + N\)</span> :
+<ol style="list-style-type: lower-alpha">
+<li>Proposer un nouveau candidat <span class="math inline">\(y^{(t)} \sim q(y^{(t)}|x^{(t-1)})\)</span></li>
+<li>Accepter <span class="math inline">\(y^{(t)}\)</span> avec la probabilité <span class="math inline">\(\alpha(x^{(t-1)},y^{(t)})\)</span> :<br />
+<span class="math inline">\(\quad x^{(t)}:= y^{(t)}\)</span><br />
+Si <span class="math inline">\(t&gt;n\)</span>, “sauver” <span class="math inline">\(x^{(t)}\)</span> (pour calculer la fonctionnelle d’intérêt)
+où <span class="math inline">\(q\)</span> est la loi instrumentale de proposition et <span class="math inline">\(\alpha\)</span> est la probabilité d’acceptation.</li>
+</ol></li>
+</ol>
+</div>
+<p><span class="math inline">\(\qquad\)</span><em>Schéma général des algorithmes MCMC</em></p>
+<p>Pour la loi instrumentale de proposition <span class="math inline">\(q\)</span> il n’existe pas de choix absolument optimal mais une infinité de lois possibles (certaines meilleures que d’autres). Afin de garantir la convergence vers la loi cible <span class="math inline">\(\tilde{p}\)</span> : (i) le support de <span class="math inline">\(q\)</span> doit contenir le support <span class="math inline">\(\tilde{p}\)</span>, (ii) <span class="math inline">\(q\)</span> ne doit pas générer de valeurs périodiques. Idéalement, on choisit <span class="math inline">\(q\)</span> de manière à ce que son calcul soit simple (par exemple on peut choisir <span class="math inline">\(q\)</span> symétrique).</p>
+</div>
+<div id="lalgorithme-de-metropolis-hastings" class="section level4">
+<h4>L’algorithme de Metropolis-Hastings</h4>
+<p>L’algorithme de Metropolis-Hastings est un algorithme très simple et très général permettant d’échantillonner selon des lois uni- ou multi-dimensionnelles.</p>
+<div class="Algo">
+<ol style="list-style-type: decimal">
+<li>Initialiser <span class="math inline">\(x^{(0)}\)</span><br />
+</li>
+<li>Pour <span class="math inline">\(t = 1, \dots, n + N\)</span> :
+<ol style="list-style-type: lower-alpha">
+<li>Proposer <span class="math inline">\(y^{(t)} \sim q(y^{(t)}|x^{(t-1)})\)</span></li>
+<li>Calculer la probabilité d’acceptation<br />
+<span class="math inline">\(\quad \alpha^{(t)} = \min\left\{1, \frac{\tilde{p}(y)}{q(y^{(t)}|x^{(t-1)})}\Big/\frac{\tilde{p}(x^{(t-1)})}{q(x^{(t-1)}|y^{(t)})}\right\}\)</span></li>
+<li>Étape d’acceptation-rejet : générer une valeur <span class="math inline">\(u^{(t)}\sim \mathcal{U}_{[0;1]}\)</span><br />
+<span class="math inline">\(\quad x^{(t)}=\begin{cases}y^{(t)}\text{ si }u^{(t)} \leq \alpha^{(t)}\\x^{(t-1)}\text{ sinon}\end{cases}\)</span></li>
+</ol></li>
+</ol>
+</div>
+<p>On peut reformuler la probabilité d’acceptation <span class="math inline">\(\alpha^{(t)}\)</span> ainsi : <span class="math inline">\(\displaystyle\alpha^{(t)} = \min\left\{1, \frac{\tilde{p}(y^{(t)})}{\tilde{p}(x^{(t-1)})}\frac{q(x^{(t-1)}|y^{(t)})^{(t)}}{q(y^{(t)}|x^{(t-1)})}\right\}\)</span>. On voit donc qu’on peut la calculer en ne connaissant <span class="math inline">\(\tilde{p}\)</span> qu’à une constante près, puisqu’elle se simplifie dans ce ratio.</p>
+<p>Dans certains cas particuliers (très utilisés en pratique), le calcul de <span class="math inline">\(\alpha^{(t)}\)</span> est simplifié :</p>
+<ul>
+<li><strong>Metropolis-Hastings indépendant</strong> : <span class="math inline">\(q(y^{(t)}|x^{(t-1)}) = q(y^{(t)})\)</span></li>
+<li><strong>Metropolis-Hastings à marche aléatoire</strong> : <span class="math inline">\(q(y^{(t)}|x^{(t-1)}) = g(y^{(t)}-x^{(t-1)})\)</span>. Si <span class="math inline">\(g\)</span> est symétrique (<span class="math inline">\(g(-x) = g(x)\)</span>), alors le calcul de la probabilité d’acceptation <span class="math inline">\(\alpha^{(t)}\)</span> se simplifie : <span class="math inline">\(\require{cancel}\frac{\tilde{p}(y^{(t)})}{\tilde{p}(x^{(t-1)})}\frac{q(y^{(t)}|x^{(t-1)})}{q(x^{(t-1)}|y^{(t)})} = \frac{\tilde{p}(y^{(t)})}{\tilde{p}(x^{(t-1)})}\frac{\cancel{g(y^{(t)}-x^{(t-1)})}}{\cancel{g(x^{(t-1)}-y^{(t)})}} = \frac{\tilde{p}(y^{(t)})}{\tilde{p}(x^{(t-1)})}\)</span></li>
+</ul>
+<p>L’algorithme de Metropolis-Hastings est un algorithme très simple et très général permettant d’échantillonner de manière uni- ou multi-dimensionnelle. Le choix de la distribution instrumentale est crucial, mais difficile, et a un impact considérable sur les performances de l’algorithme (un fort taux de rejet implique souvent des temps de calculs très importants). De plus, c’est un algorithme qui devient inefficace dans les problèmes de trop grande dimension. L’algorithme du recuit-simulé ainsi que l’échantillonneur de Gibbs sont des algorithmes permettant en partie de pallier à certaines de ces limites.</p>
+</div>
+<div id="lalgorithme-du-recuit-simulé" class="section level4">
+<h4>L’algorithme du recuit-simulé</h4>
+<p>Afin de dépasser certaines limitations de l’algorithme de Metropolis-Hastings, ici l’idée est de faire varier le calcul de la probabilité d’acceptation <span class="math inline">\(\alpha^{(t)}\)</span> au cours de l’algorithme. La probabilité d’acceptation doit d’abord être grande afin de bien explorer l’ensemble de l’espace d’état, puis diminuer au fur et à mesure que l’algorithme converge vers une région de l’espace, afin que les nouvelles valeurs acceptées se concentrent autour du mode de convergence. Cela consiste à introduire dans l’algorithme de Métropolis-Hastings une “température” variant à chaque itération et notée <span class="math inline">\(T(t)\)</span> :</p>
+<div class="Algo">
+<ol style="list-style-type: decimal">
+<li>Initialiser <span class="math inline">\(x^{(0)}\)</span></li>
+<li>Pour <span class="math inline">\(t = 1,\dots, n + N\)</span> :
+<ol style="list-style-type: lower-alpha">
+<li>Proposer <span class="math inline">\(y^{(t)} \sim q(y^{(t)}|x^{(t-1)})\)</span></li>
+<li>Calculer la probabilité d’acceptation<br />
+<span class="math inline">\(\quad \alpha^{(t)} = \min\left\{1, \left(\frac{\tilde{p}(y^{(t)})}{\tilde{p}(x^{(t-1)})}\frac{q(x^{(t-1)}|y^{(t)})}{q(y^{(t)}|x^{(t-1)})}\right)^{\frac{1}{T(t)}}\right\}\)</span></li>
+<li>Étape d’acceptation-rejet : générer une valeur <span class="math inline">\(u^{(t)}\sim \mathcal{U}_{[0;1]}\)</span><br />
+<span class="math inline">\(\quad x^{(t)}:=\begin{cases}y^{(t)}\text{ si }u^{(t)} \leq \alpha^{(t)}\\x^{(t-1)}\text{ sinon}\end{cases}\)</span></li>
+</ol></li>
+</ol>
+</div>
+<p>Par exemple, on peut prendre <span class="math inline">\(T(t) = T_0 \left(\frac{T_f}{T_0}\right)^\frac{t}{n}\)</span> avec <span class="math inline">\(T_0\)</span> la température de base, <span class="math inline">\(n\)</span> le nombre d’itérations au-delà duquel on pense être proche de la convergence, <span class="math inline">\(T_f\)</span> la température après <span class="math inline">\(n\)</span> itérations. Cet algorithme est particulièrement utile lors de la présence d’optimums locaux.</p>
+</div>
+<div id="échantillonneur-de-gibbs" class="section level4">
+<h4>Échantillonneur de Gibbs</h4>
+<p>Lorsque la dimension (de <span class="math inline">\(x\)</span>) augmente, il devient très difficile de proposer des valeurs probables dans les algorithmes utilisant la stratégie d’acceptation-rejet. L’idée de l’échantillonneur de Gibbs est de générer <span class="math inline">\(x\)</span> coordonnée par coordonnée, en conditionnant sur les dernières valeurs obtenues. Il faut donc que <span class="math inline">\(x\)</span> admette une décomposition telle que <span class="math inline">\(x=(x_1, \dots, x_d)\)</span>, et que les distributions <span class="math inline">\(p(x_i | x_1, \dots, x_{i-1}, x_{i+1}, \dots, x_d)\)</span> soit connues et aisément simulables. L’échantillonneur de Gibbs est une suite d’étape de Metropolis-Hastings (coordonnée par coordonnée), les propositions échantillonnées sont toujours acceptée (<span class="math inline">\(\alpha = 1\)</span>). On obtient cette acceptation inconditionnelle en imposant les lois de propositions : il s’agit de la distribution conditionnelle respective de chaque coordonnée. On peut donc voir l’échantillonneur de Gibbs comme un algorithme de réactualisation composante par composante :</p>
+<div class="Algo">
+<ol style="list-style-type: decimal">
+<li>Initialiser <span class="math inline">\(x^{(0)}= (x_1^{(0)}, \dots, x_d^{(0)})\)</span></li>
+<li>Pour <span class="math inline">\(t = 1,\dots, n + N\)</span> :
+<ol style="list-style-type: lower-alpha">
+<li>Générer <span class="math inline">\(x_1^{(t)} \sim p(x_1 | x_2^{(t-1)}, \dots, x_d^{(t-1)})\)</span></li>
+<li>Générer <span class="math inline">\(x_2^{(t)} \sim p(x_2 | x_1^{(t)}, x_3^{(t-1)}, \dots, x_d^{(t-1)})\)</span></li>
+<li>…</li>
+<li>Générer <span class="math inline">\(x_i^{(t)} \sim p(x_i | x_1^{(t)}, \dots, x_{i-1}^{(t)}, x_{i+1}^{(t-1)}, \dots, x_d^{(t-1)})\)</span></li>
+<li>…</li>
+<li>Générer <span class="math inline">\(x_d^{(t)} \sim p(x_d | x_1^{(t)}, \dots, x_{d-1}^{(t)})\)</span></li>
+</ol></li>
+</ol>
+</div>
+<p>
+<em>Remarque</em> : si l’on ne connaît pas certaines lois conditionnelles pour certaines coordonnées, on peut tout de les échantillonner en introduisant une étape d’acceptation-rejet pour cette coordonnée uniquement. On parle alors d’algorithme de Métropolis à l’intérieur de Gibbs (<em>Metropolis within Gibbs</em>).</p>
+</div>
+</div>
+</div>

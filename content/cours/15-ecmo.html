@@ -1,0 +1,57 @@
+---
+title: ""
+linktitle: "Analyse post-mortem d'un essai clinique randomisé sous-dimensionné"
+date: "2020-11-30"
+read_date: "2020-11-30"
+menu:
+  cours:
+    parent: "IV Études de cas"
+    weight: 1
+type: docs
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
+slides: "01-slides"
+output:
+  blogdown::html_page:
+    toc: false
+---
+
+
+
+<p>Dans ce chapitre, nous nous intéressons à 3 cas d’utilisation illustrant l’intérêt que peut avoir l’approche bayésienne pour les sciences biomédicales.</p>
+<div id="analyse-post-mortem-dun-essai-clinique-randomisé-sous-dimensionné" class="section level2">
+<h2>Analyse <em>post-mortem</em> d’un essai clinique randomisé sous-dimensionné</h2>
+<p>L’essai clinique randomisé <em>EOLIA</em> (Combes <em>et al.</em>, <em>NEJM</em>, 2018)<span class="citation"><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></span>
+a évalué un nouveau traitement pour le Syndrome de Détresse Respiratoire Aiguë (SDRA — <em>Acute Respiratory Distress Syndrome</em> ou <em>ARDS</em>) en comparant le taux de mortalité à 60 jours chez 249 patients randomisés entre un groupe témoin (recevant un traitement conventionnel, c’est-à-dire une ventilation mécanique) et un groupe recevant une Oxygénation par Membrane Extra-Corporelle (<em>ExtraCorporeal Membrane Oxygenation</em> ou <em>ECMO</em>) — le nouveau traitement évalué.</p>
+<p>Une analyse fréquentiste des données a estimé le risque relatif de décès de 0,76 dans le bras ECMO comparé au groupe témoin (en intention de traiter), avec un intervalle de confiance à <span class="math inline">\(96\%\)</span> : <span class="math inline">\(CI_{95\%} =[0,55, 1,04]\)</span> et une p-valeur associée de <span class="math inline">\(0,09\)</span>.</p>
+<table>
+<caption>Données observées dans l’essai EOLIA</caption>
+<thead>
+<tr class="header">
+<th align="left"></th>
+<th align="center"><strong>Groupe ECMO</strong></th>
+<th align="center"><strong>Groupe témoin</strong></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left"><strong>Taille du groupe</strong> <span class="math inline">\(\boldsymbol{n}\)</span></td>
+<td align="center"><span class="math inline">\(124\)</span></td>
+<td align="center"><span class="math inline">\(125\)</span></td>
+</tr>
+<tr class="even">
+<td align="left"><strong>Nombre de décès à 60 jours</strong></td>
+<td align="center"><span class="math inline">\(44\)</span></td>
+<td align="center"><span class="math inline">\(57\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>Goligher <em>et al.</em> (<em>JAMA</em>, 2018)<span class="citation"><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></span> ont effectué une ré-analyse de ces données avec une approche bayésienne, continuant d’explorer les éléments apportés par ces données et comment ils peuvent être quantifiés et résumés par l’approche bayésienne.</p>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Alain Combes et al., “Extracorporeal Membrane Oxygenation for Severe Acute Respiratory Distress Syndrome,” <em>New England Journal of Medicine</em> 378, no. 21 (2018): 1965–75, doi:<a href="https://doi.org/10.1056/NEJMoa1800385" role="doc-biblioref">10.1056/NEJMoa1800385</a>.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Ewan C. Goligher, George Tomlinson, and Arthur S. Slutsky, “Post Hoc Bayesian Analyses—Reply,” <em>JAMA</em> 321, no. 16 (2019): 1632–3, doi:<a href="https://doi.org/10.1001/jama.2019.1202" role="doc-biblioref">10.1001/jama.2019.1202</a>.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>

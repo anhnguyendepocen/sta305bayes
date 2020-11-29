@@ -1,0 +1,48 @@
+---
+title: ""
+linktitle: "Conclusion et mise en perspective de la modélisation bayésienne"
+date: "2020-11-30"
+read_date: "2020-11-30"
+menu:
+  cours:
+    parent: "II Modélisation Bayésienne"
+    weight: 6
+type: docs
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
+slides: "01-slides"
+output:
+  blogdown::html_page:
+    toc: false
+---
+
+
+
+<div id="conclusion-et-mise-en-perspective-de-la-modélisation-bayésienne" class="section level2">
+<h2>Conclusion et mise en perspective de la modélisation bayésienne</h2>
+<div id="les-points-essentiels" class="section level3">
+<h3>Les points essentiels</h3>
+<ol style="list-style-type: decimal">
+<li><p><strong>La formulation d’un modèle bayésien</strong> :
+<span class="math display">\[\begin{align*}
+  \theta&amp;\sim\pi(\theta) \quad\text{la loi \textit{a priori}}\\
+  Y_i|\theta&amp;\overset{iid}{\sim}f(y|\theta)  \quad \text{le modèle d&#39;échantillonnage}
+\end{align*}\]</span></p></li>
+<li><p><strong>La formule de Bayes</strong> :
+<span class="math display">\[ p(\theta|\boldsymbol{y}) = \frac{f(\boldsymbol{y} | \theta)\pi(\theta)}{f(\boldsymbol{y})}\]</span>
+où <span class="math inline">\(p(\theta|\boldsymbol{y})\)</span> est la distribution <em>a posteriori</em>, <span class="math inline">\(f(\boldsymbol{y} | \theta)\)</span> est la vraisemblance (héritée du modèle d’échantillonnage), <span class="math inline">\(\pi(\theta)\)</span> est la distribution <em>a priori</em> des paramètres <span class="math inline">\(\theta\)</span> et <span class="math inline">\(f(\boldsymbol{y}) = \textstyle \int f(\boldsymbol{y} | \theta) \pi(\theta)\)</span> est la distribution marginale des données, i.e. la constante (par rapport à <span class="math inline">\(\theta\)</span>) de normalisation.</p></li>
+<li><p><strong>L’obtention de la loi <em>a posteriori</em></strong> :
+<span class="math display">\[ p(\theta|\boldsymbol{y}) \propto f(\boldsymbol{y} | \theta)\pi(\theta)\]</span> </p></li>
+<li><p><strong>La loi <em>a priori</em> faiblement informative de Jeffreys</strong> :
+<span class="math display">\[\pi(\theta) \propto \sqrt{I(\theta)} \quad \text{en unidimensionnel}\]</span>
+possédant la propriété d’invariance.</p></li>
+<li><p><strong>La moyenne <em>a posteriori</em>, le MAP et les intervalles de crédibilité</strong></p></li>
+<li><p><strong>La distribution prédictive :</strong>
+<span class="math display">\[f_{Y_{n+1}}(y|\boldsymbol{y}) = \int f_{Y_{n+1}} (y|\theta)p(\theta|\boldsymbol{y}) \,\text{d}\theta\]</span></p></li>
+</ol>
+</div>
+<div id="intérêt-de-lapproche-bayésienne" class="section level3">
+<h3>Intérêt de l’approche bayésienne</h3>
+<p>L’analyse bayésienne est un outil statistique d’analyse de données, au même titre que d’autres méthodologies comme les forêts aléatoires, les méthodes de réduction de dimension, les modèles à classes latentes, etc. Il est particulièrement utile lorsque peu de données sont disponibles et que les méthodes fréquentistes ne permettent pas d’obtenir de résultats (par exemple une régression logistique avec très peu voire pas d’évènement, i.e. beaucoup voire que des 0 dans le cas d’évènements extrêmement rares), et/ou lorsqu’il existe de fortes connaissances <em>a priori</em> qu’il est utile d’intégrer dans un modèle avec peu de d’observations (par exemple le modèle utilisé par <em>FiveThirtyEight</em> pour prédire les résultats des élections américaines de 2008 dans chaque état américain, dans certains desquels peu de sondages étaient effectués, ou encore dans les études de génomique où le nombre d’observations disponible pour chaque gène est généralement relativement faible mais que beaucoup de gènes sont observés). Comme toute méthode statistique, l’analyse bayésienne présente des avantages et des inconvénients qui vont avoir plus ou moins d’importance selon le problème à résoudre.</p>
+</div>
+</div>

@@ -1,0 +1,28 @@
+---
+title: ""
+linktitle: "Autres méthodes"
+date: "2020-11-30"
+read_date: "2020-11-30"
+menu:
+  cours:
+    parent: "III Calcul numérique pour l'analyse bayésienne"
+    weight: 5
+type: docs
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
+slides: "01-slides"
+output:
+  blogdown::html_page:
+    toc: false
+---
+
+## Autres méthodes
+
+### Bayésien variationnel
+  
+  L'inférence bayésienne variationnelle est une technique d'approximation de l'approche bayésienne s'intéressant à l'estimation des moyennes *a posteriori*, ainsi qu'à l'incertitude qui les entoure. Elle s'appuie sur une approximation paramétrique de la loi *a posteriori* qui minimise la divergence de Kullback-Leibler par rapport à la véritable distribution *a posteriori*. Le calcul de la solution bayésienne variationnelle revient donc à un problème d'optimisation classique, dont le calcul numérique est généralement très rapide --- ce qui peut en faire une solution attractive dans les problèmes de données massives. Néanmoins la qualité de l'approximation variationnelle dépendra de l'adéquation du modèle paramétrique choisie pour lequel on ne dispose pas de garanties. De plus, cette approche nécessite généralement une étude analytique de la distribution *a posteriori* relativement poussée.
+
+
+### Calcul Bayésien Approché (*ABC*)
+
+  Le calcul bayésien approché par rejet (*ABC* en anglais) désigne une autre alternative aux méthodes MCMC, qui utilise le modèle d'échantillonnage pour éviter d'avoir à calculer la vraisemblance au numérateur de la formule de Bayes en générant des observations selon le modèle génératif des données. On obtient alors un échantillon de la loi *a posteriori* en conservant les valeurs de paramètre $\theta$, générées à partir de la loi *a priori*, ayant permis de générer les échantillons suffisamment proche des données réellement observées. La difficulté de cette approche réside dans la formalisation de ce "suffisamment proche", qui induit une approximation par rapport à l'approche bayésienne exacte qui conserverait toutes les valeurs de $\theta$ (mais dont le coût de calcul par cette méthode est alors souvent très important).

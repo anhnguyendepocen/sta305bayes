@@ -1,0 +1,97 @@
+---
+title: ""
+linktitle: "Les algorithmes MCMC pour l'inférence bayésienne dans la pratique"
+date: "2020-11-30"
+read_date: "2020-11-30"
+menu:
+  cours:
+    parent: "III Calcul numérique pour l'analyse bayésienne"
+    weight: 4
+type: docs
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
+slides: "01-slides"
+output:
+  blogdown::html_page:
+    toc: false
+---
+
+<link href="/rmarkdown-libs/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
+
+
+<div id="les-algorithmes-mcmc-pour-linférence-bayésienne-dans-la-pratique" class="section level2">
+<h2>Les algorithmes MCMC pour l’inférence bayésienne dans la pratique</h2>
+<p>La mise en place d’algorithmes de Metropolis-Hastings, de Gibbs ou de Metropolis à l’intérieur de Gibbs peut ainsi permettre d’échantillonner selon la loi <em>a posteriori</em> dans le cadre d’un modèle bayésien. On remplace alors <span class="math inline">\(x\)</span> par <span class="math inline">\(\theta\)</span> et <span class="math inline">\(\tilde{p}\)</span> par <span class="math inline">\(p(\theta|\boldsymbol{y})\)</span>. Un certain nombre de logiciels tels que <code>JAGS</code> (<a href="http://mcmc-jags.sourceforge.net/" class="uri">http://mcmc-jags.sourceforge.net/</a>), <code>STAN</code> (<a href="http://mc-stan.org/" class="uri">http://mc-stan.org/</a>) ou <code>WinBUGS</code> (<a href="https://www.mrc-bsu.cam.ac.uk/software/bugs/the-bugs-project-winbugs/" class="uri">https://www.mrc-bsu.cam.ac.uk/software/bugs/the-bugs-project-winbugs/</a>) propose une implémentation de tels algorithmes.</p>
+<p>Le projet <code>BUGS</code> (<em>Bayesian inference Using Gibbs Sampling</em> : <a href="https://www.mrc-bsu.cam.ac.uk/software/bugs/" class="uri">https://www.mrc-bsu.cam.ac.uk/software/bugs/</a>) a été initié en 1989 par l’unité de Biostatistique du MRC (<em>Medical Research Council</em>) de l’Université de Cambridge (au Royaume-Uni) afin de proposer un logiciel flexible pour l’analyse bayésienne de modèles statistique complexe à l’aide d’algorithmes MCMC. Son implémentation la plus connue est <code>WinBUGS</code>, un logiciel clic-bouton disponible sous le système d’exploitation <em>Windows</em>. <code>OpenBUGS</code> est une implémentation fonctionnant sous <em>Windows</em>, <em>Mac OS</em> ou <em>Linux</em>. <code>JAGS</code> (<em>Just another Gibbs Sampler</em>) est une autre implémentation plus récente qui s’appuie également sur le langage <code>BUGS</code>. Une ressource très utile est le manuel de l’utilisateur de JAGS (<a href="http://sourceforge.net/projects/mcmc-jags/files/Manuals/3.x/jags_user_manual.pdf" class="uri">http://sourceforge.net/projects/mcmc-jags/files/Manuals/3.x/jags_user_manual.pdf</a>). Enfin, il faut également noter le logiciel <code>STAN</code>, récemment développé à l’Université de Columbia qui n’est similaire à <code>BUGS</code> que dans son interface, s’appuyant sur des algorithmes MCMC innovants, comme par exemple les approches de Monte-Carlo Hamiltonien ou l’approche variationnelle.</p>
+<div id="convergence-des-algorithmes-mcmc" class="section level3">
+<h3>Convergence des algorithmes MCMC</h3>
+<p>L’échantillonnage selon la distribution <em>a posteriori</em> par un algorithme MCMC comporte 2 phases :</p>
+<ol style="list-style-type: decimal">
+<li><p>La <strong>phase de chauffe</strong> (<em>burn-in</em>) :<br />
+elle correspond aux premières itérations de l’algorithme MCMC, qui ne doivent pas être conservées dans l’analyse de l’échantillon de Monte-Carlo. En effet, celles-ci ne proviennent pas de la distribution. Cette phase correspond donc au temps nécessaire à la chaîne de Markov pour converger vers sa loi stationnaire. Sa longueur varie d’un modèle à l’autre. Il n’y a aucune conséquence à prendre une phase de chauffe trop longue, si ce n’est son coût computationnel.</p></li>
+<li><p>La <strong>phase d’échantillonnage</strong> :<br />
+elle doit être suffisamment longue pour permettre une bonne estimation de la distribution <em>a posteriori</em>, notamment concernant les plages de valeurs de faible probabilité.</p></li>
+</ol>
+<p>Les propriétés mathématiques des chaînes de Markov garantissent la convergence des algorithmes MCMC, mais sans donner d’indication sur le nombre d’itérations de l’algorithme nécessaire pour atteindre cette convergence. S’il n’existe aucun moyen de garantir cette convergence en temps fini, il existe un certain nombre d’outils permettant de diagnostiquer la non-convergence d’une chaîne de Markov vers sa loi stationnaire. Il faut donc les utiliser de concert lors de l’interprétation des sorties d’un algorithme MCMC afin d’éviter les situations où la chaîne n’a pas convergé.</p>
+<p>Une manière de surveiller la convergence d’un algorithme d’échantillonnage MCMC est de générer plusieurs chaînes (de façon parallèle et indépendante) avec des valeurs initiales différentes. Si l’algorithme fonctionne, alors ces différentes chaînes (de Markov) doivent converger vers la même distribution stationnaire (la loi <em>a posteriori</em>). Après suffisamment d’itérations, il devrait être impossible de faire la distinction entre ces différentes chaînes. Pour chaque chaîne, les <span class="math inline">\(n\)</span> premières valeurs sont considérées comme appartenant à <strong>la phase de chauffe</strong> (<em>burn-in</em>) de l’algorithme, nécessaire pour que la chaîne de Markov converge d’abord vers sa loi stationnaire à partir des valeurs initiales. Elles ne sont donc pas conservées, et on s’intéresse au <span class="math inline">\(N\)</span> observations suivantes qui vont constituer nos échantillons de Monte-Carlo.</p>
+<div id="erreur-de-monte-carlo" class="section level4">
+<h4>Erreur de Monte-Carlo</h4>
+<p>L’erreur de Monte-Carlo caractérise l’incertitude introduite par l’échantillonnage MCMC. Pour un paramètre donné, elle quantifie la variabilité attendue dans son estimation si nous générerions plusieurs <strong>chaînes</strong>, c’est-à-dire plusieurs échantillons de Monte-Carlo <em>a posteriori</em> (grâce à un algorithme MCMC, avec différentes initialisations et à chaque fois un même nombre <span class="math inline">\(N\)</span> d’itérations). Les erreurs-types de Monte-Carlo donne une idée de cette variabilité. Si les erreurs standards ont des valeurs très différentes d’une chaîne à l’autre, alors il faut faire fonctionner l’échantillonneur plus longtemps. La longeure exacte de l’échantillonnage nécessaire pour obtenir une erreur-type donnée dépendra de l’efficacité et du mélange de l’échantillonneur. Il est important que cette erreur de Monte-Carlo soit faible au regard de la variance estimée de la loi <em>a posteriori</em>.</p>
+</div>
+<div id="statistique-de-gelman-rubin" class="section level4">
+<h4>Statistique de Gelman-Rubin</h4>
+<p>Une façon de d’évaluer la convergence d’un échantillonneur MCMC est de comparer la variation entre les différentes chaînes à la variation à l’intérieur d’une même chaîne après un certain nombre d’itérations. Si l’algorithme a bien convergé, la variation inter-chaîne doit être proche de zéro.</p>
+<p>Soit <span class="math inline">\(\theta_{[c]} = (\theta_{[c]}^{(1)}, \dots, \theta_{[c]}^{(N)})\)</span> le <span class="math inline">\(N\)</span>-échantillon obtenu à partir de la chaîne <span class="math inline">\(c=1,\dots, C\)</span> d’un algorithme MCMC échantillonnant <span class="math inline">\(\theta\)</span>. La <strong>statistique de Gelman-Rubin</strong> s’écrit :</p>
+<p><span class="math display">\[R=\dfrac{\frac{N-1}{N}W\frac{1}{N}B}{W}\]</span></p>
+<p>avec <span class="math inline">\(\textstyle B = \frac{N}{C-1}\sum_{c=1}^C (\bar{\theta}_{[C]} - \bar{\theta}_{\cdot})^2\)</span> la variance inter-chaînes, <span class="math inline">\(\textstyle \bar{\theta}_{[c]} = \frac{1}{N}\sum_{t=1}^N \theta_{[c]}^{(t)}\)</span>, <span class="math inline">\(\textstyle \bar{\theta}_{\cdot} = \frac{1}{C}\sum_{c=1}^C \bar{\theta}_{[C]}\)</span>, et <span class="math inline">\(\textstyle W = \frac{1}{C}\sum_{c=1}^C s_{[c]}^2\)</span> la variance intra-chaîne, <span class="math inline">\(\textstyle s_{[c]}^2 = \frac{1}{N-1}\sum_{t=1}^N (\theta_{[c]}^{(t)} - \bar{\theta}_{[C]})^2\)</span>. Lorsque <span class="math inline">\(N\rightarrow +\infty\)</span> tandis que <span class="math inline">\(B\rightarrow 0\)</span>, <span class="math inline">\(R\)</span> s’approche de la valeur de 1. On va donc chercher à itérer suffisamment un algorithme MCMC afin d’obtenir une valeur de <span class="math inline">\(R\)</span> proche de 1, par exemple entre <span class="math inline">\(1\)</span> et <span class="math inline">\(1,01\)</span> ou <span class="math inline">\(1,05\)</span>.</p>
+<p>La statistique Gelman-Rubin est un ratio (donc sans unité) ce qui en fait un résumé s’interprétant simplement et de la même manière pour tout échantillonneur MCMC. Autre avantage, il ne nécessite pas de choisir au préalable un paramètre à estimer (contrairement aux erreurs de Monte-Carlo). La statistique de Gelman-Rubin est donc un bon moyen de diagnostiquer la convergence d’un algorithme MCMC. Néanmoins, son calcul peut être instable et elle ne peut garantir la convergence à elle seule. Il s’agit d’un outil général pour la surveillance plus générale d’une chaîne de Markov.</p>
+<p>À noter que d’autres statistiques (par exemple la statistqiue de Geweke) sont parfois utilisées à la place ou en complément de celle de Gelman-Rubin, qui reste la plus populaire.</p>
+</div>
+<div id="diagnostiques-graphiques" class="section level4">
+<h4>Diagnostiques graphiques</h4>
+<p>En complément de la statistique de Gelman-Rubin et, un certain nombre de diagnostiques graphiques peuvent permettre de diagnostiquer la non convergence d’un algorithme MCMC :</p>
+<ul>
+<li><p>la <strong>trace</strong> : désigne la représentation des valeurs successives de la chaîne. Lorsque l’on génère plusiquers chaîne indépendante à partir d’initialisations différentes, les traces des différentes chaînes doivent se stabiliser et se superposer une fois la convergence atteinte.</p></li>
+<li><p><strong>estimateur de densité non-paramétrique</strong> (à noyau) : d’après le théorème de convergence de Bernstein-von Mises, la distribution <em>a posteriori</em> doit être unimodale. Pour cela on peut utiliser un estimateur de densité non-paramétrique (à noyau) sur l’échantillon de Monte-Carlo générer afin de vérifier que la loi <em>a posteriori</em> est bien unimodale et suffisament lisse.</p></li>
+<li><p>les <strong>quantiles courants</strong> : de la même façon que la trace, les quantiles des différentes chaînes doivent se stabiliser et superposer au cours des différentes itérations une fois la convergence atteinte.</p></li>
+<li><p>le <strong>diagramme de Gelman-Rubin</strong> : on représente la statistique de Gelman-Rubin cumulée au cours des différentes itérations. Son niveau doit rapidement se retrouver très proche de 1 (idéalement <span class="math inline">\(&lt;1,01\)</span> ou à minima <span class="math inline">\(&lt;1,05\)</span>)</p></li>
+<li><p>l’<strong>auto-corrélation</strong> : Lorsque la chaîne de Markov ne “mixe” pas très bien, il peut arriver que les observations successives soient fortement corrélées d’une itération à la suivante. Cela n’est pas un problème en soit, mais cela diminue fortement la taille d’échantillon effective pour l’estimation <em>a posteriori</em>. Une solution courante est de ne conserver qu’une itération sur <span class="math inline">\(2\)</span>, <span class="math inline">\(5\)</span> ou <span class="math inline">\(10\)</span> (on espacera les enregistrements d’autant plus que la corrélation est forte) à l’aide du paramètre d’épaisseur (<em><code>thin</code></em>, réglant l’espacement entre les itérations conservées dans l’échantillon MCMC).</p></li>
+<li><p>la <strong>corrélation croisée</strong> : On peut également s’intéresser à la corrélation entre nos différents à travers les différents échantillons <em>a posteriori</em>. À noter qu’il est fréquent d’observer une forte corrélation entre certains paramètres et que ce n’est pas nécessairement indicateur d’un problème avec l’algorithme MCMC (l’approche fréquentiste également on estime des corrélations, parfois importantes, entre les paramètres d’un modèle grâce à la matrice d’information de Fisher).</p></li>
+</ul>
+<p>
+<em>Remarque</em> : il est fréquent que les diagnostiques soient satisfaisants pour certains paramètres, mais ne le soient pas pour d’autres. Il s’agit d’une appréciation subjective, et l’objectif est que la majorité des critères soient satisfaits (ou plus ou moins satisfaits) pour une grande majorité des paramètres.</p>
+
+<div class="figure"><span id="fig:unnamed-chunk-1"></span>
+<img src="../../static/cours/ConvergenceDiagTable.png" alt="Exemples de référence pour les diagnostiques graphiques de convergence" width="1318" />
+<p class="caption">
+Figure 1: Exemples de référence pour les diagnostiques graphiques de convergence
+</p>
+</div>
+</div>
+<div id="taille-déchantillon-effective" class="section level4">
+<h4>Taille d’échantillon effective</h4>
+<p>Un échantillon généré à partir d’un algorithme MCMC n’est <span class="math inline">\(iid\)</span> en pratique que dans des cas très particuliers. En effet, la propriété de Markov entraîne généralement une corrélation entre les valeurs générées à la suite les unes des autres (échantillonnage dépendant). Pour une taille <span class="math inline">\(N\)</span> fixé d’échantillon, cette auto-corrélation diminue la quantité d’information et ralentit la convergence de la loi des grands nombres par rapport à un échantillon totalement indépendant. Un indicateur permettant de quantifier cette information est la <strong>taille d’échantillon effective</strong> (<em>effective sample size</em> en anglais) qui se calcule :
+<span class="math display">\[ESS = \dfrac{N}{1 + 2\sum_{k=1}^{+\infty} \rho(k)}\]</span>
+où <span class="math inline">\(\rho(k)\)</span> désigne l’auto-corrélation avec <em>lag</em> de rang <span class="math inline">\(k\)</span>.</p>
+<p>Un solution employée en pratique pour diminuer ces problèmes d’auto-corrélation est de ne pas conserver toutes les valeurs échantillonnées successivement par un algorithme MCMC, mais d’espacer les itérations conservées. Par exemple, on pourra ne conserver que les valeurs échantillonnées toutes les 2, 5, ou 10 itérations, ce qui permettra de diminuer la dépendance au sein de l’échantillon de Monte-Carlo généré.</p>
+</div>
+</div>
+<div id="inférence-à-partir-déchantillonnage-mcmc" class="section level3">
+<h3>Inférence à partir d’échantillonnage MCMC</h3>
+<div id="estimation" class="section level4">
+<h4>Estimation</h4>
+<p>Grâce aux algorithmes MCMC, on est donc capable d’obtenir un <strong>échantillon de Monte-Carlo de la loi <em>a posteriori</em></strong> pour un <strong>modèle bayésien</strong> donné. On peut donc utiliser la <strong>méthode de Monte-Carlo</strong> pour obtenir différentes <strong>estimations <em>a posteriori</em></strong> : estimation ponctuelle (moyenne <em>a posteriori</em>, médiane <em>a posteriori</em>, …), intervalle de crédibilité (notamment grâce au <em>package</em> <i class="fab  fa-r-project " style="color:#0085d6;"></i> <code>HDInterval</code> qui permet de calculer l’intervalle de crédibilité le plus étroit pour un niveau donné, c’est-à-dire le *Highest Density Interval — <span class="math inline">\(HDI\)</span>)), les corrélations croisées entre les paramètres, etc.</p>
+</div>
+<div id="deviance-information-criterion-dic" class="section level4">
+<h4><em>Deviance Information Criterion</em> (<span class="math inline">\(DIC\)</span>)</h4>
+<p>Le <strong><em>Deviance Information Criterion</em></strong> (<span class="math inline">\(DIC\)</span>) s’appuie sur la déviance,<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> qui s’écrit comme : <span class="math inline">\(D(\theta) = -2\log(p(\theta|\boldsymbol{y})) + C\)</span> où <span class="math inline">\(C\)</span> est une constante. Le <span class="math inline">\(DIC\)</span> est alors définit par :
+<span class="math display">\[DIC = \overline{D(\theta)} + p_D\]</span> où <span class="math inline">\(p_D = \left(D(\overline{\theta}) - \overline{D(\theta)}\right)\)</span> représente une pénalité pour le nombre effectif de paramètres. Le <span class="math inline">\(DIC\)</span> permet notamment de comparer différents modèles sur les mêmes données (plus il est bas, meilleur est le modèle), et de faire des choix de modélisation dans le contexte bayésien.</p>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>M Plummer, Penalized loss functions for Bayesian model comparison, <em>Biostatistics</em>, 2008<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>

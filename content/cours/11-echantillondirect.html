@@ -1,0 +1,104 @@
+---
+title: ""
+linktitle: "Méthodes d'échantillonnage directes"
+date: "2020-11-30"
+read_date: "2020-11-30"
+menu:
+  cours:
+    parent: "III Calcul numérique pour l'analyse bayésienne"
+    weight: 2
+type: docs
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
+slides: "01-slides"
+output:
+  blogdown::html_page:
+    toc: false
+---
+
+
+
+<div id="méthodes-déchantillonnage-directes" class="section level2">
+<h2>Méthodes d’échantillonnage directes</h2>
+<div id="génération-de-nombres-aléatoires-selon-des-lois-de-probabilité-usuelles" class="section level3">
+<h3>Génération de nombres aléatoires selon des lois de probabilité usuelles</h3>
+<p>Il existe plusieurs manières de générer des nombres dits “aléatoires” selon des lois connues. La très grande partie des programmes informatiques ne génèrent pas des nombres totalement aléatoires. On parle plutôt de nombres pseudo-aléatoires, qui semblent aléatoires mais sont en réalité générés selon un processus déterministe (qui dépend notamment d’une “graine”).</p>
+<div id="la-distribution-uniforme" class="section level4">
+<h4>La distribution uniforme</h4>
+<p>Pour générer un échantillon pseudo-aléatoire selon la loi uniforme sur <span class="math inline">\([0;1]\)</span>, on peut donner l’exemple de l’algorithme congruentiel linéaire (Lehmer, 1948) :</p>
+<div class="Algo">
+<ol style="list-style-type: decimal">
+<li><p>Générer une suite d’entiers <span class="math inline">\(y_n\)</span> tel que :<br />
+<span class="math inline">\(y_{n+1} = ( ay_n + b )\text{ mod. }m\)</span></p></li>
+<li><p><span class="math inline">\(x_n = \frac{y_n}{m-1}\)</span></p></li>
+</ol>
+<p>Choisir <span class="math inline">\(a\)</span>, <span class="math inline">\(b\)</span> et <span class="math inline">\(m\)</span> de manière à ce que <span class="math inline">\(y_n\)</span> ait une période très longue et que <span class="math inline">\((x_1,\dots , x_n)\)</span> puisse être considéré comme <span class="math inline">\(iid\)</span></p>
+</div>
+<p>où <span class="math inline">\(y_0\)</span> est appelé la “graine” (<em>seed</em> en anglais). On remarque que l’on a necessairement <span class="math inline">\(0 \leq y_n \leq m - 1\)</span>. En pratique on prend <span class="math inline">\(m\)</span> très grand (par exemple <span class="math inline">\(2^{19937}\)</span>, la valeur par défaut dans R qui utilise l’algorithme Mersenne-Twister). Dans ce cours, on ne va pas plus s’intéresser à la génération de nombre pseudo-alétoires selon la loi uniforme sur <span class="math inline">\([0;1]\)</span>, il s’agit d’un outil que l’on considère fiable et qui est utilisé par les différents algorithmes présentés par la suite.</p>
+</div>
+<div id="autres-distributions" class="section level4">
+<h4>Autres distributions</h4>
+<p>Pour échantillonner selon la loi binomiale <span class="math inline">\(Bin(n,p)\)</span>, on peut utiliser les <strong>relations entre les différentes lois usuelles</strong> en partant de <span class="math inline">\(U_i\sim \mathcal{U}_{[0;1]}\)</span>:
+<span class="math display">\[\begin{align*}
+    Y_i &amp; =\mathbb{1}_{U_i \leq p} \sim \text{Bernoulli}(p),\\
+    X &amp; = \sum_{i=1}^n Y_i \sim Bin(n,p)
+  \end{align*}\]</span></p>
+<p>Pour échantillonner selon la loi normale <span class="math inline">\(N(0,1)\)</span>, on peut utiliser l’algorithme de Box-Müller:<br />
+Si <span class="math inline">\(U_1\)</span> et <span class="math inline">\(U_2\)</span> sont 2 variables uniformes <span class="math inline">\([0;1]\)</span> indépendantes, alors
+<span class="math display">\[\begin{align*}
+    Y_1 &amp; =\sqrt{-2\log U_1}\cos(2\pi U_2)\\
+    Y_2 &amp; =\sqrt{-2\log U_1}\sin(2\pi U_2)
+  \end{align*}\]</span>
+sont indépendantes et suivent chacune la loi normale <span class="math inline">\(N(0,1)\)</span>.</p>
+</div>
+</div>
+<div id="échantillonner-selon-une-loi-définie-analytiquement" class="section level3">
+<h3>Échantillonner selon une loi définie analytiquement</h3>
+<div id="méthode-par-inversion" class="section level4">
+<h4>Méthode par inversion</h4>
+<div class="MyDef">
+<p><strong>Inverse généralisée</strong><br />
+Pour une fonction <span class="math inline">\(F\)</span> définie sur <span class="math inline">\(\mathbb{R}\)</span>, on définit son inverse généralisée par <span class="math display">\[ F^{-1}(u) = \text{inf}\{x; F(x)&gt;u\}\]</span></p>
+</div>
+<div class="MyProp">
+<p>Soit <span class="math inline">\(F\)</span> la fonction de répartition d’une distribution de probabilité, et soit <span class="math inline">\(U\)</span> une variable aléatoire suivant une loi uniforme sur <span class="math inline">\([0;1]\)</span>. Alors <span class="math inline">\(F^{-1}(U)\)</span> définit une variable aléatoire ayant pour fonction de répartition <span class="math inline">\(F\)</span>.</p>
+</div>
+<p>On déduit de la propriété ci-dessus que si l’on connaît la fonction de répartition de la loi selon laquelle on veut simuler, et si l’on est capable de l’inverser, alors on peut générer un échantillon suivant cette loi à partir d’un échantillon uniforme sur <span class="math inline">\([0;1]\)</span>.</p>
+<div class="Example">
+<p>On veut générer un échantillon suivant la loi exponentielle de paramètre <span class="math inline">\(\lambda\)</span><br />
+On a la densité de la loi exponentielle qui est <span class="math inline">\(f(x) = \lambda exp(-\lambda x)\)</span>, et la fonction de répartition (son intégrale) qui vaut <span class="math inline">\(F(x) = 1-exp(- \lambda x)\)</span>.<br />
+Posons <span class="math inline">\(F(x)=u\)</span>. On remarque alors que <span class="math inline">\(x=-\frac{1}{\lambda}\log(1-u)\)</span>.<br />
+Si <span class="math inline">\(U\sim \mathcal{U}_{[0;1]}\)</span>, alors <span class="math inline">\(X=F^{-1}(U)\sim Exp(\lambda)\)</span>.</p>
+</div>
+</div>
+<div id="méthode-dacceptation-rejet" class="section level4">
+<h4>Méthode d’acceptation-rejet</h4>
+<p>La méthode d’acceptation-rejet consiste à utiliser une loi instrumentale <span class="math inline">\(g\)</span>, dont on sait échantillonner selon la loi, afin d’échantillonner selon la loi cible <span class="math inline">\(f\)</span>. Le principe général est de choisir <span class="math inline">\(g\)</span> proche de <span class="math inline">\(f\)</span> et de proposer des échantillons selon <span class="math inline">\(g\)</span>, d’en accepter certains et d’en rejeter d’autres afin d’obtenir un échantillon suivant la loi de <span class="math inline">\(f\)</span>.</p>
+<p><img src="/cours/11-echantillondirect_files/figure-html/Acceptationrejet-1.png" width="576" style="display: block; margin: auto;" /></p>
+<div class="Algo">
+<p>Soit une loi d’intérêt de densité <span class="math inline">\(f\)</span>.<br />
+Soit une loi de proposition de densité <span class="math inline">\(g\)</span> (à partir de laquelle on sait échantillonner) telle que, pour tout <span class="math inline">\(x\)</span> :
+<span class="math display">\[f(x) \leq Mg(x)\]</span>
+Pour <span class="math inline">\(i=1, \dots, n\)</span> :</p>
+<ol style="list-style-type: decimal">
+<li><p>Générer <span class="math inline">\(x_i\sim g\)</span> et <span class="math inline">\(u_i\sim \mathcal{U}_{[0;1]}\)</span></p></li>
+<li><p>Si <span class="math inline">\(u_i\leq\frac{f(x_i)}{Mg(x_i)}\)</span> on <strong>accepte</strong> le tirage:<br />
+<span class="math inline">\(y_i := x_i\)</span><br />
+sinon on le <strong>rejette</strong> et on retourne en 1.</p></li>
+</ol>
+<p><span class="math inline">\((y_1, \dots, y_n) \overset{iid}{\sim}f\)</span></p>
+</div>
+<p>Plus <span class="math inline">\(M\)</span> est petit, plus le taux de rejet est faible et plus l’algorithme est efficace (au sens où il nécessite moins d’itérations pour obtenir un échantillon de taille <span class="math inline">\(n\)</span>). On a donc intérêt à choisir <span class="math inline">\(g\)</span> le plus proche possible de <span class="math inline">\(f\)</span>, en particulier lorsque la dimension augmente (l’impact de <span class="math inline">\(M\)</span> étant d’autant plus important alors). Néanmoins, la loi de proposition aura nécessairement des queues plus lourdes que la loi cible, et ce dans toutes les dimensions de l’espace des paramètres. À cause du fléau de la dimension, lorsque le nombre de paramètres augmente, le taux d’acceptation décroit très rapidement. </p>
+<div class="Exercise">
+<p>👉  <em>Exercice</em> <em>1</em> : Construire un pseudo-échantillon de taille <span class="math inline">\(n\)</span> selon la loi discrète suivante (multinomiale à <span class="math inline">\(m\)</span> éléments <span class="math inline">\(\{x_1, \dots, x_m\}\)</span>) :
+<span class="math display">\[P(X=x) = p_1\delta_{x_1}(x) + p_2\delta_{x_2}(x) + \dots p_m\delta_{x_m}(x) \quad \text{ avec }\sum_{i=1}^m p_i = 1  \text{ et } \delta_{a}(x) = \mathbb{1}_{\{x=a\}}\]</span></p>
+</div>
+<div class="Exercise">
+<p>👉  <em>Exercice</em> <em>2</em> : Grâce à la méthode par inversion, générer un pseudo-échantillon de taille suivant une loi de Cauchy (dont la densité est <span class="math inline">\(f(x)=\frac{1}{\pi(1+x^2)}\)</span>), sachant que <span class="math inline">\(\arctan&#39;(x)=\frac{1}{(1+x^2)}\)</span> et que <span class="math inline">\(\underset{x\rightarrow-\infty}{\lim} arctan(x) = -\frac{\pi}{2}\)</span>.</p>
+</div>
+<div class="Exercise">
+<p>👉  <em>Exercice</em> <em>3</em> : Écrire un algorithme d’acceptation-rejet pour simuler la réalisation d’un pseudo-échantillon de taille <span class="math inline">\(n\)</span> d’une loi normale <span class="math inline">\(N(0,1)\)</span> en utilisant une loi de Cauchy comme proposition. Trouvez la valeur de <span class="math inline">\(M\)</span> optimale.</p>
+</div>
+</div>
+</div>
+</div>

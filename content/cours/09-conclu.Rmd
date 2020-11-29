@@ -1,0 +1,53 @@
+---
+title: ""
+linktitle: "Conclusion et mise en perspective de la modélisation bayésienne"
+date: "2020-11-30"
+read_date: "2020-11-30"
+menu:
+  cours:
+    parent: "II Modélisation Bayésienne"
+    weight: 6
+type: docs
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
+slides: "01-slides"
+output:
+  blogdown::html_page:
+    toc: false
+---
+
+## Conclusion et mise en perspective de la modélisation bayésienne
+
+### Les points essentiels
+  
+  
+ 1. **La formulation d'un modèle bayésien** : 
+    \begin{align*}
+      \theta&\sim\pi(\theta) \quad\text{la loi \textit{a priori}}\\
+      Y_i|\theta&\overset{iid}{\sim}f(y|\theta)  \quad \text{le modèle d'échantillonnage}
+    \end{align*}
+  
+ 2. **La formule de Bayes** :
+    $$ p(\theta|\boldsymbol{y}) = \frac{f(\boldsymbol{y} | \theta)\pi(\theta)}{f(\boldsymbol{y})}$$ 
+    où $p(\theta|\boldsymbol{y})$ est la distribution *a posteriori*, $f(\boldsymbol{y} | \theta)$ est la vraisemblance (héritée du modèle d'échantillonnage), $\pi(\theta)$ est la distribution *a priori* des paramètres $\theta$ et $f(\boldsymbol{y}) = \textstyle \int f(\boldsymbol{y} | \theta) \pi(\theta)$ est la distribution marginale des données, i.e. la constante (par rapport à $\theta$) de normalisation.
+    
+ 3. **L'obtention de la loi *a posteriori*** :
+    $$ p(\theta|\boldsymbol{y}) \propto f(\boldsymbol{y} | \theta)\pi(\theta)$$ \medskip
+  
+  
+ 4. **La loi *a priori* faiblement informative de Jeffreys** :
+    $$\pi(\theta) \propto \sqrt{I(\theta)} \quad \text{en unidimensionnel}$$
+    \noindent possédant la propriété d'invariance.
+    
+    
+ 5. **La moyenne *a posteriori*, le MAP et les intervalles de crédibilité**
+    
+    
+ 6. **La distribution prédictive :**
+    $$f_{Y_{n+1}}(y|\boldsymbol{y}) = \int f_{Y_{n+1}} (y|\theta)p(\theta|\boldsymbol{y}) \,\text{d}\theta$$
+  
+
+
+### Intérêt de l'approche bayésienne
+  
+  L'analyse bayésienne est un outil statistique d'analyse de données, au même titre que d'autres méthodologies comme les forêts aléatoires, les méthodes de réduction de dimension, les modèles à classes latentes, etc. Il est particulièrement utile lorsque peu de données sont disponibles et que les méthodes fréquentistes ne permettent pas d'obtenir de résultats (par exemple une régression logistique avec très peu voire pas d'évènement, i.e. beaucoup voire que des 0 dans le cas d'évènements extrêmement rares), et/ou lorsqu'il existe de fortes connaissances *a priori* qu'il est utile d'intégrer dans un modèle avec peu de d'observations (par exemple le modèle utilisé par *FiveThirtyEight* pour prédire les résultats des élections américaines de 2008 dans chaque état américain, dans certains desquels peu de sondages étaient effectués, ou encore dans les études de génomique où le nombre d'observations disponible pour chaque gène est généralement relativement faible mais que beaucoup de gènes sont observés). Comme toute méthode statistique, l'analyse bayésienne présente des avantages et des inconvénients qui vont avoir plus ou moins d'importance selon le problème à résoudre.

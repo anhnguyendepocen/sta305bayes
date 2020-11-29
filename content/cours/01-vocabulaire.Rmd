@@ -1,0 +1,38 @@
+---
+title: ""
+linktitle: "Vocabulaire"
+date: "2020-11-30"
+read_date: "2020-11-30"
+menu:
+  cours:
+    parent: "Cours"
+    weight: 1
+type: docs
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
+slides: "01-slides"
+output:
+  blogdown::html_page:
+    toc: false
+---
+
+## Vocabulaire
+
+Quelques mots très utilisés dans le paradigme bayésien :
+
+**paradigme :**  
+
+Désigne un système cohérent de représentation du monde, une manière de voir les choses.
+
+***a priori* :**  
+
+Dans le cadre de la statistique bayésienne l'expression latine *a priori* est beaucoup utilisée. Elle signifie *au préalable* en français, ou plus précisément *en se fondant sur des données antérieures à l'expérience*. Étymologiquement cette expression vient de "*a priori ration*" qui signifie en latin *par une raison qui précède*, et s'oppose à a posteriori.
+
+
+***a posteriori* :**  
+
+L'expression latine *a posteriori* est également très utilisée dans le cadre bayésien. Elle signifie *après coup* en français, ou plus précisément *en s'appuyant sur l'expérience, sur les faits constatés*. Étymologiquement cette expression vient de "*a posteriori ratione*" qui signifie en latin *par une raison qui vient après*, et s'oppose à *a priori*.
+
+**élicitation :**  
+
+Action formalisant les connaissances d'un expert pour permettre de les partager, e.g. de les incorporer à un modèle.

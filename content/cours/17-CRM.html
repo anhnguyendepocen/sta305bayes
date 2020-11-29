@@ -1,0 +1,41 @@
+---
+title: ""
+linktitle: "Essai clinique adaptatifs de phase I/II : analyse bayésienne et méthodes de recherche de doses"
+date: "2020-11-30"
+read_date: "2020-11-30"
+menu:
+  cours:
+    parent: "IV Études de cas"
+    weight: 3
+type: docs
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
+slides: "01-slides"
+output:
+  blogdown::html_page:
+    toc: false
+---
+
+
+
+<div id="essai-clinique-adaptatifs-de-phase-iii-analyse-bayésienne-et-méthodes-de-recherche-de-doses" class="section level2">
+<h2>Essai clinique adaptatifs de phase I/II : analyse bayésienne et méthodes de recherche de doses</h2>
+<div id="introduction-à-la-méthode-de-ré-évaluation-séquentielle-pour-la-recherche-de-dose" class="section level3">
+<h3>Introduction à la méthode de ré-évaluation séquentielle pour la recherche de dose</h3>
+<p>La méthode de réévaluation séquentielle (<em>Continual Reassessment Methods</em> — CRM)
+peut être utilisé dans les essais de phase I en escalade de doses, où l’objectif est d’identifier la dose optimale (c’est-à-dire avec la plus grande efficacité tout en maintenant une toxicité acceptable : plus la dose est élevée, plus l’efficacité est grande, mais en même temps la toxicité est grande). L’idée est alors de sélectionner itérativement la dose qui sera administrée au prochain patient recruté, en se basant sur l’accumulation des observations des patients précédemment inclus dans l’étude. Ce plan d’essai a été présenté pour la première fois par O’Quigley <em>et al.</em><span class="citation"><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></span> en 1990, et il est de plus en plus utilisé (bien qu’encore minoritaire pour de tels essais).</p>
+<p>Un argument fort en faveur du CRM est qu’il permet de traiter chaque patient de manière éthique en donnant toujours la dose la plus appropriée selon les données déjà observées, tout en recherchant la dose optimale globale. L’approche bayésienne est particulièrement bien adaptée à de telles études grâce à sa capacité à formaliser facilement les connaissances préalables et sa règle de composition (voir l’approche Bayes séquentiel).</p>
+<p>À noter que dans ce contexte de recherche de dose, la modélisation de l’effet du médicament nécessite une composante de pharmaco-cinétique et/ou de pharmaco-dynamique qui dépasse le cadre de ce cours.</p>
+</div>
+<div id="lecture-critique-de-larticle-de-kaguelidou-et-al.-plos-one-2016" class="section level3">
+<h3>Lecture critique de l’article de Kaguelidou <em>et al.</em> (<em>PLOS ONE</em>, 2016)</h3>
+<p>Kaguelidou <em>et al.</em><span class="citation"><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></span> ont conduit une étude de recherche de dose pour l’oméprazole afin de normaliser le pH gastrique chez les nouveau-nés atteints de Reflux Gastro-Oesophagien (GRO) acide (<em>Gastro-Esophageal Acid Reflux</em> — <em>GEAR</em>) afin de déterminer la dose efficace minimale. Ils ont utilisé un design en CRM afin de sélectionner la dose du médicament aussi près que possible du niveau d’efficacité cible défini au préalable (avec un intervalle de crédibilité de 95%).</p>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>John O’Quigley, Margaret Pepe, and Lloyd Fisher, “Continual Reassessment Method: A Practical Design for Phase 1 Clinical Trials in Cancer,” <em>Biometrics</em> 46, no. 1 (1990): 33–48, doi:<a href="https://doi.org/10.2307/2531628%20" role="doc-biblioref">10.2307/2531628</a>.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Florentia Kaguelidou et al., “Dose-Finding Study of Omeprazole on Gastric pH in Neonates with Gastro-Esophageal Acid Reflux Using a Bayesian Sequential Approach,” ed. Imti Choonara, <em>PLOS ONE</em> 11, no. 12 (2016): e0166207, doi:<a href="https://doi.org/10.1371/journal.pone.0166207" role="doc-biblioref">10.1371/journal.pone.0166207</a>.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>

@@ -1,0 +1,113 @@
+---
+title: Syllabus
+slug: syllabus
+citeproc: true
+bibliography: ../../static/bib/references.bib
+csl: ../../static/bib/chicago-syllabus-no-bib.csl
+output:
+  blogdown::html_page:
+    toc: true
+    fig_caption: false
+---
+
+```{r setup, message=FALSE, warning=FALSE, include=FALSE}
+library(dplyr)
+library(tibble)
+library(pander)
+```
+
+`r blogdown::shortcode("courseinfo")`
+
+L'analyse bayésienne est un outil statistique de plus en plus populaire dans les sciences biomédicales. Les approches bayésiennes deviennent de plus en plus courantes, comme par exemple dans les plans d'adaptation pour les essais de phase I/II, dans les méta-analyses et également dans l'analyse transcriptomique. Ce cours fournit une introduction aux outils bayésiens, avec un accent sur les applications biostatistiques. 
+
+Grâce à son interprétation probabiliste et sa facilité de modélisation hiérarchique, le cadre bayésien estattrayant, en particulier lorsque le nombre d'observations est faible. Il peut incorporer de nouvelles observations au fur et à mesure que celles-ci deviennent disponibles --- une caractéristique importante pour les essais cliniques. Grâce aux outils informatiques modernes, la mise en place d'une analyse bayésienne en pratique est devenue relativement simple, ce qui contribue à sa popularité croissante. `JAGS` est un logiciel flexible interfacé avec `r icon::fa_r_project(colour = "#0085d6")`, qui permet de facilement spécifier un modèle bayésien, et qui effectue automatiquement l'inférence pour les distributions *a posteriori* des paramètres d'intérêt tout en proposant des sorties graphiques pour contrôler la qualité de l'analyse.
+
+
+
+
+
+## Objectifs du cours
+
+**Se familiariser avec l'approche bayésienne :**
+
+ 1. Être capable de proposer une modélisation bayésienne adéquate face à un problème concret  
+ 2. Savoir calculer la distribution *a posteriori* dans le cas de relations de conjugaison  
+ 3. Comprendre l'impact de la loi *a priori* et la notion de loi *a priori* faiblement-informative  
+ 4. Comprendre la notion de MAP et de moyenne a posteriori, d'intervalle de crédibilité ainsi que la différence avec un intervalle de confiance  
+ 5. Comprendre les algorithmes d'échantillonnage et leur utilité  
+ 6. Comprendre le fonctionnement des algorithmes MCMC  
+ 7. Savoir utiliser le logiciel `JAGS` et en interpréter les sorties  
+ 8. Comprendre les notions de risques et de coûts, et leurs implications dans la théorie de la décision  
+ 9. Pouvoir comprendre, décrire et interpréter une modélisation bayésienne à partir d'un article scientifique
+ 10. Être capable de reproduire une analyse bayésienne telle qu'un modèle de régression
+ 
+ 
+## Technologies
+
+Il existe aujourd'hui plusieurs logiciels utilisables pour effectuer une analyse bayésienne. Dans ce cours, nous mentionnerons uniquement `r icon::fa_r_project(colour = "#0085d6")` and `JAGS` (les alternatives telles que [`WinBUGS`](https://www.mrc-bsu.cam.ac.uk/software/bugs/the-bugs-project-winbugs/) où [`STAN`](https://mc-stan.org/) ne serons pas envisagées).
+
+### R & RStudio
+
+Les travaux pratiques de ce cours utilise largement le logiciel `r icon::fa_r_project(colour = "#0085d6")` ! Merci de vous assurer que vous avez une installation à jour, comprenant :
+
+ - la dernier version de `r icon::fa_r_project(colour = "#0085d6")` (≥ 4.0.0) `r emo::ji("backhand index pointing right")` https://cran.r-project.org/ (regarder les instructions --- en abglais --- pour l'installer [ici](https://vimeo.com/203516510))
+ - la dernière version de RStudio (≥ 1.3.1093) `r emo::ji("backhand index pointing right")` https://www.rstudio.com/products/rstudio/download/#download
+
+Si vous n'êtes pas (encore) à l'aise avec `r icon::fa_r_project(colour = "#0085d6")`, vous pouvez vous jeter un oeil à ces différentes ressources (gratuites) --- en anglais :
+
+ - le cours d'introduction [Teacups Giraffe turorial](https://tinystats.github.io/teacups-giraffes-and-statistics/01_introToR.html) Hasse Walum & Desirée De Leon
+ - l'introduction [Get Your R Act Together](https://stat545.com/r-basics.html) de Jenny Brian
+ - le livre [R for data science](https://r4ds.had.co.nz/) de Hadley Whickam
+ - les leçons 1 à 9 du cours *R Programming* de [SWIRL](https://swirlstats.com/students.html)
+```{r echo=FALSE, eval=FALSE}
+install.packages("swirl")
+library(swirl)
+install_course("R Programming")
+swirl()
+```
+
+ - également d'autres ressources ici: https://education.rstudio.com/learn/beginner/
+
+### Logiciel `JAGS`
+
+ - installez le logiciel `JAGS` depuis ici `r emo::ji("backhand index pointing right")` https://sourceforge.net/projects/mcmc-jags/files/
+ - installer le *package* `r icon::fa_r_project(colour = "#0085d6")` `rjags` grâce aux commandes suivantes ::
+    ```{r echo=TRUE, eval=FALSE}
+    install.packages("rjags")
+    ```
+    Verifier que l'installation fonctionne en executant la commande suivante :
+    ```{r echo=TRUE, eval=FALSE}
+    library(rjags)
+    ```
+    Si cela fonctionne bel et bien, vous devriez voir la sortie suivante :
+    ```{r echo=FALSE, eval=TRUE, collapse=TRUE}
+    library(rjags)
+    ```
+
+## Messagerie instantanée
+
+J'ai créée un espace de travail [Slack](https://sta305bayes.slack.com), afin que nous (les étudiants et l'enseignant) puissions avoir des conversations asynchrone, mais également pour que vous (les étudiants) puissiez être en contact et communiquer entre vous.
+
+
+```{r, eval=FALSE, echo=FALSE}
+library(showtext)
+font_add_google("Fira Sans Condensed", "fira")
+showtext_auto()
+p <- hexSticker::sticker("static/img/Thomas_Bayes.jpg", package="STA305", 
+        s_x=1, s_y=1, s_width=0.65,
+        p_color = "#006aab", p_size=12, p_y=0.6,
+        p_family = "fira",
+        h_color="#0085d6", h_fill="grey95",
+        filename="static/img/sta305_hires.png",
+        dpi=300)
+hexSticker::sticker("static/img/Thomas_Bayes.jpg", package="STA305", 
+        s_x=1, s_y=1, s_width=0.65,
+        p_color = "#006aab", p_size=12, p_y=0.6,
+        p_family = "fira",
+        h_color="#0085d6", h_fill="grey95",
+        filename="static/img/sta305_lowres.png",
+        dpi=100)
+#go to https://realfavicongenerator.net/ to generate favicons
+# and https://iconifier.net/ as well
+```
+

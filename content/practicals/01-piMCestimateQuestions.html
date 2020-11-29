@@ -1,0 +1,83 @@
+---
+title: "Exercice 1: Monte-Carlo"
+linktitle: "Exercice 1: Monte-Carlo"
+date: "2020-12-07"
+exo_date: "2020-12-07"
+menu:
+  practicals:
+    parent: "Practicals"
+    weight: 1
+type: docs
+output:
+  blogdown::html_page:
+    toc: false
+    number_sections: false
+bibliography: "../../static/bib/references.bib"
+---
+
+
+
+<ol style="list-style-type: decimal">
+<li><p>Générer un échantillon de taille <span class="math inline">\(10\)</span> pour une loi normale de moyenne <span class="math inline">\(m=2\)</span> et d’écart-type <span class="math inline">\(s=3\)</span>. Utiliser la méthode de Monte-Carlo pour estimer la moyenne et de l’écart-type à partir de multiples réalisation d’un tel <span class="math inline">\(10\)</span>-échantillon. Reproduire ensuite cette procédure pour un échantillon de taille <span class="math inline">\(20\,000\)</span>. Que remarque-t-on ? Quel fameux résultat théorique illustre-t-on ici ?</p></li>
+<li><p>En reprenant l’exemple du cours, programmer un estimation de Monte Carlo du nombre <span class="math inline">\(\pi\approx 3,1416\)</span></p>
+<ol style="list-style-type: lower-alpha">
+<li><p>Programmer une fonction <code>roulette_coord</code> qui prend un seul argument <code>ncases</code> (représentant le nombre de valeurs possible sur la roulette utilisée) valant <code>35</code> par défaut, permettant de générer les coordonnées d’un point (entre <span class="math inline">\(0\)</span> et <span class="math inline">\(35\)</span>). On utilisera la fonction <code>R</code> <code>sample</code>(dont on pourra consulter l’aide grâce à la commande <code>?sample</code>). La fonction renvera le vecteur des 2 coordonnées <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> ainsi générées.</p>
+<pre class="r"><code>roulette_coord &lt;- function(ncases = 35) {
+    x &lt;- ...
+    y &lt;- ...
+    return(c(x, y))
+}</code></pre></li>
+<li><p>En utilsant la formule de la distance entre 2 points, programmer une fonction calculant la distance à l’origine (qui a ici pour coordonnées <span class="math inline">\((\frac{ncases}{2}, \frac{ncases}{2})\)</span>) : <span class="math inline">\(d = \sqrt{(x_1 - x_2)^2 + (y_1 - y_2)^2}\)</span> et vérifiant si celle-ci est inférieure ou égale au rayon du cercle unité (<span class="math inline">\(R = \frac{ncases}{2}\)</span>). Cette fonction, qu’on appellera par exemple <code>inside_disk()</code> prendra deux arguments : d’une part le vecteur <code>p</code> des deux coordonnées du point évalué, d’autre part <code>ncases</code>. Cela renverra une valeure booléenne (<code>TRUE</code> ou <code>FALSE</code>) indiquant si le point est effectivement à l’intérieur du disque.</p>
+<pre class="r"><code>inside_disk &lt;- function(p, ncases = 35) {
+    d &lt;- ...
+    return(d &lt;= ...)
+}</code></pre></li>
+<li><p>Comme le ratio entre la surface du disque de rayon <span class="math inline">\(\frac{ncases}{2}\)</span> et celle du carré de coté <span class="math inline">\(ncases\)</span> est égal à <span class="math inline">\(\frac{\pi}{4}\)</span>, la probabilité d’échantillonner un point à l’intérieur du disque (sachant qu’il est dans le carré) est de <span class="math inline">\(\frac{\pi}{4}\)</span>. Appuyez-vous sur ce résultat pour programmer une fonction calculant l’estimation de Monte-Carlo de <span class="math inline">\(\pi\)</span> à partir d’un vecteur booléen de taille <span class="math inline">\(n\)</span> (le nombre de points échantillonnés) dont chaque élément vaut <code>TRUE</code> si le point correspondant se trouve effectivement à l’intérieur du cercle, et <code>FALSE</code> sinon.</p>
+<pre class="r"><code>piMC &lt;- function(in_circle) {
+    return(...)
+}</code></pre></li>
+<li><p>À l’aide du code ci-dessous, représenter les données générées puis afficher l’estimation de Monte-Carlo de <span class="math inline">\(\pi\)</span> correspondante. Faire varier <code>npoints</code> et commenter. (<em>ProTip</em>: essayer <code>ngrid &lt;- 1000</code> et <code>npoints &lt;- 5000</code>)</p>
+<pre class="r"><code># Taille de la grille (résolution)
+ncases &lt;- 35
+
+# Taille de l&#39;échantillon de Monte Carlo
+npoints &lt;- 200
+
+# Génération des points
+pp &lt;- matrix(NA, ncol = 2, nrow = npoints)
+for (i in 1:nrow(pp)) {
+    pp[i, ] &lt;- roulette_coord(ncases)
+}
+
+# Estimateur de Monte-Carlo de Pi
+in_disk &lt;- apply(X = pp, MARGIN = 1, FUN = inside_disk, ncases = ncases)
+piMC(in_disk)
+
+# Dessin on commence par initialiser un plot vide, de la bonne taille avec
+# l&#39;argument `type = &#39;n&#39;`
+plot(x = pp[, 1], y = pp[, 2], xlim = c(0, ncases), ylim = c(0, ncases), axes = 0, 
+    xlab = &quot;x&quot;, ylab = &quot;y&quot;, type = &quot;n&quot;)
+## on gradue les axes x puis y de 0 à ncases
+axis(1, at = c(0:ncases))
+axis(2, at = c(0:ncases))
+## on ajoute un carré encadrant le dessin
+box()
+## on trace (en pointillés grâce à l&#39;argument `lty = 3`) la grille sur laquelle
+## sont échantillonnés nos points
+for (i in 0:ncases) {
+    abline(h = i, lty = 3)
+    abline(v = i, lty = 3)
+}
+## on ajoute les points échantillonés
+lines(x = pp[, 1], y = pp[, 2], xlim = c(0, ncases), ylim = c(0, ncases), xlab = &quot;x&quot;, 
+    ylab = &quot;y&quot;, type = &quot;p&quot;, pch = 16)
+## on ajoute la représentation du cercle
+x.cercle &lt;- seq(0, ncases, by = 0.1)
+y.cercle &lt;- sqrt((ncases/2)^2 - (x.cercle - ncases/2)^2)
+lines(x.cercle, y = y.cercle + ncases/2, col = &quot;red&quot;)
+lines(x.cercle, y = -y.cercle + ncases/2, col = &quot;red&quot;)
+## enfin on colorie en rouge les points échantillonnés à l&#39;intérieur du cercle
+lines(x = pp[in_disk, 1], y = pp[in_disk, 2], xlim = c(0, ncases), ylim = c(0, ncases), 
+    xlab = &quot;x&quot;, ylab = &quot;y&quot;, type = &quot;p&quot;, pch = 16, col = &quot;red&quot;, cex = 0.7)</code></pre></li>
+</ol></li>
+</ol>

@@ -1,0 +1,61 @@
+---
+title: "MCMC in practice"
+linktitle: "MCMC in practice"
+date: "2020-06-18"
+read_date: "2020-06-18"
+menu:
+  lectures:
+    parent: "Part II: Bayesian computation"
+    weight: 4
+type: docs
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
+slides: "01-slides"
+output:
+  blogdown::html_page:
+    toc: true
+---
+## Video lectures
+
+### MCMC software
+<iframe width="560" height="315" src="https://www.youtube.com/embed/bbj2MeFyfz8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+### MCMC convergence
+<iframe width="560" height="315" src="https://www.youtube.com/embed/92YmdRIicTg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+### MCMC inference
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Mr3QNpaU2X8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Slides
+
+The **slides** for the first part of this section are displayed below, and can be downloaded [here](/slides/slidesMCMCsoftware.pdf).
+
+<html>
+<body>
+  <object data="/slides/slidesMCMCsoftware.pdf##view=fit" type="application/pdf" width="420" height="237">
+        <embed src="/slides/slidesMCMCsoftware.pdf##view=fit" type="application/pdf"/>
+  </object>
+</body>
+</html>
+
+
+The **slides** for the second part of this section are displayed below, and can be downloaded [here](/slides/slidesMCMCconvergence.pdf).
+
+<html>
+<body>
+  <object data="/slides/slidesMCMCconvergence.pdf##view=fit" type="application/pdf" width="420" height="237">
+        <embed src="/slides/slidesMCMCconvergence.pdf##view=fit" type="application/pdf"/>
+  </object>
+</body>
+</html>
+
+The **slides** for the third part of this section are displayed below, and can be downloaded [here](/slides/slidesMCMCinference.pdf).
+
+<html>
+<body>
+  <object data="/slides/slidesMCMCinference.pdf##view=fit" type="application/pdf" width="420" height="237">
+        <embed src="/slides/slidesMCMCinference.pdf##view=fit" type="application/pdf"/>
+  </object>
+</body>
+</html>
+

@@ -1,0 +1,37 @@
+---
+title: "Présentation"
+linktitle: "Organisation"
+menu:
+  cours:
+    parent: "Présentation"
+    weight: 1
+type: docs
+weight: 1
+---
+
+### Organisation
+
+Le cours se divise en 4 chapitre :
+
+ 1. [Introduction à la statistique bayésienne](01-vocabulaire)
+ 2. [Modélisation bayésienne](04-modfreq)
+ 3. [Calcul numérique pour la statistique bayésienne](10-diffposterior)
+ 4. [Études de cas](15-ecmo)
+
+Pour chaque chapitre, vous disposer d'un diaporama présenté dans des capsules vidéo disponibles dans la section [Leçons](/lectures).
+
+
+
+### Polycopié
+
+Le polycopié de cours se trouve ci-dessous et peut être téléchargé [ici](/files/STA305cours_etud.pdf).
+
+**NB** : ces notes ne se veulent en aucun cas exhaustives, et l'on renverra le lecteur curieux aux ouvrages bien plus complets que sont *Le choix bayésien* de C. Robert et *Le raisonnement bayésien* de E. Parent & J. Bernier.
+
+<html>
+<body>
+  <object data="/files/STA305cours_etud.pdf##view=fit" type="application/pdf" width="100%" height="900">
+        <embed src="/files/STA305cours_etud.pdf##view=fit" type="application/pdf"/>
+  </object>
+</body>
+</html>

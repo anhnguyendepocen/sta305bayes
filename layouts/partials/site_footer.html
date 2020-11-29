@@ -1,0 +1,41 @@
+<footer>
+    <hr>
+
+    <div class="row course-info">
+        <div class="col-md-7">
+            <p>
+                <strong>{{ if isset .Site.Params.course "number" }}{{ .Site.Params.course.number }}:{{ end }} {{ .Site.Title }} {{ if isset .Site.Params.course "semester" }}({{ .Site.Params.course.semester }}){{ end }}</strong><br>
+
+                <a href="{{ .Site.Params.university.url }}" target="_blank" rel="noopener">{{ .Site.Params.university.name }}</a> &emsp;&emsp;
+                <a href="{{ .Site.Params.school.url }}" target="_blank" rel="noopener">{{ .Site.Params.school.name }}</a>
+            </p>
+
+            <p>
+                <a href="{{ .Site.Params.instructor.url }}" target="_blank" rel="noopener"><i class="fas fa-user"></i>
+                    {{ .Site.Params.instructor.name }}</a> &emsp;&emsp;
+                <a href="mailto:{{ .Site.Params.instructor.email }}"><i class="fas fa-envelope"></i>
+                    {{ .Site.Params.instructor.email }}</a>
+            </p>
+
+            <p>
+                {{ if isset .Site.Params.course "days" }}<i class="far fa-calendar-alt"></i> {{ .Site.Params.course.days }} &emsp;&emsp;{{ end }}
+                {{ if isset .Site.Params.course "time" }}<i class="far fa-clock"></i> {{ .Site.Params.course.time }}{{ end }}
+                {{ if isset .Site.Params.course "location" }}<br><i class="fas fa-university"></i> {{ .Site.Params.course.location }}{{end}}
+            </p>
+        </div>
+
+        <div class="col-md-5 credits">
+            <p>Contenu sous license  <a href="https://creativecommons.org/licenses/by-nc-nd/4.0/" target="_blank" rel="noopener"><i>Creative Commons Attribution-NonCommercial-NoDerivatives 4.0 International License</i></a>.</p>
+            
+            <p>Contenu <i class="fab fa-creative-commons"></i> {{ .Site.Params.course.copyrightYear }} <a href="{{ .Site.Params.instructor.url }}" target="_blank" rel="noopener">{{ .Site.Params.author }}</a></p>
+        
+            {{- if .Site.Params.credits }}
+            <p>{{ .Site.Params.credits | markdownify }}</p>
+            {{- end }}
+        
+            <p>Ce site a été créé à partir du thème <a href="https://sourcethemes.com/academic/" target="_blank" rel="noopener">Academic</a> avec <a href="https://bookdown.org/yihui/blogdown/" target="_blank" rel="noopener">blogdown</a> et <a href="https://gohugo.io/" target="_blank" rel="noopener">Hugo</a>, et adapté du site de <a href="https://www.andrewheiss.com/" target="_blank" rel="noopener">Andrew Heiss</a> pour son cours <a href="https://datavizm20.classes.andrewheiss.com/" target="_blank" rel="noopener"> <i>Data Vizualisation</i></a>. </p>
+            
+            <!-- <p><a href="https://github.com/{{ .Site.Params.course.github }}" target="_blank" rel="noopener"><i class="fab fa-github"></i> source sur GitHub.</a></p> -->
+        </div>
+    </div>
+</footer>

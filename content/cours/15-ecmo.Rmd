@@ -1,0 +1,38 @@
+---
+title: ""
+linktitle: "Analyse post-mortem d'un essai clinique randomisé sous-dimensionné"
+date: "2020-11-30"
+read_date: "2020-11-30"
+menu:
+  cours:
+    parent: "IV Études de cas"
+    weight: 1
+type: docs
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
+slides: "01-slides"
+output:
+  blogdown::html_page:
+    toc: false
+---
+
+Dans ce chapitre, nous nous intéressons à 3 cas d'utilisation illustrant l'intérêt que peut avoir l'approche bayésienne pour les sciences biomédicales.
+
+## Analyse *post-mortem* d'un essai clinique randomisé sous-dimensionné
+
+
+\noindent L'essai clinique randomisé *EOLIA* (Combes *et al.*, *NEJM*, 2018) [@combes2018Extracorporeal]
+a évalué un nouveau traitement pour le Syndrome de Détresse Respiratoire Aiguë (SDRA --- *Acute Respiratory Distress Syndrome* ou *ARDS*) en comparant le taux de mortalité à 60 jours chez 249 patients randomisés entre un groupe témoin (recevant un traitement conventionnel, c'est-à-dire une ventilation mécanique) et un groupe recevant une Oxygénation par Membrane Extra-Corporelle (*ExtraCorporeal Membrane Oxygenation* ou *ECMO*) --- le nouveau traitement évalué.
+
+Une analyse fréquentiste des données a estimé le risque relatif de décès de 0,76 dans le bras ECMO comparé au groupe témoin (en intention de traiter), avec un intervalle de confiance à $96\%$ : $CI_{95\%} =[0,55, 1,04]$ et une p-valeur associée de $0,09$.
+
+|			                                  |  **Groupe ECMO** | **Groupe témoin** |
+|:--------------------------------------|:----------------:|:-----------------:|
+| **Taille du groupe** $\boldsymbol{n}$ | $124$ | $125$ |
+| **Nombre de décès à 60 jours**        | $44$  | $57$  |
+Table: Données observées dans l'essai EOLIA
+
+
+Goligher *et al.* (*JAMA*, 2018)[@goligher2018Post] ont effectué une ré-analyse de ces données avec une approche bayésienne, continuant d'explorer les éléments apportés par ces données et comment ils peuvent être quantifiés et résumés par l'approche bayésienne.
+
+

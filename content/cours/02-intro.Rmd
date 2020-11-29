@@ -1,0 +1,23 @@
+---
+title: ""
+linktitle: "Rappels sur la statistique fréquentiste"
+date: "2020-11-30"
+read_date: "2020-11-30"
+menu:
+  cours:
+    parent: "I Introduction à l'analyse bayésienne"
+    weight: 2
+type: docs
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
+slides: "01-slides"
+output:
+  blogdown::html_page:
+    toc: false
+---
+
+La statistique est une science mathématique, dont l'objectif est de décrire ce qui s'est produit et de faire des projections quant à ce qu'il peut advenir dans le futur. Elle s'appuie sur l'observation de phénomènes naturels pour en proposer une interprétation, souvent à travers des modèles probabilistes.
+
+## Rappels sur la statistique fréquentiste
+
+La *statistique fréquentiste* désigne la théorie des statistiques largement enseignée et développée en grande partie par Neyman & Pearson, et reposant sur une vision déterministe des paramètres des modèles probabilistes qui sont les objets que l'inférence statistique cherche à estimer. Les estimations par le maximum de vraisemblance font partie des outils fondamentaux de la statistique fréquentiste, tout comme la théorie des tests statistiques avec le concept d'intervalle de confiance qui lui est associé.

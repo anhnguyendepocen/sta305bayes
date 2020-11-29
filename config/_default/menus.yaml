@@ -1,0 +1,41 @@
+main:
+  - name: Syllabus
+    url: /syllabus/
+    weight: 1
+  - name: Emploi du temps
+    url: /schedule/
+    weight: 2
+  - name: Cours
+    url: /cours/
+    weight: 3
+  - name: Leçons
+    url: /lectures/
+    weight: 4
+  - name: Travaux dirigés
+    url: /TD/
+    weight: 5
+  - name: Travaux pratiques
+    url: /practicals/
+    weight: 6
+  - name: Évaluation
+    url: /projet/
+    weight: 7
+  - name: Lectures
+    url: /readings/
+    weight: 8
+
+lectures:
+  - name: Présentation
+    weight: 1
+  - name: Leçons
+    weight: 2
+cours:
+  - name: Présentation
+    weight: 1
+  - name: Cours
+    weight: 2
+practicals:
+  - name: Présentation
+    weight: 1
+  - name: TP
+    weight: 2

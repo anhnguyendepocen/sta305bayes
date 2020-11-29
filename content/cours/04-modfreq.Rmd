@@ -1,0 +1,21 @@
+---
+title: ""
+linktitle: "Rappel sur la modélisation fréquentiste"
+date: "2020-11-30"
+read_date: "2020-11-30"
+menu:
+  cours:
+    parent: "II Modélisation Bayésienne"
+    weight: 1
+type: docs
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
+slides: "01-slides"
+output:
+  blogdown::html_page:
+    toc: false
+---
+
+## Rappel sur la modélisation fréquentiste
+
+Considérons une suite de variables aléatoires $iid$ $\boldsymbol{Y}=(Y_1, \dots, Y_n)$, dont on observe un échantillon $\boldsymbol{y}=(y_1, \dots, y_n)$. Un modèle fréquentiste pour leur loi de probabilité est la famille de densité de probabilité suivante : $f(y|\theta),~ \theta \in \Theta$. Avec ce modèle, on suppose qu'il existe une "vraie " distribution de $Y$ caractérisée par la "vraie" valeur du paramètre $\theta^*$ qui s'écrit $f(y|\theta^*)$. On cherche alors un estimateur $\widehat{\theta}$, ayant de bonnes propriétés asymptotiques le plus souvent (généralement sans biais pour $\theta^*$ et avec une variance la plus réduite possible).

@@ -1,0 +1,250 @@
+---
+title: ""
+linktitle: "Construction d'un modèle bayésien"
+date: "2020-11-30"
+read_date: "2020-11-30"
+menu:
+  cours:
+    parent: "II Modélisation Bayésienne"
+    weight: 3
+type: docs
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
+slides: "01-slides"
+output:
+  blogdown::html_page:
+    toc: false
+---
+
+
+
+<div id="construction-dun-modèle-bayésien" class="section level2">
+<h2>Construction d’un modèle bayésien</h2>
+<p>La première étape dans la construction d’un modèle est toujours d’identifier la question à laquelle on souhaite répondre. Une fois cette étape accomplie, il s’agit de déterminer quelles observations sont disponibles, et vont pouvoir nous informer dans notre réponse à la question d’intérêt.</p>
+<div id="modèle-déchantillonnage" class="section level3">
+<h3>Modèle d’échantillonnage</h3>
+<p>Notons <span class="math inline">\(\boldsymbol{y}\)</span> les observations dont nous disposons. De la même manière que dans un modèle fréquentiste, une modélisation bayésienne paramétrique consiste à d’abord proposer un modèle probabiliste pour ces observations : <span class="math inline">\(Y_i\overset{iid}{\sim} f(y|\theta)\)</span>. On appelle ce dernier “modèle d’échantillonnage”.</p>
+<p>👉  Dans l’application historique, Laplace a proposé un modèle d’échantillonnage basé sur la loi …</p>
+<blockquote>
+<p>…<br />
+…</p>
+</blockquote>
+</div>
+<div id="distribution-a-priori" class="section level3">
+<h3>Distribution <em>a priori</em></h3>
+<p>Dans la modélisation bayésienne, par rapport à la modélisation fréquentiste, on ajoute une loi de probabilité (définie sur l’espace <span class="math inline">\(\Theta\)</span> des paramètres), appelée distribution <em>a priori</em> :
+<span class="math display">\[\begin{align*}
+\theta &amp;\sim \pi(\theta)\\
+Y_i|\theta &amp;\overset{iid}{\sim} f(y|\theta)
+\end{align*}\]</span>
+On va donc traiter <span class="math inline">\(\theta\)</span> comme une variable aléatoire, mais qui n’est jamais observée !</p>
+<p>👉  Dans l’application historique, Laplace a d’abord envisagé un <em>a priori</em> …</p>
+<blockquote>
+<p>…<br />
+…</p>
+</blockquote>
+</div>
+<div id="distribution-a-posteriori" class="section level3">
+<h3>Distribution <em>a posteriori</em></h3>
+<p>L’objet d’une telle modélisation bayésienne est la distribution des paramètres <em>a posteriori</em>, c’est-à-dire la loi de <span class="math inline">\(\theta\)</span> conditionnellement aux observations : <span class="math inline">\(p(\theta|\boldsymbol{Y} = \boldsymbol{y})\)</span>, appelée distribution <em>a posteriori</em>. Elle se calcule à partir du modèle d’échantillonnage <span class="math inline">\(f(y|\theta)\)</span> — à partir duquel on obtient la vraisemblance <span class="math inline">\(f(\boldsymbol{y}|\theta)\)</span> pour toutes les observations — et de la loi <em>a priori</em> <span class="math inline">\(\pi(\theta)\)</span> par le théorème de Bayes :
+<span class="math display">\[p(\theta|\boldsymbol{y}) = \frac{f(\boldsymbol{y}|\theta)\pi(\theta)}{f(\boldsymbol{y})}\]</span>
+où <span class="math inline">\(f(\boldsymbol{y}) = \int f(\boldsymbol{y}|\theta)\pi(\theta)\,\text{d}\theta\)</span> est la loi marginale de <span class="math inline">\(\boldsymbol{Y}\)</span>.</p>
+<div id="exemple-avec-un-a-priori-uniforme" class="section level4">
+<h4>Exemple avec un <em>a priori</em> uniforme</h4>
+<p>👉  Dans l’application historique, la vraisemblance est donc : …</p>
+<blockquote>
+<p>…<br />
+…<br />
+…</p>
+</blockquote>
+<p>👉  On obtient alors la loi <em>a posteriori</em> suivante : …</p>
+<blockquote>
+<p>…<br />
+…<br />
+…<br />
+…</p>
+</blockquote>
+<p>Malheureusement, cette intégrale (dite “incomplète”) n’a pas de solution analytique.</p>
+<p>Une approximation par la loi normale a cependant permis à Laplace de conclure que la probabilité de naissance d’un fille est inférieure à celle d’un garçon, puisqu’il obtint : <span class="math inline">\(P(\theta\geq 0.5|\boldsymbol{y})\approx 1.15~10^{-42}\)</span></p>
+</div>
+<div id="exemple-de-la-conjugaison-de-la-loi-beta" class="section level4">
+<h4>Exemple de la conjugaison de la loi Beta</h4>
+<p>Imaginons maintenant que l’on utilise une autre loi <em>a priori</em>, par exemple la loi <span class="math inline">\(\text{Beta}(\alpha, \beta)\)</span> dont la densité s’écrit : <span class="math inline">\(\textstyle f(\theta)=\frac{(\alpha +\beta -1)!}{(\alpha-1)!(\beta -1)!}\theta^{\alpha-1}(1-\theta)^{\beta-1}\)</span> (pour <span class="math inline">\(\alpha &gt;0\)</span> et <span class="math inline">\(\beta&gt;0\)</span>).</p>
+<p><img src="/cours/06-modbayes_files/figure-html/Beta%20density-1.png" width="63%" /></p>
+<p>👉  On remarque que la loi uniforme est un cas particulier de la loi Beta lorsque <span class="math inline">\(\alpha\)</span> et <span class="math inline">\(\beta\)</span> valent tous les deux 1. Si on re-calcule le <em>posterior</em> avec un <em>a priori</em> <span class="math inline">\(\pi = \text{Beta}(\alpha, \beta)\)</span>, on obtient facilement :</p>
+<blockquote>
+<p>…</p>
+</blockquote>
+<p>👉  On reconnait, à une constante de normalisation près …</p>
+<blockquote>
+<p>…</p>
+</blockquote>
+<p>👉  On en déduit donc que …</p>
+<blockquote>
+<p><span class="math inline">\(\theta|\textbf{y}\sim\)</span> …</p>
+</blockquote>
+<p>On dit que l’on est dans une situation de <strong>distributions conjuguées</strong> car les distributions <em>a posteriori</em> et <em>a priori</em> appartiennent à la même famille paramétrique.</p>
+<p>On peut maintenant évaluer l’impact de cet <em>a priori</em> Beta sur notre résultat en fonction du choix des hyperparamètres <span class="math inline">\(\alpha\)</span> et <span class="math inline">\(\beta\)</span>.</p>
+<table>
+<caption>Pour 493 472 naissances dont 241 945 filles</caption>
+<colgroup>
+<col width="35%" />
+<col width="25%" />
+<col width="39%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Interprétation de l’<em>a priori</em></th>
+<th align="left">Paramètres de la Beta</th>
+<th align="center"><span class="math inline">\(P(\theta\geq 0.5|\boldsymbol{y})\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">#garçons <span class="math inline">\(&gt;\)</span> #filles</td>
+<td align="left"><span class="math inline">\(\alpha=0.1, \beta=3\)</span></td>
+<td align="center"><span class="math inline">\(1.08~10^{-42}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">#garçons <span class="math inline">\(&lt;\)</span> #filles</td>
+<td align="left"><span class="math inline">\(\alpha=3,\phantom{.1}\beta=0.1\)</span></td>
+<td align="center"><span class="math inline">\(1.19~10^{-42}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">#garçons <span class="math inline">\(=\)</span> #filles</td>
+<td align="left"><span class="math inline">\(\alpha=4,\phantom{.1}\beta=4\)</span></td>
+<td align="center"><span class="math inline">\(1.15~10^{-42}\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">#garçons <span class="math inline">\(\neq\)</span> #filles</td>
+<td align="left"><span class="math inline">\(\alpha=0.1,\beta=0.1\)</span></td>
+<td align="center"><span class="math inline">\(1.15~10^{-42}\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">non informatif</td>
+<td align="left"><span class="math inline">\(\alpha=1,\phantom{.1}\beta=1\)</span></td>
+<td align="center"><span class="math inline">\(1.15~10^{-42}\)</span></td>
+</tr>
+</tbody>
+</table>
+<p>On remarque que l’<em>a priori</em> ne semble pas influer sur notre résultat ici. C’est parce que l’on dispose de beaucoup d’observations. Le poids de la distribution <em>a priori</em> dans la ditribution <em>a posteriori</em> devient alors très faible en regard de l’information apportée par les observations. Si l’on imagine que l’on avait observé seulement 20 naissances, dont 9 filles, on note alors une influence de l’<em>a priori</em> bien plus grande.</p>
+<table>
+<caption>Pour 20 naissances dont 9 filles</caption>
+<colgroup>
+<col width="35%" />
+<col width="25%" />
+<col width="39%" />
+</colgroup>
+<thead>
+<tr class="header">
+<th align="left">Interprétation de l’<em>a priori</em></th>
+<th align="left">Paramètres de la Beta</th>
+<th align="center"><span class="math inline">\(P(\theta\geq 0.5|\boldsymbol{y})\)</span></th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td align="left">#garçons <span class="math inline">\(&gt;\)</span> #filles</td>
+<td align="left"><span class="math inline">\(\alpha=0.1, \beta=3\)</span></td>
+<td align="center"><span class="math inline">\(0.39\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">#garçons <span class="math inline">\(&lt;\)</span> #filles</td>
+<td align="left"><span class="math inline">\(\alpha=3,\phantom{.1}\beta=0.1\)</span></td>
+<td align="center"><span class="math inline">\(0.52\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">#garçons <span class="math inline">\(=\)</span> #filles</td>
+<td align="left"><span class="math inline">\(\alpha=4,\phantom{.1}\beta=4\)</span></td>
+<td align="center"><span class="math inline">\(0.46\)</span></td>
+</tr>
+<tr class="even">
+<td align="left">#garçons <span class="math inline">\(\neq\)</span> #filles</td>
+<td align="left"><span class="math inline">\(\alpha=0.1,\beta=0.1\)</span></td>
+<td align="center"><span class="math inline">\(0.45\)</span></td>
+</tr>
+<tr class="odd">
+<td align="left">non informatif</td>
+<td align="left"><span class="math inline">\(\alpha=1,\phantom{.1}\beta=1\)</span></td>
+<td align="center"><span class="math inline">\(0.45\)</span></td>
+</tr>
+</tbody>
+</table>
+<p><img src="/cours/06-modbayes_files/figure-html/Posterior%20density%20Beta-1.png" width="95%" /></p>
+</div>
+</div>
+<div id="la-question-épineuse-du-choix-de-la-distribution-a-priori" class="section level3">
+<h3>La question épineuse du choix de la distribution <em>a priori</em></h3>
+<p>Un point essentiel de l’approche bayésienne est donc de donner une distribution aux paramètres. Dans l’inférence bayésienne, on part d’une distribution <em>a priori</em>, et l’information contenue dans les observations est utilisée pour obtenir la distribution <em>a posteriori</em>. La distribution <em>a priori</em> apporte de la flexibilité par rapport à un modèle fréquentiste, en permettant d’incorporer dans le modèle de la connaissance externe. Cela peut par exemple permettre de résoudre des problèmes d’identifiabilité parfois rencontrés par une approche purement fréquentiste lorsque l’information apportée par les observations ne suffit pas pour estimer tous les paramètres d’intérêt.</p>
+<p>C’est donc un grand avantage de l’approche bayésienne. Mais d’un autre côté, le choix de cette distribution <em>a priori</em> des paramètres introduit une subjectivité intrinsèque dans l’analyse, qui peut être décriée. Par exemple un statisticien travaillant pour un laboratoire pharmaceutique pourrait choisir une loi a priori donnant une forte probabilité qu’un médicament soit efficace, ce qui influencera nécessairement le résultat. Le choix (ou l’élicitation) de la distribution <em>a priori</em> est donc délicat.</p>
+<p>Notons tout d’abord deux points théoriques :</p>
+<ul>
+<li>le support de la distribution <em>a posteriori</em> doit être inclus dans celui de la distribution <em>a priori</em>. En d’autres termes, si <span class="math inline">\(\pi(\theta) = 0\)</span>, alors <span class="math inline">\(p(\theta|\boldsymbol{y}) = 0\)</span>.</li>
+<li>en général on suppose l’indépendance des différents paramètres sous la loi <em>a priori</em> (quand il y a plus d’un paramètre — ce qui est presque toujours le cas dans les applications) ce qui permet d’éliciter les lois <em>a priori</em> paramètre par paramètre.</li>
+</ul>
+<div id="élicitation-de-la-distribution-a-priori" class="section level4">
+<h4>Élicitation de la distribution <em>a priori</em></h4>
+<p>Il y a des stratégies pour communiquer avec les experts non-statisticiens pour transformer leurs <strong>connaissances</strong> <em>a priori</em> en <strong>distribution</strong> <em>a priori</em>.</p>
+<p>La méthode la plus simple est de demander aux experts de donner des poids ou des probabilités à des intervalles de valeurs : c’est la méthode des histogrammes. Cependant, quand le paramètre peut prendre des valeurs sur un ensemble non-borné cette méthode risque de donner un <em>a priori</em> nul pour des valeurs du paramètre qui sont néanmoins possibles… </p>
+<p>Une autre approche est de se donner une famille paramétrique de distributions <span class="math inline">\(p(\theta|\eta)\)</span> et de choisir <span class="math inline">\(\eta\)</span> de telle sorte que la distribution <em>a priori</em> soit en accord avec ce que pensent les experts pour certaines caractéristiques. Par exemple on pourra faire en sorte que les deux premiers moments (moyenne et variance), ou bien des quantiles simples (comme les quartiles), coïncident avec leurs vues. Cela résout le problème de support soulevé par la méthode des histogrammes. Cependant le choix de la famille paramétrique peut avoir de l’importance. Par exemple une distribution normale <span class="math inline">\(\mathcal{N}(0 ; 2,19)\)</span> a les même quartiles qu’une distribution de Cauchy <span class="math inline">\(\mathcal{C}(0;1)\)</span>, à savoir <span class="math inline">\(-1;0;1\)</span>. Or ces deux lois <em>a priori</em> peuvent donner des distributions <em>a posteriori</em> assez différentes. Une stratégie pour déterminer les quartiles est de poser les questions suivantes :</p>
+<ul>
+<li>pour la médiane : <em>Pouvez-vous déterminer une valeur telle que <span class="math inline">\(\theta\)</span> a autant de chances de se trouver au-dessus qu’au-dessous ?</em></li>
+<li>puis pour le premier quartile : <em>Supposons que l’on vous dise que <span class="math inline">\(\theta\)</span> est en dessous de [telle valeur médiane], pouvez-vous alors déterminer une nouvelle valeur telle que <span class="math inline">\(\theta\)</span> ait autant de chances de se trouver au-dessus qu’au-dessous ?</em></li>
+<li>de façon similaire on détermine le troisième quartile…</li>
+</ul>
+<p>Des logiciels existent pour aider à l’élicitation des lois <em>a priori</em> par des experts : voir par exemple l’outil académique SHELF.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p>On peut également éliciter des lois <em>a priori</em> d’après les données de la littérature. L’idée est de définir les moments de la distribution <em>a priori</em> tels qu’ils donnent une probabilité raisonnable aux valeurs du paramètre qui ont été recensées dans la littérature. Si on propose un <em>a priori</em> normal de loi <span class="math inline">\(\mathcal{N}(\mu, \sigma^2)\)</span>, on peut par exemple choisir <span class="math inline">\(\mu\)</span> et <span class="math inline">\(\sigma\)</span> de telle sorte que la plus petite valeur donnée dans la littérature soit égale à <span class="math inline">\(\mu - 1.96\sigma\)</span> et la plus grande à <span class="math inline">\(\mu + 1.96\sigma\)</span> . Une approche plus élaborée est de maximiser la vraisemblance des valeurs de la littérature…</p>
+</div>
+<div id="la-quête-des-a-priori-non-informatifs" class="section level4">
+<h4>La quête des <em>a priori</em> non-informatifs</h4>
+<p>Pour certains paramètres (ou pour tous les paramètres) il est courant que l’on n’ait pas de connaissance <em>a priori</em>. On cherche alors à définir une distribution “non-informative”. Par exemple si le paramètre est la probabilité qu’un pièce de monnaie tombe sur pile ou face, une loi non-informative pourrait être la loi uniforme sur [0;1] (le choix historique de Bayes en 1763). Cependant deux difficultés majeures apparaissent :</p>
+<ul>
+<li><strong>Lois impropres</strong></li>
+</ul>
+<p>La première difficulté est que l’on peut être amené à considérer des lois impropres. Une loi impropre est définie par une densité dont la somme ne fait pas à 1. Par exemple pour un paramètre de moyenne d’une loi normale, il peut semble naturel de donner une densité constante <span class="math inline">\(\pi(\theta) = c\)</span> (i.e. toutes les valeurs possibles sur <span class="math inline">\(]-\infty, +\infty[\)</span> ont la même probabilité). Bien sûr <span class="math inline">\(\int_{-\infty}^\infty c\,\text{d}\theta = \infty\)</span>, et un tel choix ne définit donc pas une loi de probabilité ! Il reste cependant <strong>admissible car la loi <em>a posteriori</em> est</strong> (la plupart du temps) <strong>propre</strong>. En effet nous avons alors :
+<span class="math display">\[p(\theta|y) = \frac{f(y|\theta)c}{\int f(y|\theta)c\,\text{d}\theta}\]</span>
+Si <span class="math inline">\(\int f(y|\theta)c\,\text{d}\theta = K\)</span> (comme c’est souvent le cas), alors <span class="math inline">\(\textstyle p(\theta|y) = \frac{f(y|\theta)}{K}\)</span> est une densité propre (i.e. qui somme à <span class="math inline">\(1\)</span>).</p>
+<ul>
+<li><strong>Lois non-invariantes</strong></li>
+</ul>
+<p>La seconde difficulté vient de la non-invariance de la distribution uniforme pour des transformations non-linéaires des paramètres. En effet si on fait une transformation des paramètres <span class="math inline">\(\gamma = g(\theta)\)</span> la densité de <span class="math inline">\(\gamma\)</span> s’écrit : <span class="math inline">\(\pi(\gamma) = |J|\,\pi(\theta)\)</span>, où <span class="math inline">\(|J|\)</span> est le Jacobien de la transformation, c’est-à-dire le déterminant de la matrice jacobienne <span class="math inline">\(\textstyle J = \frac{\partial g^{-1}(\gamma)}{\partial \gamma}\)</span>. Par exemple si on prend une densité uniforme égale à 1 pour <span class="math inline">\(\theta\)</span> sur <span class="math inline">\((0, +\infty)\)</span> et que l’on fait la transformation <span class="math inline">\(\gamma = \log(\theta)\)</span>, on a <span class="math inline">\(g^{-1}(\gamma) = e^\gamma\)</span> et <span class="math inline">\(|J| = e^\gamma\)</span>. Donc on a <span class="math inline">\(\pi(\gamma) = e^\gamma\)</span>, ce qui n’est pas la caractérisation d’une loi uniforme. D’où le paradoxe suivant : si la loi uniforme pour <span class="math inline">\(\theta\)</span> traduit une absence totale de connaissance <em>a priori</em> sur <span class="math inline">\(\theta\)</span>, on devrait avoir aussi une absence totale d’information <em>a priori</em> sur <span class="math inline">\(\gamma\)</span>, ce qui devrait se traduire par une loi uniforme sur <span class="math inline">\(\gamma\)</span>. Or ce ne peut être le cas. Donc la loi uniforme ne peut pas être d’une manière générale la loi représentant une absence totale de connaissance <em>a priori</em>. C’est un argument central qui a conduit Fisher, en 1922, à proposer les estimateurs du maximum de vraisemblance, possédant eux une propriété d’invariance pour des transformations non-linéaires des paramètres.</p>
+<p><strong>NB :</strong> Ceci ne veut pas dire que l’on ne puisse pas prendre une loi uniforme comme <em>a priori</em>, mais il faut avoir conscience que la loi uniforme ne vaut que pour une certaine paramétrisation…</p>
+<p>Face à ces difficultés, différentes solutions ont été proposées. Elles ont montré qu’il n’y a pas de loi <em>a priori</em> complètement non-informative, mais on peut considérer certaines lois comme <strong>faiblement informatives</strong>.</p>
+</div>
+<div id="la-loi-a-priori-de-jeffreys" class="section level4">
+<h4>La loi <em>a priori</em> de Jeffreys</h4>
+<p>L’approche la plus aboutie des <em>a priori</em> faiblement informatifs est peut-être celle de Jeffreys. Ce dernier a proposé une procédure pour trouver une loi <em>a priori</em> avec une propriété d’invariance par rapport à la paramétrisation. Dans le cas univarié, la loi <em>a priori</em> de Jeffreys est défini par :
+<span class="math display">\[\pi(\theta) \propto \sqrt{I(\theta)}\]</span>
+où <span class="math inline">\(I\)</span> est la matrice d’information de Fisher (pour rappel, <span class="math inline">\(\textstyle I(\theta) = -\mathbb{E}_{Y|\theta}\left[\frac{\partial^2 \log (f(y|\theta))}{\partial\theta^2}\right]\)</span>). La loi <em>a priori</em> de Jeffreys est donc invariante pour les transformations bijectives des paramètres. C’est-à-dire que si nous considérons une autre paramétrisation <span class="math inline">\(\gamma = g(\theta)\)</span> (pour laquelle il existe la bijection réciproque <span class="math inline">\(g^{-1}(\cdot)\)</span>), on obtient toujours :
+<span class="math display">\[\pi(\gamma) \propto \sqrt{I(\gamma)}\]</span>
+tandis que <span class="math inline">\(\pi(\gamma)\)</span> correspond bien à la même loi <em>a priori</em> sur <span class="math inline">\(\theta\)</span>. Prenons ici des notations plus
+rigoureuses, et notons les densités <span class="math inline">\(\pi_\theta(\cdot)\)</span> et <span class="math inline">\(\pi_\gamma(\cdot)\)</span>. <span class="math inline">\(\pi_\gamma(\cdot)\)</span> s’exprime en fonction de
+<span class="math inline">\(\pi_\theta(\cdot)\)</span> avec <span class="math inline">\(\pi_\gamma(\cdot) = \pi_\theta(\cdot)|J|\)</span>. On vérifie donc bien que <span class="math inline">\(\textstyle\sqrt{I(\gamma)} = \sqrt{I(\theta)}|J|\)</span>.</p>
+<p>
+<em>Démonstration :</em> Soit <span class="math inline">\(F_X(x) = P(X &lt; x)\)</span> et considérons la transformation non linéaire <span class="math inline">\(Y = g(X)\)</span>. On a alors <span class="math inline">\(F_Y(y) = P(Y &lt; y) = P(g(X) &lt; y) = P(X &lt; g^{-1}(y))\)</span>. La densité s’obtient naturellement en dérivant par rapport à <span class="math inline">\(y\)</span> : <span class="math inline">\(\textstyle f_Y (y) = \frac{\partial g^{-1}(y)}{\partial y}f_X (g^{-1}(y))\)</span>. La formule s’étend au cas multidimensionnel où <span class="math inline">\(|J|\)</span> désigne le déterminant de la matrice jacobienne <span class="math inline">\(J\)</span> (matrice des dérivées partielles).</p>
+<p>Dans le cas multidimensionnel (le plus courant) la loi <em>a priori</em> de Jeffreys est définie comme :
+<span class="math display">\[\pi(\theta) \propto \sqrt{ | I(\theta) | }\]</span>
+où <span class="math inline">\(|I(\theta)|\)</span> est le déterminant de la matrice d’information de Fisher <span class="math inline">\(I(\theta)\)</span>. Cependant cette méthode est peu utilisée car d’une part les calculs peuvent être compliqués, et d’autre part elle peut donner des résultats un peu curieux. En effet dans le cas d’une vraisemblance normale par exemple, où l’on a 2 paramètres <span class="math inline">\(\theta\)</span> et <span class="math inline">\(\sigma\)</span>, l’<em>a priori</em> de Jeffreys multidimensionnel est <span class="math inline">\(1/\sigma^2\)</span>, ce qui est différent de <span class="math inline">\(\pi(\sigma) = 1/\sigma\)</span> obtenu dans le cas unidimensionnel… Dans la pratique la tendance est d’appliquer la loi <em>a priori</em> de Jeffreys séparément pour chaque paramètre et de définir la loi <em>a priori</em> conjointe par la multiplication des <em>a priori</em> pour chaque paramètre (faisant donc une hypothèse d’indépendance). Pour l’exemple normal avec deux paramètres, on obtient donc <span class="math inline">\(\pi(\theta,\sigma) = 1/\sigma\)</span>. Mais on note que ce n’est plus vraiment l’<em>a priori</em> de Jeffreys, en deux dimensions.</p>
+<div class="Exercise">
+<p><em>Exercice</em> : retrouver les résultats énoncés ci-dessus (invariance pour la transformation <span class="math inline">\(\log\)</span> et résultat pour la loi normale).</p>
+</div>
+<ul>
+<li><strong>Loi <em>a priori</em> pour les familles à paramètres de position et l’échelle :</strong></li>
+</ul>
+<p>Considérons les familles à paramètre de position, c’est-à-dire dont les modèles d’échantillonnage sont de la forme <span class="math inline">\(f(y|\theta) = f(y - \theta)\)</span>. Des arguments d’invariance permettent d’affirmer que la loi non-informative pour <span class="math inline">\(\theta\)</span> devrait être uniforme. Par les mêmes arguments, on montre que pour les familles à paramètre d’échelle, c’est-à-dire dont les modèles d’échantillonnage sont de la forme <span class="math inline">\(f(y|\sigma) = f(y/\sigma)\)</span>, la loi non-informative devrait être <span class="math inline">\(\pi(\sigma) \propto 1/\sigma\)</span>. Plus généralement, pour les familles à paramètres de position et d’échelle, c’est-à-dire dont les modèles d’échantillonnage sont de la forme <span class="math inline">\(f(y|\theta,\sigma) = f((y - \theta)/\sigma)\)</span>, l’<em>a priori</em> faiblement-informatif devrait être de la forme <span class="math inline">\(\pi(\theta, \sigma) = 1/\sigma\)</span>. La loi normale est une famille de ce type, et pour elle cette recommandation d’<em>a priori</em> faiblement-informatif rejoint celle obtenue en multipliant les <em>a priori</em> de Jeffreys unidimensionnels, ainsi qu’indiqué plus haut.</p>
+<div class="Exercise">
+<p><em>Exercice</em> : retrouver les résultats énoncés ci-dessus.</p>
+</div>
+</div>
+<div id="lois-a-priori-diffuses" class="section level4">
+<h4>Lois <em>a priori</em> diffuses</h4>
+<p>En pratique, une alternative très courante pour donner une loi <em>a priori</em> faiblement informative est l’utilisation de lois paramétriques (telles que la loi normale) avec des paramètres de variances très importants (ce qui se rapproche de la loi uniforme mais évite le problème de loi impropre).</p>
+</div>
+</div>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>(<a href="http://www.tonyohagan.co.uk/shelf/" class="uri">http://www.tonyohagan.co.uk/shelf/</a>).<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>

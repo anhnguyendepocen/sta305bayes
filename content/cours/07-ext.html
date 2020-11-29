@@ -1,0 +1,46 @@
+---
+title: ""
+linktitle: "Extensions"
+date: "2020-11-30"
+read_date: "2020-11-30"
+menu:
+  cours:
+    parent: "II Modélisation Bayésienne"
+    weight: 4
+type: docs
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
+slides: "01-slides"
+output:
+  blogdown::html_page:
+    toc: false
+---
+
+
+
+<div id="extensions" class="section level2">
+<h2>Extensions</h2>
+<div id="hyper-priors-modèles-hiérarchiques" class="section level3">
+<h3>Hyper-<em>priors</em> &amp; modèles hiérarchiques</h3>
+<p>Dans le modèle bayésien classique, on considère deux niveaux hierarchiques : d’abord <span class="math inline">\(\pi(\theta)\)</span>, puis <span class="math inline">\(f(\boldsymbol{y}|\theta)\)</span>. Il est possible de rajouter un niveau en donnant également un <em>a priori</em> au paramètre <span class="math inline">\(\eta\)</span> de <span class="math inline">\(\pi(\theta)\)</span>, appelé hyper-paramètre : <span class="math inline">\(\pi(\theta|\eta)\)</span>. Appliquant l’approche bayésienne, on peut donner à cet hyper-paramètre une loi <em>a priori</em>, appelée alors hyper-<em>prior</em> et que l’on note <span class="math inline">\(h(\eta)\)</span>. La distribution <em>a posteriori</em> est :
+<span class="math display">\[\begin{align*}
+p(\theta|\boldsymbol{y}) = \frac{f(\boldsymbol{y}|\theta)\pi(\theta)}{f(\boldsymbol{y})} = \frac{\int f(\boldsymbol{y}|\theta)\pi(\theta|\eta)h(\eta) d\eta}{f(\boldsymbol{y})} = \frac{f(\boldsymbol{y}|\theta) \int \pi(\theta|\eta)h(\eta) d\eta}{f(\boldsymbol{y})}
+ \end{align*}\]</span>
+On remarque donc que cette modélisation hierarchique à 3 niveaux est équivalente à une modélisation bayésienne à deux niveaux avec une distribution <em>a priori</em> qui devient : <span class="math inline">\(\textstyle \pi(\theta) = \int \pi(\theta|\eta)h(\eta) d\eta\)</span>. Néanmoins cette construction hiérarchique peut faciliter l’étape de modélisation ainsi que l’élicitation des lois<em>a priori</em>. Il est d’ailleurs même possible de construire des modèles avec plus de trois niveaux, considérant que la distribution de <span class="math inline">\(\eta\)</span> dépend elle-même d’hyper-hyper-paramètres, et ainsi de suite… Un cas d’utilisation typique de modélisation bayésienne hiérarchique est l’inclusion d’effets aléatoires dans le modèle linéaire. Un autre exemple sont les modèles à classes latentes. On note ici que la frontière entre modélisation fréquentiste et bayésienne s’amincit, et qu’elle se joue principalement sur l’interprétation des paramètres (et donc des résultats).</p>
+<p>Si l’on reprend l’exemple historique du sexe à la naissance avec un <em>a priori</em> Beta, on peut proposer deux hyper-<em>priors</em> Gamma pour <span class="math inline">\(\alpha\)</span> et <span class="math inline">\(\beta\)</span> :
+<span class="math display">\[\begin{align*}
+  \alpha\sim\text{Gamma}(4, 0.5)\\
+  \beta\sim\text{Gamma}(4, 0.5)\\
+  \theta|\alpha, \beta\sim\text{Beta}(\alpha, \beta)\\
+  Y_i|\theta \overset{iid}{\sim} \text{Bernoulli}(\theta)
+\end{align*}\]</span></p>
+</div>
+<div id="approche-bayésienne-empirique" class="section level3">
+<h3>Approche bayésienne empirique</h3>
+<p>Cette approche consiste à éliciter la loi <em>a priori</em> d’après sa loi marginale empirique, et donc à estimer la distribution <em>a priori</em> à partir des données. Cela revient donc à se donner des hyper-paramètres et à chercher à les estimer de manière fréquentiste (par exemple par maximum de vraisemblance) par <span class="math inline">\(\hat{\eta}\)</span>, avant d’injecter cet estimateur dans la distribution <em>a priori</em> et donc d’obtenir la distribution <em>a posteriori</em> <span class="math inline">\(p(\theta|\boldsymbol{y},\hat{\eta})\)</span>. Cette approche <strong>bayésienne empirique</strong> qui combine bayésien et fréquentiste peut sembler aller à l’encontre de la notion d’<em>a priori</em>, puisque l’on utilise alors déjà les données pour choisir l’<em>a priori</em>. Néanmoins, on peut voir l’approche bayésienne empirique comme une approximation de l’approche bayésienne complète. Son utilisation résulte en une distribution <em>a posteriori</em> plus ressérée qu’avec un <em>a priori</em> faiblement informatif (diminution de la variance), au prix de l’introduction d’un biais dans l’estimation (on “utilise les données 2 fois” !). Cette approche illustre une fois de plus la balance existant entre biais et variance, classique dans toute procédure d’estimation.</p>
+</div>
+<div id="bayésien-séquentiel" class="section level3">
+<h3>Bayésien séquentiel</h3>
+<p>À noter que le théorème de Bayes peut être utilisé de manière séquentielle. Omettant le dénominateur (qui ne dépend pas de <span class="math inline">\(\theta\)</span>) on peut écrire : <span class="math inline">\(p(\theta|\boldsymbol{y}) \propto f(\boldsymbol{y}|\theta)\pi(\theta)\)</span>. Si <span class="math inline">\(\boldsymbol{y} = (\boldsymbol{y}_1,\boldsymbol{y}_2)\)</span>, on a : <span class="math inline">\(p(\theta|\boldsymbol{y}) \propto f(\boldsymbol{y}_2|\theta)f(\boldsymbol{y}_1|\theta)\pi(\theta) \propto f(\boldsymbol{y}_2|\theta)p(\theta|\boldsymbol{y}_1)\)</span>. La distribution <em>a posteriori</em> sachant <span class="math inline">\(\boldsymbol{y}_1\)</span> devient ainsi la distribution <em>a priori</em> pour la nouvelle observation <span class="math inline">\(\boldsymbol{y}_2\)</span>. On peut donc mettre à jour l’information sur <span class="math inline">\(\theta\)</span> au fur et à mesure qu’arrivent les observations (approche <em>online</em>).</p>
+</div>
+</div>

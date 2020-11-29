@@ -1,0 +1,32 @@
+---
+title: "Foreword"
+linktitle: "Foreword"
+date: "2020-06-11"
+read_date: "2020-06-11"
+menu:
+  lectures:
+    parent: "Course content"
+    weight: 2
+type: docs
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
+slides: "01-slides"
+output:
+  blogdown::html_page:
+    toc: false
+---
+
+### Video lecture
+<iframe width="560" height="315" src="https://www.youtube.com/embed/_OS6quaEHw8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+
+### Slides
+The **slides** for this section are displayed below, and can be downloaded [here](/slides/slidesForeword.pdf).
+
+<html>
+<body>
+  <object data="/slides/slidesForeword.pdf##view=fit" type="application/pdf" width="420" height="237">
+        <embed src="/slides/slidesForeword.pdf##view=fit" type="application/pdf"/>
+  </object>
+</body>
+</html>

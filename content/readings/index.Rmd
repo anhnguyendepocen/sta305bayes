@@ -1,0 +1,59 @@
+---
+title: Lectures additionnelles
+slug: readings
+citeproc: true
+bibliography: ../../static/bib/references.bib
+csl: ../../static/bib/chicago-syllabus-no-bib.csl
+output:
+  blogdown::html_page:
+    toc: true
+    fig_caption: false
+---
+
+Vous trouverez ci-dessous des lectures complémentaires à propos de l'analyse bayésienne ainsi que des exemples de son applications dans la recherche médicale.
+Vous pouvez à chaque fois télécharger le fichier *.pdf* en cliquant sur l'image `r emo::ji("newspaper")`.
+
+## Introductions à la statistique bayésienne pour des scientifiques appliqués (biologistes ou médecins)
+
+[`r emo::ji("newspaper")`](/readings/Puga2015BayesTheorem.pdf) [@puga2015BayesTheorem]
+
+[`r emo::ji("newspaper")`](/readings/Puga2015BayesianStats.pdf) [@puga2015BayesianStat]
+
+[`r emo::ji("newspaper")`](/readings/mcglothlin2018JAMA.pdf) [@mcglothlin2018Bayesian]
+
+[`r emo::ji("newspaper")`](/readings/Grewal2015Markov.pdf) [@grewal2019Markov]
+
+[`r emo::ji("newspaper")`](/readings/Eddy2004NatureBiotech.pdf) [@eddy2004What]
+
+## L'approche bayésienne dans la littérature médicale --- quelques exemples
+
+### Ré-analyse bayésienne d'un essai clinique
+
+#### Étude originale
+
+[`r emo::ji("newspaper")`](/readings/Combes2018NEJM.pdf) [@combes2018Extracorporeal] 
+
+#### Ré-analyse bayésienne
+
+[`r emo::ji("newspaper")`](/readings/Goligher2018JAMA.pdf) [@goligher2018Extracorporeal]
+
+#### Commentaires & réponse
+
+[`r emo::ji("newspaper")`](/readings/Lewis2018JAMA.pdf) [@lewis2018Time]
+
+[`r emo::ji("newspaper")`](/readings/CommentGoligher2018JAMA.pdf) [@aberegg2018Post] [@ferreira2018Post] [@goligher2018Post]
+
+
+### Méta-analyse bayésienne
+
+[`r emo::ji("newspaper")`](/readings/rover2017Bayesmeta.pdf) [@rover2017bayesmeta]
+
+[`r emo::ji("newspaper")`](/readings/Crins2014IIL2.pdf) [@crins2014Interleukin2]
+
+[`r emo::ji("newspaper")`](/readings/arya2020JAMA.pdf) [@arya2020Practical]
+
+[`r emo::ji("newspaper")`](/readings/Serghiou2019JAMA.pdf) [@serghiou2019RandomEffects]
+
+### *Continuous Reassessment Methods* (CRM) pour la recherche de dose
+
+[`r emo::ji("newspaper")`](/readings/Kaguelidou2016_PlosOne.pdf) [@kaguelidou2016DoseFinding]

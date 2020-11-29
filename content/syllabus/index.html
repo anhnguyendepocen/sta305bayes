@@ -1,0 +1,90 @@
+---
+title: Syllabus
+slug: syllabus
+citeproc: true
+bibliography: ../../static/bib/references.bib
+csl: ../../static/bib/chicago-syllabus-no-bib.csl
+output:
+  blogdown::html_page:
+    toc: true
+    fig_caption: false
+---
+
+<link href="/rmarkdown-libs/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
+
+<div id="TOC">
+<ul>
+<li><a href="#objectifs-du-cours">Objectifs du cours</a></li>
+<li><a href="#technologies">Technologies</a><ul>
+<li><a href="#r-rstudio">R &amp; RStudio</a></li>
+<li><a href="#logiciel-jags">Logiciel <code>JAGS</code></a></li>
+</ul></li>
+<li><a href="#messagerie-instantanée">Messagerie instantanée</a></li>
+</ul>
+</div>
+
+{{% courseinfo %}}
+<p>L’analyse bayésienne est un outil statistique de plus en plus populaire dans les sciences biomédicales. Les approches bayésiennes deviennent de plus en plus courantes, comme par exemple dans les plans d’adaptation pour les essais de phase I/II, dans les méta-analyses et également dans l’analyse transcriptomique. Ce cours fournit une introduction aux outils bayésiens, avec un accent sur les applications biostatistiques.</p>
+<p>Grâce à son interprétation probabiliste et sa facilité de modélisation hiérarchique, le cadre bayésien estattrayant, en particulier lorsque le nombre d’observations est faible. Il peut incorporer de nouvelles observations au fur et à mesure que celles-ci deviennent disponibles — une caractéristique importante pour les essais cliniques. Grâce aux outils informatiques modernes, la mise en place d’une analyse bayésienne en pratique est devenue relativement simple, ce qui contribue à sa popularité croissante. <code>JAGS</code> est un logiciel flexible interfacé avec <i class="fab  fa-r-project " style="color:#0085d6;"></i>, qui permet de facilement spécifier un modèle bayésien, et qui effectue automatiquement l’inférence pour les distributions <em>a posteriori</em> des paramètres d’intérêt tout en proposant des sorties graphiques pour contrôler la qualité de l’analyse.</p>
+<div id="objectifs-du-cours" class="section level2">
+<h2>Objectifs du cours</h2>
+<p><strong>Se familiariser avec l’approche bayésienne :</strong></p>
+<ol style="list-style-type: decimal">
+<li>Être capable de proposer une modélisation bayésienne adéquate face à un problème concret<br />
+</li>
+<li>Savoir calculer la distribution <em>a posteriori</em> dans le cas de relations de conjugaison<br />
+</li>
+<li>Comprendre l’impact de la loi <em>a priori</em> et la notion de loi <em>a priori</em> faiblement-informative<br />
+</li>
+<li>Comprendre la notion de MAP et de moyenne a posteriori, d’intervalle de crédibilité ainsi que la différence avec un intervalle de confiance<br />
+</li>
+<li>Comprendre les algorithmes d’échantillonnage et leur utilité<br />
+</li>
+<li>Comprendre le fonctionnement des algorithmes MCMC<br />
+</li>
+<li>Savoir utiliser le logiciel <code>JAGS</code> et en interpréter les sorties<br />
+</li>
+<li>Comprendre les notions de risques et de coûts, et leurs implications dans la théorie de la décision<br />
+</li>
+<li>Pouvoir comprendre, décrire et interpréter une modélisation bayésienne à partir d’un article scientifique</li>
+<li>Être capable de reproduire une analyse bayésienne telle qu’un modèle de régression</li>
+</ol>
+</div>
+<div id="technologies" class="section level2">
+<h2>Technologies</h2>
+<p>Il existe aujourd’hui plusieurs logiciels utilisables pour effectuer une analyse bayésienne. Dans ce cours, nous mentionnerons uniquement <i class="fab  fa-r-project " style="color:#0085d6;"></i> and <code>JAGS</code> (les alternatives telles que <a href="https://www.mrc-bsu.cam.ac.uk/software/bugs/the-bugs-project-winbugs/"><code>WinBUGS</code></a> où <a href="https://mc-stan.org/"><code>STAN</code></a> ne serons pas envisagées).</p>
+<div id="r-rstudio" class="section level3">
+<h3>R &amp; RStudio</h3>
+<p>Les travaux pratiques de ce cours utilise largement le logiciel <i class="fab  fa-r-project " style="color:#0085d6;"></i> ! Merci de vous assurer que vous avez une installation à jour, comprenant :</p>
+<ul>
+<li>la dernier version de <i class="fab  fa-r-project " style="color:#0085d6;"></i> (≥ 4.0.0) 👉 <a href="https://cran.r-project.org/" class="uri">https://cran.r-project.org/</a> (regarder les instructions — en abglais — pour l’installer <a href="https://vimeo.com/203516510">ici</a>)</li>
+<li>la dernière version de RStudio (≥ 1.3.1093) 👉 <a href="https://www.rstudio.com/products/rstudio/download/#download" class="uri">https://www.rstudio.com/products/rstudio/download/#download</a></li>
+</ul>
+<p>Si vous n’êtes pas (encore) à l’aise avec <i class="fab  fa-r-project " style="color:#0085d6;"></i>, vous pouvez vous jeter un oeil à ces différentes ressources (gratuites) — en anglais :</p>
+<ul>
+<li><p>le cours d’introduction <a href="https://tinystats.github.io/teacups-giraffes-and-statistics/01_introToR.html">Teacups Giraffe turorial</a> Hasse Walum &amp; Desirée De Leon</p></li>
+<li><p>l’introduction <a href="https://stat545.com/r-basics.html">Get Your R Act Together</a> de Jenny Brian</p></li>
+<li><p>le livre <a href="https://r4ds.had.co.nz/">R for data science</a> de Hadley Whickam</p></li>
+<li><p>les leçons 1 à 9 du cours <em>R Programming</em> de <a href="https://swirlstats.com/students.html">SWIRL</a></p></li>
+<li><p>également d’autres ressources ici: <a href="https://education.rstudio.com/learn/beginner/" class="uri">https://education.rstudio.com/learn/beginner/</a></p></li>
+</ul>
+</div>
+<div id="logiciel-jags" class="section level3">
+<h3>Logiciel <code>JAGS</code></h3>
+<ul>
+<li><p>installez le logiciel <code>JAGS</code> depuis ici 👉 <a href="https://sourceforge.net/projects/mcmc-jags/files/" class="uri">https://sourceforge.net/projects/mcmc-jags/files/</a></p></li>
+<li><p>installer le <em>package</em> <i class="fab  fa-r-project " style="color:#0085d6;"></i> <code>rjags</code> grâce aux commandes suivantes ::</p>
+<pre class="r"><code>install.packages(&quot;rjags&quot;)</code></pre>
+<p>Verifier que l’installation fonctionne en executant la commande suivante :</p>
+<pre class="r"><code>library(rjags)</code></pre>
+<p>Si cela fonctionne bel et bien, vous devriez voir la sortie suivante :</p>
+<pre><code>## Le chargement a nécessité le package : coda
+## Linked to JAGS 4.3.0
+## Loaded modules: basemod,bugs</code></pre></li>
+</ul>
+</div>
+</div>
+<div id="messagerie-instantanée" class="section level2">
+<h2>Messagerie instantanée</h2>
+<p>J’ai créée un espace de travail <a href="https://sta305bayes.slack.com">Slack</a>, afin que nous (les étudiants et l’enseignant) puissions avoir des conversations asynchrone, mais également pour que vous (les étudiants) puissiez être en contact et communiquer entre vous.</p>
+</div>

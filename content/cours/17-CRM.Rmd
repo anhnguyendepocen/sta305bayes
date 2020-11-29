@@ -1,0 +1,32 @@
+---
+title: ""
+linktitle: "Essai clinique adaptatifs de phase I/II : analyse bayésienne et méthodes de recherche de doses"
+date: "2020-11-30"
+read_date: "2020-11-30"
+menu:
+  cours:
+    parent: "IV Études de cas"
+    weight: 3
+type: docs
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
+slides: "01-slides"
+output:
+  blogdown::html_page:
+    toc: false
+---
+
+## Essai clinique adaptatifs de phase I/II : analyse bayésienne et méthodes de recherche de doses
+
+### Introduction à la méthode de ré-évaluation séquentielle pour la recherche de dose
+
+La méthode de réévaluation séquentielle (*Continual Reassessment Methods* --- CRM)
+peut être utilisé dans les essais de phase I en escalade de doses, où l'objectif est d'identifier la dose optimale (c'est-à-dire avec la plus grande efficacité tout en maintenant une toxicité acceptable : plus la dose est élevée, plus l'efficacité est grande, mais en même temps la toxicité est grande). L'idée est alors de sélectionner itérativement la dose qui sera administrée au prochain patient recruté, en se basant sur l'accumulation des observations des patients précédemment inclus dans l'étude. Ce plan d'essai a été présenté pour la première fois par O'Quigley *et al.*[@oquigley1990CRM] en 1990, et il est de plus en plus utilisé (bien qu'encore minoritaire pour de tels essais).\smallskip
+
+Un argument fort en faveur du CRM est qu'il permet de traiter chaque patient de manière éthique en donnant toujours la dose la plus appropriée selon les données déjà observées, tout en recherchant la dose optimale globale. L'approche bayésienne est particulièrement bien adaptée à de telles études grâce à sa capacité à formaliser facilement les connaissances préalables et sa règle de composition (voir l'approche Bayes séquentiel).
+
+À noter que dans ce contexte de recherche de dose, la modélisation de l'effet du médicament nécessite une composante de pharmaco-cinétique et/ou de pharmaco-dynamique qui dépasse le cadre de ce cours.
+
+### Lecture critique de l'article de Kaguelidou *et al.* (*PLOS ONE*, 2016)
+
+Kaguelidou *et al.*[@kaguelidou2016DoseFinding] ont conduit une étude de recherche de dose pour l'oméprazole afin de normaliser le pH gastrique chez les nouveau-nés atteints de Reflux Gastro-Oesophagien (GRO) acide (*Gastro-Esophageal Acid Reflux* --- *GEAR*) afin de déterminer la dose efficace minimale. Ils ont utilisé un design en CRM afin de sélectionner la dose du médicament aussi près que possible du niveau d'efficacité cible défini au préalable (avec un intervalle de crédibilité de 95\%).

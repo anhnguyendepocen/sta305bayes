@@ -1,0 +1,68 @@
+---
+title: Évaluation
+slug: projet
+citeproc: true
+bibliography: ../../static/bib/references.bib
+csl: ../../static/bib/chicago-fullnote-bibliography-no-bib.csl
+output:
+  blogdown::html_page:
+    toc: true
+    fig_caption: false
+---
+
+
+<div id="TOC">
+<ul>
+<li><a href="#consignes">Consignes</a></li>
+<li><a href="#sujets">Sujets</a></li>
+</ul>
+</div>
+
+<p>Vous serez évalués dans cette UE selon un rendu de projet sous forme de rapport écrit. <strong><em>Ce rapport est à rendre le vendredi 18 décembre à 23h59 au plus tard à l’adresse e-mail : <a href="mailto:boris.hejblum@u-bordeaux.fr">boris.hejblum@u-bordeaux.fr</a></em></strong></p>
+<div id="consignes" class="section level2">
+<h2>Consignes</h2>
+<ul>
+<li><strong>Composition des groupes</strong>
+<ol style="list-style-type: decimal">
+<li>Blandine Gendre, Klervi Le Gall, Minh Huyen Ton Nu Nguyet &amp; Herman Nzaba Loundou</li>
+<li>Alexis François, Samantha Labarbe, Aurelien Lascouts &amp; Mélanie Huchon</li>
+<li>Ariane Bercu, Olivier Quintin &amp; Grace Zinsou</li>
+<li>Antoine Gouelibo, Lyvia Magloire &amp; Noelia Retuerto</li>
+</ol></li>
+<li><strong>Rapport</strong><br />
+Votre rapport comportera 10 pages maximum (hors annexes) rédigées en police 11.<br />
+Il comportera les éléments suivants :
+<ul>
+<li>un résumé d’une demi-page</li>
+<li>une introduction à la question scientifique posée</li>
+<li>le modèle Bayésien sous forme mathématique</li>
+<li>calcul analytique du numérateur de la loi <strong>a posteriori</strong> (et identification de la loi si possible)</li>
+<li>résultats d’une implémentation du modèle en <code>R</code> + <code>JAGS</code> (faire figurer les codes en annexe uniquement)</li>
+<li>évaluation de la convergence numérique pour l’analyse principale</li>
+<li>une étude de sensibilité aux choix des <em>a priori</em></li>
+<li>une interprétation des résultats</li>
+<li>une discussion des limites de votre analyse</li>
+</ul>
+<em>Pro-tip</em> : soyez synthétiques (“<em>Less <strong>is</strong> more</em>”) !</li>
+</ul>
+</div>
+<div id="sujets" class="section level2">
+<h2>Sujets</h2>
+<p>Le groupe 1 se voit attribuer le sujet 1, le groupe 2 le sujet 2, le groupe 3 le sujet 3, et le groupe 4… le sujet 4 (!) :</p>
+<ol style="list-style-type: decimal">
+<li><p>Ré-analyse bayésienne de la méta-analyse sur le traitement de la COVID-19 par hydroxychloroquine présentée dans l’article de <a href="/readings/Fiolet2020CMI.pdf">Fiolet <em>et al.</em></a>.<span class="citation"><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></span></p></li>
+<li><p>Ré-analyse bayésienne de la méta-analyse sur les performances tests antigéniques pour détecter le SARS à partir de la <a href="/readings/syntheseHAS_tests_antigeniques.pdf">Synthèse de la Haute Autorité de Santé du 8 octobre 2020</a>.<span class="citation"><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></span></p></li>
+<li><p>Estimation bayésienne de la prévalence de la COVID-19 en Islande et aux États-Unis à partir de l’article de <a href="/readings/Gao2020JAMIA.pdf">Gao &amp; Dong</a>.<span class="citation"><a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></span></p></li>
+<li><p>Ré-analyse bayésienne de l’étude de <a href="/readings/Gelman2020JRSSC.pdf">Bendavid <em>et al.</em></a><span class="citation"><a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a></span> sur la séroprévalence d’anticorps au SARS-CoV-2 en Californie à partir de l’article de <a href="/readings/Gelman2020JRSSC.pdf">Gelman &amp; Carpenter</a>.<span class="citation"><a href="#fn5" class="footnote-ref" id="fnref5"><sup>5</sup></a></span></p></li>
+</ol>
+</div>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p>Thibault Fiolet et al., “Effect of Hydroxychloroquine with or Without Azithromycin on the Mortality of Coronavirus Disease 2019 (Covid-19) Patients: A Systematic Review and Meta-Analysis,” <em>Clinical Microbiology and Infection</em>, 2020, in press, doi:<a href="https://doi.org/10.1016/j.cmi.2020.08.022" role="doc-biblioref">10.1016/j.cmi.2020.08.022</a>.<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>Haute Autorité de Santé, “Revue Rapide Sur Les Tests de Détection Antigénique Du Virus Sars-Cov-2,” 2020, <a href="https://www.has-sante.fr/jcms/p_3213483/fr/revue-rapide-sur-les-tests-de-detection-antigenique-du-virus-sars-cov-2" role="doc-biblioref">https://www.has-sante.fr/jcms/p_3213483/fr/revue-rapide-sur-les-tests-de-detection-antigenique-du-virus-sars-cov-2</a>.<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
+<li id="fn3"><p>Xiang Gao and Qunfeng Dong, “A Primer on Bayesian Estimation of Prevalence of Covid-19 Patient Outcomes,” <em>JAMIA Open</em>, November 2020, 2574–31, doi:<a href="https://doi.org/10.1093/jamiaopen/ooaa062" role="doc-biblioref">10.1093/jamiaopen/ooaa062</a>.<a href="#fnref3" class="footnote-back">↩︎</a></p></li>
+<li id="fn4"><p>Eran Bendavid et al., “COVID-19 Antibody Seroprevalence in Santa Clara County, California,” <em>medRxiv</em>, 2020, 2020.04.14.20062463, doi:<a href="https://doi.org/10.1101/2020.04.14.20062463" role="doc-biblioref">10.1101/2020.04.14.20062463</a>.<a href="#fnref4" class="footnote-back">↩︎</a></p></li>
+<li id="fn5"><p>Andrew Gelman and Bob Carpenter, “Bayesian Analysis of Tests with Unknown Specificity and Sensitivity,” <em>Journal of the Royal Statistical Society: Series C (Applied Statistics)</em> 69, no. 5 (2020): 1269–83, doi:<a href="https://doi.org/10.1111/rssc.12435" role="doc-biblioref">10.1111/rssc.12435</a>.<a href="#fnref5" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>

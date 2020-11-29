@@ -1,0 +1,50 @@
+---
+title: ""
+linktitle: "Extensions"
+date: "2020-11-30"
+read_date: "2020-11-30"
+menu:
+  cours:
+    parent: "II Modélisation Bayésienne"
+    weight: 4
+type: docs
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
+slides: "01-slides"
+output:
+  blogdown::html_page:
+    toc: false
+---
+
+## Extensions
+
+### Hyper-*priors* & modèles hiérarchiques
+
+Dans le modèle bayésien classique, on considère deux niveaux hierarchiques : d'abord $\pi(\theta)$, puis  $f(\boldsymbol{y}|\theta)$. Il est possible de rajouter un niveau en donnant également un *a priori* au paramètre $\eta$ de $\pi(\theta)$, appelé hyper-paramètre : $\pi(\theta|\eta)$. Appliquant l'approche bayésienne, on peut donner à cet hyper-paramètre une loi *a priori*, appelée alors hyper-*prior* et que l'on note $h(\eta)$. La distribution *a posteriori* est :
+\begin{align*}
+p(\theta|\boldsymbol{y}) = \frac{f(\boldsymbol{y}|\theta)\pi(\theta)}{f(\boldsymbol{y})} = \frac{\int f(\boldsymbol{y}|\theta)\pi(\theta|\eta)h(\eta) d\eta}{f(\boldsymbol{y})} = \frac{f(\boldsymbol{y}|\theta) \int \pi(\theta|\eta)h(\eta) d\eta}{f(\boldsymbol{y})}
+ \end{align*}
+On remarque donc que cette modélisation hierarchique à 3 niveaux est équivalente à une modélisation bayésienne à deux niveaux avec une distribution *a priori* qui devient : $\textstyle \pi(\theta) = \int \pi(\theta|\eta)h(\eta) d\eta$. Néanmoins cette construction hiérarchique peut faciliter l'étape de modélisation ainsi que l'élicitation des lois*a priori*. Il est d'ailleurs même possible de construire des modèles avec plus de trois niveaux, considérant que la distribution de $\eta$ dépend elle-même d'hyper-hyper-paramètres, et ainsi de suite... Un cas d'utilisation typique de modélisation bayésienne hiérarchique est l'inclusion d'effets aléatoires dans le modèle linéaire. Un autre exemple sont les modèles à classes latentes. On note ici que la frontière entre modélisation fréquentiste et bayésienne s'amincit, et qu'elle se joue principalement sur l'interprétation des paramètres (et donc des résultats).\smallskip
+
+
+Si l'on reprend l'exemple historique du sexe à la naissance avec un *a priori* Beta, on peut proposer deux hyper-*priors* Gamma pour $\alpha$ et $\beta$ :
+\begin{align*}
+  \alpha\sim\text{Gamma}(4, 0.5)\\
+  \beta\sim\text{Gamma}(4, 0.5)\\
+  \theta|\alpha, \beta\sim\text{Beta}(\alpha, \beta)\\
+  Y_i|\theta \overset{iid}{\sim} \text{Bernoulli}(\theta)
+\end{align*}
+
+
+### Approche bayésienne empirique
+
+Cette approche consiste à éliciter la loi *a priori* d'après sa loi marginale empirique, et donc à estimer la distribution *a priori* à partir des données. Cela revient donc à se donner des hyper-paramètres et à chercher à les estimer de manière fréquentiste (par exemple par maximum de vraisemblance) par $\hat{\eta}$, avant d'injecter cet estimateur dans la distribution *a priori* et donc d'obtenir la distribution *a posteriori* $p(\theta|\boldsymbol{y},\hat{\eta})$. Cette approche **bayésienne empirique** qui combine bayésien et fréquentiste peut sembler aller à l'encontre de la notion d'*a priori*, puisque l'on utilise alors déjà les données pour choisir l'*a priori*. Néanmoins, on peut voir l'approche bayésienne empirique comme une approximation de l'approche bayésienne complète. Son utilisation résulte en une distribution *a posteriori* plus ressérée qu'avec un *a priori* faiblement informatif (diminution de la variance), au prix de l'introduction d'un biais dans l'estimation (on "utilise les données 2 fois" !). Cette approche illustre une fois de plus la balance existant entre biais et variance, classique dans toute procédure d'estimation.
+
+
+
+### Bayésien séquentiel
+
+À noter que le théorème de Bayes peut être utilisé de manière séquentielle. Omettant le dénominateur (qui ne dépend pas de $\theta$) on peut écrire : $p(\theta|\boldsymbol{y}) \propto f(\boldsymbol{y}|\theta)\pi(\theta)$. Si $\boldsymbol{y} = (\boldsymbol{y}_1,\boldsymbol{y}_2)$, on a : $p(\theta|\boldsymbol{y}) \propto f(\boldsymbol{y}_2|\theta)f(\boldsymbol{y}_1|\theta)\pi(\theta) \propto f(\boldsymbol{y}_2|\theta)p(\theta|\boldsymbol{y}_1)$. La distribution *a posteriori* sachant $\boldsymbol{y}_1$ devient ainsi la distribution *a priori* pour la nouvelle observation $\boldsymbol{y}_2$. On peut donc mettre à jour l'information sur $\theta$ au fur et à mesure qu'arrivent les observations (approche *online*).
+
+
+

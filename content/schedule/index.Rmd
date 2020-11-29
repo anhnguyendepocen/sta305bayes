@@ -1,0 +1,45 @@
+---
+title: "Schedule"
+slug: schedule
+---
+
+This online class will span over 3 consecutive Thursdays. This schedule is intended to give you enough time to complete.
+
+- [**Lectures**](/lectures/) <i class="fas fa-book-reader"></i> <i class="fas fa-chalkboard-teacher"></i> : this page contains the recorded lecture videos, the lecture notes and the slides for this class.
+- [**Practicals**](/practicals/) <i class="fas fa-laptop-code"></i> : this page contains the practicals code exercise corresponding to the topics covered each of the 3 days.
+
+On *Tuesday June 23 3pm*, I ask that you **send me your attempt at solving the practicals** by [email](mailto::boris.hejblum@u-bordeaux.fr) – *before 3pm*. Thus, I will be able to assess your progress, and focus the live sessions on day 3 on the potential difficulties you encountered previously.
+
+---
+
+| **Date**       | **Time**        | **Activity**                                                                                                      | **Topic**                               |
+|:---------------|:----------------|:------------------------------------------------------------------------------------------------------------------|:----------------------------------------|
+| **June 11**    | 8:15am-10:15am        | `r emo::ji("clapper_board")` `r emo::ji("popcorn")` `r emo::ji("open_book")` Watch lectures & read lecture notes  | Part I: Intro to Bayesian stats         |
+|                | 10:15am-10:30am    | `r emo::ji("pause_button")` Break                                                                                 |                                         |
+|                | 10:30am-11:30am | `r emo::ji("video_camera")` `r emo::ji("man_technologist")` `r emo::ji("question")` Live zoom Q&A                 | Questions & explanations about part I   |
+|                | 11:30am-12:15pm | `r emo::ji("sandwich")` Lunch break                                                                               |                                         |
+|                | 12:15pm-1:15pm  | `r emo::ji("clapper_board")` `r emo::ji("popcorn")` `r emo::ji("open_book")` Watch lectures & read lecture notes  | Part II: Bayesian computation (intro)   |
+|                | 1:15pm-1:30pm   | `r emo::ji("pause_button")` Break                                                                                 |                                         |
+|                | 1:30pm- 2:30pm  | `r emo::ji("computer")` Practicals on your own                                                                     | • Exercise 1: "Monte Carlo" <br> • Exercise 2: "Inverse transform sampling" |
+|                | 2:30pm-3pm      | `r emo::ji("video_camera")` `r emo::ji("man_technologist")` `r emo::ji("question")` Live R coding on zoom         |                                         |
+| **June 18**    | 8:15am-10:15am  | `r emo::ji("clapper_board")` `r emo::ji("popcorn")` `r emo::ji("open_book")` Watch lectures & read lecture notes  | Finish *Part II: Bayesian computation* |
+|                | 10:15am-10:30am | `r emo::ji("pause_button")` Break                                                                                 |                                         |
+|                | 10:30am-11:30am | `r emo::ji("video_camera")` `r emo::ji("man_technologist")` `r emo::ji("question")` Live zoom Q&A                 | Questions & explanations about the lectures in part II  |
+|                | 11:30am-12:15pm | `r emo::ji("sandwich")` Lunch break                                                                               |                                         |
+|                | 12:15pm- 1:30pm | `r emo::ji("computer")` `r emo::ji("video_camera")` Practicals on your own                                                                     | • Exercise 3: "Metropolis-Hastings" <br> • Exercise 4: "`BUGS` & `JAGS`" |
+|                | 1:30pm-1:45pm   | `r emo::ji("pause_button")` Break                                                                                 |                                         |
+|                | 1:45pm-3pm      | `r emo::ji("computer")` `r emo::ji("video_camera")` `r emo::ji("speaking_head")` `r emo::ji("busts_in_silhouette")` Practicals in break out rooms on zoom            |• Exercise 3: "Metropolis-Hastings" <br> • Exercise 4: "`BUGS` & `JAGS`" |
+| **June 23**    | *before 3pm*    | `r emo::ji("incoming_envelope")` *send in your attempt at solving practicals exercises 3 & 4*                                   |                                         |
+| **June 25**    | 8:15am-8:45am      | `r emo::ji("video_camera")` `r emo::ji("man_technologist")` `r emo::ji("question")` Correction of practicals 2    | • Exercise 3: "Metropolis-Hastings" <br> • Exercise 4: "`BUGS` & `JAGS`" |
+|                | 8:45am-9am   | `r emo::ji("pause_button")` Break                                                                                 |                                         |
+|                | 9am-10:15am  | `r emo::ji("clapper_board")` `r emo::ji("popcorn")` `r emo::ji("open_book")` `r emo::ji("newspaper")` Watch lectures, read lecture notes & read scientific articles  | Part III: Applications                  |
+|                | 10:15am-10:30am  | `r emo::ji("pause_button")` Break                                                                                 |                                         |
+|                | 10:30am-11:30am | `r emo::ji("video_camera")` `r emo::ji("man_technologist")` `r emo::ji("question")` Live zoom Q&A                 | Questions & explanations about part III |
+|                | 11:30am-12:15pm | `r emo::ji("sandwich")` Lunch break                                                                               |                                         |
+|                | 12:15pm- 1pm    | `r emo::ji("computer")` `r emo::ji("newspaper")` Practicals on your own                                                                     | • Exercise 5: "Post-mortem Bayes" <br> • Exercise 6: "Bayesian meta-analysis" <br> • Exercise 7: "How not to report a CRM" |
+|                | 1pm-1:15pm   | `r emo::ji("pause_button")` Break                                                                                 |                                         |
+|                | 1:15pm-2pm      | `r emo::ji("computer")` `r emo::ji("newspaper")` `r emo::ji("video_camera")` `r emo::ji("speaking_head")` `r emo::ji("busts_in_silhouette")` Practicals in break out rooms on zoom            |• Exercise 5: "Post-mortem Bayes" <br> • Exercise 6: "Bayesian meta-analysis" <br> • Exercise 7: "How not to report a CRM"  |
+|                | 2pm-2:15pm   | `r emo::ji("pause_button")` Break                                                                                 |                                         |
+|                | 2:15pm-3pm      | `r emo::ji("video_camera")` `r emo::ji("man_technologist")` `r emo::ji("newspaper")` `r emo::ji("question")` Correction of practicals 3    | • Exercise 5: "Post-mortem Bayes" <br> • Exercise 6: "Bayesian meta-analysis" <br> • Exercise 7: "How not to report a CRM" |    
+
+---

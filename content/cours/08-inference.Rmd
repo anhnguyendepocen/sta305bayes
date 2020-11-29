@@ -1,0 +1,211 @@
+---
+title: ""
+linktitle: "Inférence bayésienne"
+date: "2020-11-30"
+read_date: "2020-11-30"
+menu:
+  cours:
+    parent: "II Modélisation Bayésienne"
+    weight: 5
+type: docs
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
+slides: "01-slides"
+output:
+  blogdown::html_page:
+    toc: false
+---
+
+## Inférence bayésienne
+
+Une fois la modélisation bayésienne terminée, on dispose de la distribution *a posteriori* (obtenue grâce au choix de la distribution *a priori*, du modèle d'échantillonnage et des données observées). Cette distribution contient l'ensemble de l'information sur $\theta$ conditionnellement au modèle et aux données. On peut néanmoins s'intéresser à des résumés de cette distribution, par exemple à un paramètre central de cette distribution tel que l'espérance, le mode ou encore la médiane (ces derniers sont analogues aux estimateurs ponctuels obtenus par l'analyse fréquentiste), où à des intervalles de valeurs dont la probabilité *a posteriori* est forte.
+
+### Théorie de la décision
+
+La théorie de la décision statistique est généralement utilisée dans un contexte d'estimation d'un paramètre inconnu $\theta$. La décision concerne alors le choix d'un estimateur ponctuel $\widehat{\theta}$. Afin de déterminer le $\widehat{\theta}$ optimal, on définit une **fonction de coût** (à valeur dans $[0, +\infty[$) représentant la pénalité associée au choix d'un $\widehat{\theta}$ particulier (c'est-à-dire à la décision associée). Afin de déterminer le $\widehat{\theta}$ optimal (c'est-à-dire la décision optimale) on va vouloir minimiser la fonction de coût choisie. À noter qu'un grand nombre de fonctions de coût différentes sont possibles, et que chacune d'entre elle résulte en un estimateur ponctuel optimal différent et donc une décision optimale spécifique.
+
+
+### L'espérance *a posteriori*
+
+L'espérance *a posteriori* est définie par : 
+$$\mu_P = \mathbb{\mathbb{E}}(\theta|\boldsymbol{y}) = \mathbb{E}_{\theta|\boldsymbol{y}}(\theta)$$
+À noter que le calcul de cette espérance *a posteriori* n'est pas toujours facile car il suppose le calcul d'une intégrale...\smallskip
+
+D'un point de vue fréquentiste, c'est l'estimateur qui a la plus petite variance *a posteriori* parmi tous les estimateurs sans biais. En effet, pour un estimateur sans biais de $\theta$ quelconque $\hat{\theta}$ : 
+\begin{align*}
+\mathbb{E}_{\theta|\boldsymbol{y}}(\hat{\theta} - \theta)^2 & = \mathbb{E}_{\theta|\boldsymbol{y}}(\theta-\mu_P +\mu_P -\hat{\theta})^2\\
+ & = \mathbb{E}_{\theta|\boldsymbol{y}}(\theta-\mu_P)^2 +\mathbb{E}_{\theta|\boldsymbol{y}}(\mu_P -\hat{\theta})^2\; ^*\\
+ & \geq \mathbb{E}_{\theta|\boldsymbol{y}}(\theta-\mu_P)^2\smallskip\\
+ & ^*\text{ car } \theta \text{est constant du point de vue fréquentiste et par linéarité de l'espérance}
+\end{align*}
+$\mu_P$ minimise alors l'expression ci-dessus en annulant le deuxième terme (on remarque que l'erreur en moyenne quadratique est égale à la variance, puisque l'on s'intéressent aux estimateurs sans biais). 
+
+
+
+### Le maximum *a posteriori*
+
+Le maximum a été beaucoup utilisé, surtout car il est plus facile (ou en tout cas moins difficile) à calculer. En effet, il ne requiert aucun calcul d'intégrale, mais une simple maximisation de $f(\boldsymbol{y}|\theta)\pi(\theta)$ (car le dénominateur $f(\boldsymbol{y})$ ne dépend pas de $\theta$). L'estimateur du mode s'appelle le **maximum *a posteriori*** (souvent noté **MAP**).
+
+Le MAP peut être vu comme une régularisation de l'estimateur du maximum de vraisemblance, dont il est proche.
+
+
+
+### La médiane *a posteriori*
+
+La médiane est également un résumé possible de la distribution *a posteriori*. Comme son nom l'indique, il s'agit de la médiane de $p(\theta | \boldsymbol(y))$. Il s'agit de l'estimateur ponctuel optimal au sens de l'erreur absolue (fonction de coût linéaire).
+
+
+
+### L'intervalle de crédibilité
+
+Finalement on peut définir un ensemble de valeurs ayant une forte probabilité *a posteriori*. Un tel ensemble est appelé **ensemble de crédibilité**. Si la loi *a posteriori* est unimodale, un tel ensemble est un intervalle. Par exemple, un **intervalle de crédibilité à 95%** est un intervalle $[t_{inf};t_{sup}]$ tel que $\textstyle\int_{t_{inf}}^{t_{sup}} p(\theta|\boldsymbol{y})\,\text{d}\theta = 0.95$. En général on est intéressé par l'intervalle de crédibilité à 95\% le plus étroit possible (*Highest Density Interval*).\smallskip
+
+
+On rappelle ici l'interprétation d'un intervalle de confiance fréquentiste au niveau 95\%, qui s'interprète comme suit, par rapport à l’ensemble des intervalles de ce niveau qu’on aurait pu observer : ...
+
+> ...   
+...  
+...
+
+`r if(knitr::is_html_output()){emo::ji("warning")}` 
+\noindent \textcolor{red}{\danger~} on ne peut pas interpréter une réalisation d'un intervalle de confiance en terme probabiliste ! C'est une erreur qui est souvent commise... L'intervalle de crédibilité s'interprète lui bien plus naturellement, comme un intervalle qui a 95% de chance de contenir $\theta$ (pour un niveau de 95%, évidemment).
+
+
+
+### Distribution prédictive
+
+La **distribution prédictive** (appelée parfois *posterior predictive*) est définie comme la distribution d'une nouvelle observation $Y_{n+1}$ sachant les observations de l'échantillon. Elle se calcule comme la distribution de $Y_{n+1}$ sachant $\boldsymbol{y}$, marginalement par rapport à $\theta$. $f_{Y_{n+1}} (y|\boldsymbol{y}) = \int f_{Y_{n+1}}(y|\theta)p(\theta|\boldsymbol{y}) \,\text{d}\theta$. Le calcul se fait ainsi :
+\begin{align*}
+f_{Y_{n+1}}(y|\boldsymbol{y}) &= \int f_{Y_{n+1}} (y, \theta|\boldsymbol{y}) \,\text{d}\theta\\
+  &= \int f_{Y_{n+1}} (y|\theta, \boldsymbol{y})p(\theta|\boldsymbol{y}) \,\text{d}\theta\\
+  &= \int f_{Y_{n+1}} (y|\theta)p(\theta|\boldsymbol{y}) \,\text{d}\theta
+\end{align*}
+On remarque le lien entre cette formule et celle de la distribution marginale : $f_Y(y) = \textstyle \int f_Y(y|\theta)\pi(\theta) \,\text{d}\theta$, qui peut être vue comme un cas particulier de la distribution prédictive quand il n'y a pas d'information apportée par l'échantillon observé. On note également la différence avec l'approche fréquentiste où l'on estime d'abord $\theta$ par $\hat{\theta}$, et l'on remplace $\theta$ par $\hat{\theta}$ pour obtenir la distribution prédictive : $f_{Y_{n+1}} (y|\hat{\theta})$.\bigskip
+
+
+
+:::{.Exercise data-latex=""}
+*Exercice* :  calculer la distribution prédictive sur l'exemple historique du sexe à la naissance pour un *a priori* uniforme.
+:::
+
+
+
+### Propriétés asymptotiques -- et fréquentistes -- de la distribution *a posteriori*
+
+
+#### Théorème de convergence de Doob 
+
+Un résultat très intéressant est le comportement asymptotique de la distribution *a posteriori* sous certaines hypothèses (cas $iid$, densités dérivables trois fois, existence de moments d'ordre 2). Il y a un premier résultat, le **théorème de convergence de Doob**, qui assure que la distribution *a posteriori* se concentre vers la vraie valeur du paramètre quand $n \rightarrow \infty$. On peut le noter (convergence en Loi) :
+$$p(\theta|\boldsymbol{y}_n) \overset{\mathcal{L}}{\rightarrow} \delta_{\theta^*}$$\medskip
+
+```{r Posterior density Uniform, echo=FALSE, eval=TRUE, fig.width=13, fig.height=6, out.width="95%", warning=FALSE}
+library(ggplot2)
+gg_color_hue <- function(n) {
+  hues = seq(15, 375, length = n + 1)
+  lumi <- seq(10, 90, length = n + 1)
+  hcl(h = hues, l = lumi, c = 100)[1:n]
+}
+
+# data2plot <- rbind.data.frame(cbind.data.frame("value"=seq(0,1, 0.01), "pdf"=dunif(seq(0,1, 0.01), 0, 1), "distrib"="prior"),
+#                          cbind.data.frame("value"=seq(0,1, 0.01), "pdf"=dbeta(seq(0,1, 0.01), 23, 27), "distrib"="posterior")
+#                          )
+# ggplot(data2plot) + geom_ribbon(aes(x=value, ymin=0, ymax=pdf, col=distrib, fill=distrib, group=distrib), alpha=0.13, size=0.8) + theme_bw() + ylab("Densité de probabilité") + xlab("y") + guides(colour=guide_legend(title="Distribution"), fill=guide_legend(title="Distribution"))+ggtitle("Exemple historique avec un *prior* uniforme")
+
+alpha.prior <- 2
+beta.prior <- 2
+data2plot <- rbind.data.frame(cbind.data.frame("value"=seq(0,1, 0.01), "pdf"=dbeta(seq(0,1, 0.01), alpha.prior, beta.prior), "distrib"="prior", "alpha"=2, "beta"=2, "nbObs"="0 naissance"),
+                         cbind.data.frame("value"=seq(0,1, 0.01), "pdf"=dbeta(seq(0,1, 0.01), alpha.prior, beta.prior), "distrib"="posterior", "alpha"=2, "beta"=2,  "nbObs"="0 naissance"),
+                         cbind.data.frame("value"=seq(0,1, 0.01), "pdf"=dbeta(seq(0,1, 0.01), alpha.prior, beta.prior), "distrib"="prior", "alpha"=2, "beta"=2,  "nbObs"="1 naissance dont 1 fille"),
+                         cbind.data.frame("value"=seq(0,1, 0.01), "pdf"=dbeta(seq(0,1, 0.01), alpha.prior+1, beta.prior), "distrib"="posterior", "alpha"=1, "beta"=1,  "nbObs"="1 naissance dont 1 fille"),
+                         cbind.data.frame("value"=seq(0,1, 0.01), "pdf"=dbeta(seq(0,1, 0.01), alpha.prior, beta.prior), "distrib"="prior", "alpha"=1, "beta"=1,  "nbObs"="2 naissances dont 2 filles"),
+                         cbind.data.frame("value"=seq(0,1, 0.01), "pdf"=dbeta(seq(0,1, 0.01), alpha.prior+2, beta.prior), "distrib"="posterior", "alpha"=1, "beta"=1,  "nbObs"="2 naissances dont 2 filles"),
+                         cbind.data.frame("value"=seq(0,1, 0.01), "pdf"=dbeta(seq(0,1, 0.01), alpha.prior, beta.prior), "distrib"="prior", "alpha"=1, "beta"=1,  "nbObs"="5 naissances dont 4 filles"),
+                         cbind.data.frame("value"=seq(0,1, 0.01), "pdf"=dbeta(seq(0,1, 0.01), alpha.prior+4, beta.prior+1), "distrib"="posterior", "alpha"=1, "beta"=1,  "nbObs"="5 naissances dont 4 filles"),
+                         cbind.data.frame("value"=seq(0,1, 0.01), "pdf"=dbeta(seq(0,1, 0.01), alpha.prior, beta.prior), "distrib"="prior", "alpha"=1, "beta"=1,  "nbObs"="10 naissances dont 6 filles"),
+                         cbind.data.frame("value"=seq(0,1, 0.01), "pdf"=dbeta(seq(0,1, 0.01), alpha.prior+6, beta.prior+4), "distrib"="posterior", "alpha"=1, "beta"=1,  "nbObs"="10 naissances dont 6 filles"),
+                         cbind.data.frame("value"=seq(0,1, 0.01), "pdf"=dbeta(seq(0,1, 0.01), alpha.prior, beta.prior), "distrib"="prior", "alpha"=1, "beta"=1,  "nbObs"="20 naissances dont 10 filles"),
+                         cbind.data.frame("value"=seq(0,1, 0.01), "pdf"=dbeta(seq(0,1, 0.01), alpha.prior+10, beta.prior+10), "distrib"="posterior", "alpha"=1, "beta"=1,  "nbObs"="20 naissances dont 10 filles"),
+                         cbind.data.frame("value"=seq(0,1, 0.01), "pdf"=dbeta(seq(0,1, 0.01), alpha.prior, beta.prior), "distrib"="prior", "alpha"=1, "beta"=1,  "nbObs"="40 naissances dont 20 filles"),
+                         cbind.data.frame("value"=seq(0,1, 0.01), "pdf"=dbeta(seq(0,1, 0.01), alpha.prior+20, beta.prior+20), "distrib"="posterior", "alpha"=1, "beta"=1,  "nbObs"="40 naissances dont 20 filles"),
+                         cbind.data.frame("value"=seq(0,1, 0.01), "pdf"=dbeta(seq(0,1, 0.01), alpha.prior, beta.prior), "distrib"="prior", "alpha"=1, "beta"=1,  "nbObs"="100 naissances dont 49 filles"),
+                         cbind.data.frame("value"=seq(0,1, 0.01), "pdf"=dbeta(seq(0,1, 0.01), alpha.prior+49, beta.prior+51), "distrib"="posterior", "alpha"=1, "beta"=1,  "nbObs"="100 naissances dont 49 filles")
+                         )
+data_est <- rbind.data.frame(cbind.data.frame("theta"=NA, "nbObs"="0 naissance", "method"="MLE"), 
+                             cbind.data.frame("theta"=0.49, "nbObs"="0 naissance", "method"="truth"), 
+                             cbind.data.frame("theta"=seq(0,1, 0.0001)[which.max(dbeta(seq(0,1, 0.0001), alpha.prior, beta.prior))], "nbObs"="0 naissance", "method"="MAP"),
+                             cbind.data.frame("theta"=1, "nbObs"="1 naissance dont 1 fille", "method"="MLE"), 
+                             cbind.data.frame("theta"=0.49, "nbObs"="1 naissance dont 1 fille", "method"="truth"), 
+                             cbind.data.frame("theta"=seq(0,1, 0.0001)[which.max(dbeta(seq(0,1, 0.0001), alpha.prior+1, beta.prior))], "nbObs"="1 naissance dont 1 fille", "method"="MAP"),
+                             cbind.data.frame("theta"=1, "nbObs"="2 naissances dont 2 filles", "method"="MLE"), 
+                             cbind.data.frame("theta"=0.49, "nbObs"="2 naissances dont 2 filles", "method"="truth"), 
+                             cbind.data.frame("theta"=seq(0,1, 0.0001)[which.max(dbeta(seq(0,1, 0.0001), alpha.prior+2, beta.prior))], "nbObs"="2 naissances dont 2 filles", "method"="MAP"),
+                             cbind.data.frame("theta"=4/5, "nbObs"="5 naissances dont 4 filles", "method"="MLE"), 
+                             cbind.data.frame("theta"=0.49, "nbObs"="5 naissances dont 4 filles", "method"="truth"), 
+                             cbind.data.frame("theta"=seq(0,1, 0.0001)[which.max(dbeta(seq(0,1, 0.0001), alpha.prior+4, beta.prior+1))], "nbObs"="5 naissances dont 4 filles", "method"="MAP"),
+                             cbind.data.frame("theta"=6/10, "nbObs"="10 naissances dont 6 filles", "method"="MLE"), 
+                             cbind.data.frame("theta"=0.49, "nbObs"="10 naissances dont 6 filles", "method"="truth"), 
+                             cbind.data.frame("theta"=seq(0,1, 0.0001)[which.max(dbeta(seq(0,1, 0.0001), alpha.prior+6, beta.prior+4))], "nbObs"="10 naissances dont 6 filles", "method"="MAP"),
+                             cbind.data.frame("theta"=0.5, "nbObs"="20 naissances dont 10 filles", "method"="MLE"), 
+                             cbind.data.frame("theta"=0.49, "nbObs"="20 naissances dont 10 filles", "method"="truth"), 
+                             cbind.data.frame("theta"=seq(0,1, 0.0001)[which.max(dbeta(seq(0,1, 0.0001), alpha.prior+10, beta.prior+10))], "nbObs"="20 naissances dont 10 filles", "method"="MAP"),
+                             cbind.data.frame("theta"=0.5, "nbObs"="40 naissances dont 20 filles", "method"="MLE"), 
+                             cbind.data.frame("theta"=0.49, "nbObs"="40 naissances dont 20 filles", "method"="truth"), 
+                             cbind.data.frame("theta"=seq(0,1, 0.0001)[which.max(dbeta(seq(0,1, 0.0001), alpha.prior+20, beta.prior+20))], "nbObs"="40 naissances dont 20 filles", "method"="MAP"),
+                             cbind.data.frame("theta"=0.49, "nbObs"="100 naissances dont 49 filles", "method"="MLE"), 
+                             cbind.data.frame("theta"=0.49, "nbObs"="100 naissances dont 49 filles", "method"="truth"), 
+                             cbind.data.frame("theta"=seq(0,1, 0.0001)[which.max(dbeta(seq(0,1, 0.0001), alpha.prior+49, beta.prior+51))], "nbObs"="100 naissances dont 49 filles", "method"="MAP")
+)
+
+ggplot(data2plot) + 
+  geom_vline(aes(xintercept = 0.49), linetype=1, color="blue", alpha=1, size=0.8, show.legend = FALSE) + 
+  geom_ribbon(aes(x=value, ymin=0, ymax=pdf, col=distrib, fill=distrib, group=distrib), alpha=0.13, size=0.8) + 
+  theme_bw() + 
+  ylab("Densité de probabilité") + 
+  xlab(expression(theta)) + 
+  guides(colour=guide_legend(title="Distribution"), 
+         fill=guide_legend(title="Distribution")) + 
+  labs(caption = expression(paste("Exemple historique : concentration du posterior autour de ", theta, "* avec ", n))) +
+  facet_wrap(~nbObs, ncol=4) +
+  theme(axis.title = element_text(size=18), 
+        legend.text = element_text(size=14), 
+        legend.title = element_text(size=20), 
+        strip.text = element_text(size=12), 
+        axis.text = element_text(size=14), 
+        plot.caption = element_text(size=23, hjust=0.5, vjust=0, family="serif")) +
+  scale_x_continuous(breaks=c(0, 0.25, 0.5, 0.75, 1), 
+                     labels = c("0", "0.25", "0.5", "0.75", "1")) + 
+  geom_vline(data=data_est, aes(xintercept=theta, group=method, linetype=method, size=method)) + 
+  scale_size_manual("Estimateur ponctuel", 
+                    values = c(0.5, 0.8, 0.8), 
+                    breaks=c("MAP", "MLE", "truth"), 
+                    labels=c("MAP", "MLE", expression(paste(theta, "* = 0.49")))) + 
+  scale_linetype_manual("Estimateur ponctuel", 
+                        values=c(2,0,3), 
+                        breaks=c("MAP", "MLE", "truth"), 
+                        labels=c("MAP", "MLE", expression(paste(theta, "* = 0.49")))) + 
+  guides(size=guide_legend(override.aes = list(color=c("black", "black", "blue"), 
+                                               linetype=c(3,2,1)), size=c(0.8,0.5,0.8)))
+```
+
+\bigskip
+
+
+#### Théorème de Bernstein-von Mises
+
+Un résultat plus riche caractérise la distribution asymptotique de $\theta$ : le **Théorème de Bernstein-von Mises** (aussi appelé **Théorème limite central bayésien**). Pour $n$ grand la distribution *a posteriori* $p(\theta|\boldsymbol{y})$ peut être approximée par une loi normale ayant pour espérance le mode $\hat{\theta}$ et pour variance l'inverse de la Hessienne (dérivée seconde) de $p(\theta|\boldsymbol{y})$ par rapport à $\theta$, pris au mode $\theta$.\smallskip
+
+Ci-dessous une démonstration heuristique, grâce à un développement limité de $\log(p(\theta|\boldsymbol{y}))$ autour du mode $\hat{\theta}$ donne :
+$$ \log(p(\theta|\boldsymbol{y})) = \log(p(\hat{\theta}|\boldsymbol{y})) + \frac{1}{2}(\theta-\hat{\theta})^T\left[\frac{\partial^2\log(p(\theta|\boldsymbol{y}))}{\partial \theta^2}\right]_{\theta=\hat{\theta}}(\theta-\hat{\theta}) + \dots$$
+On note que le terme linéaire (omis ci-dessus) est nul, puisque la dérivée de $p(\theta|\boldsymbol{y})$ est nulle en son mode ($\hat{\theta}$). Le premier terme est lui constant en $\theta$. Donc, en négligeant les termes suivants du développement, le logarithme de $p(\theta|\boldsymbol{y})$ est égal au logarithme d'une densité  gaussienne d'espérance $\hat{\theta}$ et de variance $I(\hat{\theta})^{-1}$ (où $\textstyle I(\theta) = \left.\frac{\partial^2\log(p(\theta|\boldsymbol{y}))}{\partial \theta^2}\right|_{\theta=\hat{\theta}}$), et l'on donc peut écrire l'approximation : 
+$$p(\theta|\boldsymbol{y}) \approx \mathcal{N}(\hat{\theta}, I(\hat{\theta})^{-1})$$\smallskip
+
+\noindent Ce résultat a une double importance : \medskip
+
+ - il peut être utilisé pour expliquer pourquoi les **procédures bayésienne et fréquentiste basées sur le maximum de vraisemblance** donnent, pour $n$ grand, des résultats très voisins. Ainsi, en dimension 1, l'intervalle de crédibilité asymptotique est : $[\hat{\theta} \pm  1.96 \sqrt{I(\hat{\theta})^{-1}}]$, et si on le compare à l'intervalle de confiance fréquentiste construit à partir de la loi asymptotique de l'estimateur : $[\hat{\theta}_{MLE} \pm  1.96 \sqrt{I(\hat{\theta}_{MLE})^{-1}}]$ (où $I(\hat{\theta}_{MLE}$) est ici la matrice d'information de Fisher observée, et correspond à la définition précédente pour des lois *a priori* uniformes), on note qu'ils sont tous les deux identiques (pour un *a priori* uniforme). Pour ces lois *a priori*, on note que l'on a aussi $\hat{\theta} = \hat{\theta}_{MLE}$ (et même si on ne prend pas des *a priori* uniformes, les estimateurs et intervalles sont très proches, puisque le poids de la loi *a priori* devient négligeable quand $n \rightarrow \infty$). L'interprétation théorique de ces intervalles reste évidemment différente.
+ 
+ - il signifie que l'on peut **approximer la distribution *a posteriori* par une loi normale**, dont on peut calculer l'espérance et la variance simplement à l'aide du MAP, et permet donc de faciliter les calculs numériques de l'inférence bayésienne.
+
+
+
+
+

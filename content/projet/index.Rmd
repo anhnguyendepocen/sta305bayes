@@ -1,0 +1,56 @@
+---
+title: Évaluation
+slug: projet
+citeproc: true
+bibliography: ../../static/bib/references.bib
+csl: ../../static/bib/chicago-fullnote-bibliography-no-bib.csl
+output:
+  blogdown::html_page:
+    toc: true
+    fig_caption: false
+---
+
+
+Vous serez évalués dans cette UE selon un rendu de projet sous forme de rapport écrit. ***Ce rapport est à rendre le vendredi 18 décembre à 23h59 au plus tard à l'adresse e-mail : [boris.hejblum@u-bordeaux.fr](mailto:boris.hejblum@u-bordeaux.fr)***
+
+
+## Consignes
+
+ - **Composition des groupes**
+    1. Blandine Gendre, Klervi Le Gall, Minh Huyen Ton Nu Nguyet & Herman Nzaba Loundou
+    2. Alexis François, Samantha Labarbe, Aurelien Lascouts & Mélanie Huchon
+    3. Ariane Bercu, Olivier Quintin & Grace Zinsou 
+    4. Antoine Gouelibo, Lyvia Magloire & Noelia Retuerto
+ 
+ - **Rapport**  
+    Votre rapport comportera 10 pages maximum (hors annexes) rédigées en police 11.  
+    Il comportera les éléments suivants :
+    - un résumé d'une demi-page
+    - une introduction à la question scientifique posée
+    - le modèle Bayésien sous forme mathématique
+    - calcul analytique du numérateur de la loi **a posteriori** (et identification de la loi si possible)
+    - résultats d'une implémentation du modèle en `R` + `JAGS` (faire figurer les codes en annexe uniquement)
+    - évaluation de la convergence numérique pour l'analyse principale
+    - une étude de sensibilité aux choix des *a priori*
+    - une interprétation des résultats
+    - une discussion des limites de votre analyse
+    
+    *Pro-tip* : soyez synthétiques ("*Less **is** more*") !
+    
+
+## Sujets
+
+Le groupe 1 se voit attribuer le sujet 1, le groupe 2 le sujet 2, le groupe 3 le sujet 3, et le groupe 4... le sujet 4 (!) :
+
+ 1. Ré-analyse bayésienne de la méta-analyse sur le traitement de la COVID-19 par hydroxychloroquine présentée dans l'article de [Fiolet *et al.*](/readings/Fiolet2020CMI.pdf) [@fiolet2020effect].
+ 
+ 
+ 2. Ré-analyse bayésienne de la méta-analyse sur les performances tests antigéniques pour détecter le SARS à partir de la [Synthèse de la Haute Autorité de Santé du 8 octobre 2020](/readings/syntheseHAS_tests_antigeniques.pdf) [@HAS2020tests].
+ 
+ 
+ 3. Estimation bayésienne de la prévalence de la COVID-19 en Islande et aux États-Unis à partir de l'article de [Gao & Dong](/readings/Gao2020JAMIA.pdf) [@Gao2020JAMIA].
+
+ 
+ 4. Ré-analyse bayésienne de l'étude de [Bendavid *et al.*](/readings/Gelman2020JRSSC.pdf) [@Bendavid2020medRxiv] sur la séroprévalence d'anticorps au SARS-CoV-2 en Californie à partir de l'article de [Gelman & Carpenter](/readings/Gelman2020JRSSC.pdf) [@Gelman2020JRSSC].
+ 
+ 

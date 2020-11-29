@@ -1,0 +1,61 @@
+---
+title: "MCMC algorithms"
+linktitle: "MCMC algorithms"
+date: "2020-06-18"
+read_date: "2020-06-18"
+menu:
+  lectures:
+    parent: "Part II: Bayesian computation"
+    weight: 3
+type: docs
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
+slides: "01-slides"
+output:
+  blogdown::html_page:
+    toc: true
+---
+
+## Video lectures
+
+### Markov chains
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ghyhUUqPKW8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+### Monte Carlo Markov Chain (MCMC) algorithms
+<iframe width="560" height="315" src="https://www.youtube.com/embed/O-pYazQrbH4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+### Metropolis-Hastings algorithm & Gibbs sampler
+<iframe width="560" height="315" src="https://www.youtube.com/embed/ZTxrt08oec0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+## Slides
+
+The **slides** for the first part of this section are displayed below, and can be downloaded [here](/slides/slidesMCMCMarkovChains.pdf).
+
+<html>
+<body>
+  <object data="/slides/slidesMCMCMarkovChains.pdf##view=fit" type="application/pdf" width="420" height="237">
+        <embed src="/slides/slidesMCMCMarkovChains.pdf##view=fit" type="application/pdf"/>
+  </object>
+</body>
+</html>
+
+
+The **slides** for the second part of this section are displayed below, and can be downloaded [here](/slides/slidesMCMCgeneral.pdf).
+
+<html>
+<body>
+  <object data="/slides/slidesMCMCgeneral.pdf##view=fit" type="application/pdf" width="420" height="237">
+        <embed src="/slides/slidesMCMCgeneral.pdf##view=fit" type="application/pdf"/>
+  </object>
+</body>
+</html>
+
+The **slides** for the third part of this section are displayed below, and can be downloaded [here](/slides/slidesMCMCMHGibbs.pdf).
+
+<html>
+<body>
+  <object data="/slides/slidesMCMCMHGibbs.pdf##view=fit" type="application/pdf" width="420" height="237">
+        <embed src="/slides/slidesMCMCMHGibbs.pdf##view=fit" type="application/pdf"/>
+  </object>
+</body>
+</html>
