@@ -2,7 +2,7 @@
 title: ""
 linktitle: "Algorithmes MCMC"
 date: "2020-11-30"
-read_date: "2020-11-30"
+read_date: "2020-12-03"
 menu:
   cours:
     parent: "III Calcul numérique pour l'analyse bayésienne"
