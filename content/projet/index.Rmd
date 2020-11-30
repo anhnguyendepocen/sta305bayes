@@ -11,7 +11,7 @@ output:
 ---
 
 
-Vous serez évalués dans cette UE selon un rendu de projet sous forme de rapport écrit. ***Ce rapport est à rendre le vendredi 18 décembre à 23h59 au plus tard à l'adresse e-mail : [boris.hejblum@u-bordeaux.fr](mailto:boris.hejblum@u-bordeaux.fr)***
+Vous serez évalués dans cette UE selon un rendu de projet sous forme de rapport écrit. ***Ce rapport est à rendre le vendredi 18 décembre à 23h59 au plus tard à l'adresse e-mail : [boris.hejblum@u-bordeaux.fr](mailto:boris.hejblum@u-bordeaux.fr), avec [nancy.schneider@u-bordeaux.fr](mailto:nancy.schneider@u-bordeaux.fr) en cc***
 
 
 ## Consignes
