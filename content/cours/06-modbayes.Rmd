@@ -71,8 +71,9 @@ où $f(\boldsymbol{y}) = \int f(\boldsymbol{y}|\theta)\pi(\theta)\,\text{d}\thet
 \noindent Malheureusement, cette intégrale (dite "incomplète") n'a pas de solution analytique.
 
 
-\noindent Une approximation par la loi normale a cependant permis à Laplace de conclure que la probabilité de naissance d'un fille est inférieure à celle d'un garçon\footnote{Cette conclusion a été confirmée depuis et semble être valable pour l'espèce humaine en général.}, puisqu'il obtint : $P(\theta\geq 0.5|\boldsymbol{y})\approx 1.15~10^{-42}$\bigskip
+\noindent Une approximation par la loi normale a cependant permis à Laplace de conclure que la probabilité de naissance d'un fille est inférieure à celle d'un garçon [^1], puisqu'il obtint : $P(\theta\geq 0.5|\boldsymbol{y})\approx 1.15~10^{-42}$\bigskip
 
+[^1]: Cette conclusion a été confirmée depuis et semble être valable pour l'espèce humaine en général.
 
 #### Exemple de la conjugaison de la loi Beta
 

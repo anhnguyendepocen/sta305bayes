@@ -65,7 +65,7 @@ où <span class="math inline">\(f(\boldsymbol{y}) = \int f(\boldsymbol{y}|\theta
 …</p>
 </blockquote>
 <p>Malheureusement, cette intégrale (dite “incomplète”) n’a pas de solution analytique.</p>
-<p>Une approximation par la loi normale a cependant permis à Laplace de conclure que la probabilité de naissance d’un fille est inférieure à celle d’un garçon, puisqu’il obtint : <span class="math inline">\(P(\theta\geq 0.5|\boldsymbol{y})\approx 1.15~10^{-42}\)</span></p>
+<p>Une approximation par la loi normale a cependant permis à Laplace de conclure que la probabilité de naissance d’un fille est inférieure à celle d’un garçon,<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> puisqu’il obtint : <span class="math inline">\(P(\theta\geq 0.5|\boldsymbol{y})\approx 1.15~10^{-42}\)</span></p>
 </div>
 <div id="exemple-de-la-conjugaison-de-la-loi-beta" class="section level4">
 <h4>Exemple de la conjugaison de la loi Beta</h4>
@@ -192,7 +192,7 @@ où <span class="math inline">\(f(\boldsymbol{y}) = \int f(\boldsymbol{y}|\theta
 <li>puis pour le premier quartile : <em>Supposons que l’on vous dise que <span class="math inline">\(\theta\)</span> est en dessous de [telle valeur médiane], pouvez-vous alors déterminer une nouvelle valeur telle que <span class="math inline">\(\theta\)</span> ait autant de chances de se trouver au-dessus qu’au-dessous ?</em></li>
 <li>de façon similaire on détermine le troisième quartile…</li>
 </ul>
-<p>Des logiciels existent pour aider à l’élicitation des lois <em>a priori</em> par des experts : voir par exemple l’outil académique SHELF.<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a></p>
+<p>Des logiciels existent pour aider à l’élicitation des lois <em>a priori</em> par des experts : voir par exemple l’outil académique SHELF.<a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></p>
 <p>On peut également éliciter des lois <em>a priori</em> d’après les données de la littérature. L’idée est de définir les moments de la distribution <em>a priori</em> tels qu’ils donnent une probabilité raisonnable aux valeurs du paramètre qui ont été recensées dans la littérature. Si on propose un <em>a priori</em> normal de loi <span class="math inline">\(\mathcal{N}(\mu, \sigma^2)\)</span>, on peut par exemple choisir <span class="math inline">\(\mu\)</span> et <span class="math inline">\(\sigma\)</span> de telle sorte que la plus petite valeur donnée dans la littérature soit égale à <span class="math inline">\(\mu - 1.96\sigma\)</span> et la plus grande à <span class="math inline">\(\mu + 1.96\sigma\)</span> . Une approche plus élaborée est de maximiser la vraisemblance des valeurs de la littérature…</p>
 </div>
 <div id="la-quête-des-a-priori-non-informatifs" class="section level4">
@@ -246,5 +246,6 @@ où <span class="math inline">\(|I(\theta)|\)</span> est le déterminant de la m
 <hr />
 <ol>
 <li id="fn1"><p>(<a href="http://www.tonyohagan.co.uk/shelf/" class="uri">http://www.tonyohagan.co.uk/shelf/</a>).<a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+<li id="fn2"><p>(<a href="http://www.tonyohagan.co.uk/shelf/" class="uri">http://www.tonyohagan.co.uk/shelf/</a>).<a href="#fnref2" class="footnote-back">↩︎</a></p></li>
 </ol>
 </div>
