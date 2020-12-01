@@ -32,7 +32,7 @@ output:
 <iframe width="560" height="315" src="https://www.youtube.com/embed/4E7p5T4rLKM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
-### Inférence Bayésienne --- asymptotique
+### Inférence Bayésienne partie 5: asymptotique
 <iframe width="560" height="315" src="https://www.youtube.com/embed/RdhyuOl17OM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 `r emo::ji("backhand index pointing right")` [*Seeing Theory*, Brown University](http://students.brown.edu/seeing-theory/bayesian-inference/index.html\#section3)
@@ -49,7 +49,28 @@ Le **diaporama** pour la première partie de cette section sont affichées ci-de
 </body>
 </html>
 
-Le **diaporama** pour la deuxième partie de cette section sont affichées ci-dessous, et peuvent être téléchargées [ici](/slides/slidesUncertainty.pdf).
+Le **diaporama** pour la deuxième partie de cette section sont affichées ci-dessous, et peuvent être téléchargées [ici](/slides/slidesMAP.pdf).
+
+<html>
+<body>
+  <object data="/slides/slidesMAP.pdf##view=fit" type="application/pdf" width="420" height="237">
+        <embed src="/slides/slidesMAP.pdf##view=fit" type="application/pdf"/>
+  </object>
+</body>
+</html>
+
+Le **diaporama** pour la troisième partie de cette section sont affichées ci-dessous, et peuvent être téléchargées [ici](/slides/slidesEAP).
+
+<html>
+<body>
+  <object data="/slides/slidesEAP##view=fit" type="application/pdf" width="420" height="237">
+        <embed src="/slides/slidesEAP.pdf##view=fit" type="application/pdf"/>
+  </object>
+</body>
+</html>
+
+
+Le **diaporama** pour la quatrième partie de cette section sont affichées ci-dessous, et peuvent être téléchargées [ici](/slides/slidesUncertainty.pdf).
 
 <html>
 <body>
@@ -59,7 +80,7 @@ Le **diaporama** pour la deuxième partie de cette section sont affichées ci-de
 </body>
 </html>
 
-Le **diaporama** pour la troisième partie de cette section sont affichées ci-dessous, et peuvent être téléchargées [ici](/slides/slidesAsymptotics.pdf).
+Le **diaporama** pour la cinquième partie de cette section sont affichées ci-dessous, et peuvent être téléchargées [ici](/slides/slidesAsymptotics.pdf).
 
 <html>
 <body>
