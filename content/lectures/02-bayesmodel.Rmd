@@ -16,11 +16,11 @@ output:
     toc: true
 ---
 
-## Leçon vidéo
+## Leçons vidéo
 
 
 ### Modélisation bayésienne partie 1
-<iframe width="560" height="315" src="https://www.youtube.com/embed/8Ez-wWMohDg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Hy7hNrBo_Go" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Modélisation bayésienne partie 2
 <iframe width="560" height="315" src="https://www.youtube.com/embed/Wc1bCLNA4Q8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -43,7 +43,7 @@ output:
 
 ## Diaporamas
 
-Le **diaporama** pour la première partie de cette section sont affichées ci-dessous, et peuvent être téléchargées [ici](/slides/slidesModel1.pdf).
+Le **diaporama** pour la première partie de cette section sont affichées ci-dessous, et peut être téléchargées [ici](/slides/slidesModel1.pdf).
 
 <html>
 <body>
@@ -54,7 +54,7 @@ Le **diaporama** pour la première partie de cette section sont affichées ci-de
 </html>
 
 
-Le **diaporama** pour la deuxième partie de cette section sont affichées ci-dessous, et peuvent être téléchargées [ici]](/slides/slidesModel2.pdf).
+Le **diaporama** pour la deuxième partie de cette section sont affichées ci-dessous, et peut être téléchargées [ici](/slides/slidesModel2.pdf).
 
 <html>
 <body>
@@ -64,7 +64,7 @@ Le **diaporama** pour la deuxième partie de cette section sont affichées ci-de
 </body>
 </html>
 
-Le **diaporama** pour la troisième partie de cette section sont affichées ci-dessous, et peuvent être téléchargées [ici](/slides/slidesModel3.pdf).
+Le **diaporama** pour la troisième partie de cette section sont affichées ci-dessous, et peut être téléchargées [ici](/slides/slidesModel3.pdf).
 
 <html>
 <body>
@@ -74,7 +74,17 @@ Le **diaporama** pour la troisième partie de cette section sont affichées ci-d
 </body>
 </html>
 
-Le **diaporama** pour la quatrième partie de cette section sont affichées ci-dessous, et peuvent être téléchargées [ici](/slides/slidesPriors.pdf).
+Le **diaporama** pour la quatrième partie de cette section sont affichées ci-dessous, et peut être téléchargées [ici](/slides/slidesModel4.pdf).
+
+<html>
+<body>
+  <object data="/slides/slidesModel4.pdf##view=fit" type="application/pdf" width="420" height="237">
+        <embed src="/slides/slidesModel4.pdf##view=fit" type="application/pdf"/>
+  </object>
+</body>
+</html>
+
+Le **diaporama** pour la cinquième partie de cette section sont affichées ci-dessous, et peut être téléchargées [ici](/slides/slidesPriors.pdf).
 
 <html>
 <body>
@@ -84,7 +94,7 @@ Le **diaporama** pour la quatrième partie de cette section sont affichées ci-d
 </body>
 </html>
 
-Le **diaporama** pour la cinquième partie de cette section sont affichées ci-dessous, et peuvent être téléchargées [ici](/slides/slidesGoingFurther.pdf).
+Le **diaporama** pour la sixième partie de cette section sont affichées ci-dessous, et peut être téléchargées [ici](/slides/slidesGoingFurther.pdf).
 
 <html>
 <body>

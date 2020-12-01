@@ -2,7 +2,7 @@
 title: "Introduction"
 linktitle: "Introduction"
 date: "2020-11-30"
-read_date: "2020-11-30"
+class_date: "2020-11-30"
 menu:
   lectures:
     parent: "I Introduction à l'analyse bayésienne"
@@ -15,20 +15,20 @@ output:
   blogdown::html_page:
     toc: true
 ---
-## Video lecture
+## Leçons video
 
 
-### Introduction part 1
-<iframe width="560" height="315" src="https://www.youtube.com/embed/rn4EPzQmj44" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+### Introduction : partie 1
+<iframe width="560" height="315" src="https://www.youtube.com/embed/IyKzucnCxrI" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 `r emo::ji("backhand index pointing right")` [*Seeing Theory*, Brown University](http://students.brown.edu/seeing-theory/bayesian-inference/index.html\#section1)
 
-### Introduction part 2
-<iframe width="560" height="315" src="https://www.youtube.com/embed/LRyY37-mB2g" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+### Introduction : partie 2
+<iframe width="560" height="315" src="https://www.youtube.com/embed/NHEoUftcfec" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
-## Slides
-The **slides** for the first part of this section are displayed below, and can be downloaded [here](/slides/slidesIntro1.pdf).
+## Diaporamas
+Le **diaporama** pour la première partie de cette section sont affichées ci-dessous, et peut être téléchargé [ici](/slides/slidesIntro1.pdf).
 
 <html>
 <body>
@@ -38,7 +38,7 @@ The **slides** for the first part of this section are displayed below, and can b
 </body>
 </html>
 
-The **slides** for the second part of this section are displayed below, and can be downloaded [here](/slides/slidesIntro2.pdf).
+Le **diaporama** pour la seconde partie de cette section sont affichées ci-dessous, et peut être téléchargé [ici](/slides/slidesIntro2.pdf).
 
 <html>
 <body>
