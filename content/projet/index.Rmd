@@ -42,7 +42,7 @@ Vous serez évalués dans cette UE selon un rendu de projet sous forme de rappor
 
 Le groupe 1 se voit attribuer le sujet 1, le groupe 2 le sujet 2, le groupe 3 le sujet 3, et le groupe 4... le sujet 4 (!) :
 
- 1. Ré-analyse bayésienne de la méta-analyse sur le traitement de la COVID-19 par hydroxychloroquine présentée dans l'article de [Fiolet *et al.*](/readings/Fiolet2020CMI.pdf) [@fiolet2020effect].
+ 1. Ré-analyse bayésienne de la méta-analyse sur le traitement de la COVID-19 par hydroxychloroquine présentée dans l'article de [Fiolet *et al.*](/readings/Fiolet2020CMI.pdf) [@fiolet2020effect] .
  
  
  2. Ré-analyse bayésienne de la méta-analyse sur les performances tests antigéniques pour détecter le SARS à partir de la [Synthèse de la Haute Autorité de Santé du 8 octobre 2020](/readings/syntheseHAS_tests_antigeniques.pdf) [@HAS2020tests].

@@ -43,8 +43,8 @@ output:
  5. **La moyenne *a posteriori*, le MAP et les intervalles de crédibilité**
     
     
- 6. **La distribution prédictive :**
-    $$f_{Y_{n+1}}(y|\boldsymbol{y}) = \int f_{Y_{n+1}} (y|\theta)p(\theta|\boldsymbol{y}) \,\text{d}\theta$$
+ <!--6. **La distribution prédictive :**
+    $$f_{Y_{n+1}}(y|\boldsymbol{y}) = \int f_{Y_{n+1}} (y|\theta)p(\theta|\boldsymbol{y}) \,\text{d}\theta$$-->
   
 
 

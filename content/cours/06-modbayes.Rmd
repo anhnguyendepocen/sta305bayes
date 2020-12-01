@@ -83,13 +83,13 @@ Imaginons maintenant que l'on utilise une autre loi *a priori*, par exemple la l
 library(ggplot2)
 library(viridis)
 data <- rbind.data.frame(
-  cbind.data.frame("value"=seq(0, 1, 0.01), "pdf"=dbeta(seq(0, 1, 0.01), 0.1,0.1), "param"="alpha=beta=0.1"),
-  cbind.data.frame("value"=seq(0, 1, 0.01), "pdf"=dbeta(seq(0, 1, 0.01), 0.5,0.5), "param"="alpha=beta=0.5"),
+  cbind.data.frame("value"=seq(0, 1, 0.01), "pdf"=dbeta(seq(0, 1, 0.01), 0.1,0.1), "param"="alpha=beta=0,1"),
+  cbind.data.frame("value"=seq(0, 1, 0.01), "pdf"=dbeta(seq(0, 1, 0.01), 0.5,0.5), "param"="alpha=beta=0,5"),
   cbind.data.frame("value"=seq(0, 1, 0.01), "pdf"=dbeta(seq(0, 1, 0.01), 1,1), "param"="alpha=beta=1"),
   cbind.data.frame("value"=seq(0, 1, 0.01), "pdf"=dbeta(seq(0, 1, 0.01), 2,2), "param"="alpha=beta=2"),
   cbind.data.frame("value"=seq(0, 1, 0.01), "pdf"=dbeta(seq(0, 1, 0.01), 4,4), "param"="alpha=beta=4"),
-  cbind.data.frame("value"=seq(0, 1, 0.01), "pdf"=dbeta(seq(0, 1, 0.01), 0.8, 3), "param"="alpha=0.8 beta=3"),
-  cbind.data.frame("value"=seq(0, 1, 0.01), "pdf"=dbeta(seq(0, 1, 0.01), 3, 0.8), "param"="alpha=3 beta=0.8")
+  cbind.data.frame("value"=seq(0, 1, 0.01), "pdf"=dbeta(seq(0, 1, 0.01), 0.8, 3), "param"="alpha=0,8 beta=3"),
+  cbind.data.frame("value"=seq(0, 1, 0.01), "pdf"=dbeta(seq(0, 1, 0.01), 3, 0.8), "param"="alpha=3 beta=0,8")
 )
 ggplot(data) + 
   geom_ribbon(aes(group=param, x=value, ymin=0, ymax=pdf, fill=param, col=param), alpha=0.13, size=0.8) + 
@@ -99,21 +99,21 @@ ggplot(data) +
   guides(colour=guide_legend(title="Paramètres"), fill=guide_legend(title="Paramètres")) +
   labs(caption="Exemples de paramétrisations pour la distribution Beta") +
   theme(plot.caption = element_text(size=17, hjust=0.2, vjust=0, family="serif")) + 
-  viridis::scale_colour_viridis(discrete = TRUE, labels = c(expression(paste(alpha,"=",beta,"=0.1")),
-                                                            expression(paste(alpha,"=",beta,"=0.5")),
+  viridis::scale_colour_viridis(discrete = TRUE, labels = c(expression(paste(alpha,"=",beta,"=0,1")),
+                                                            expression(paste(alpha,"=",beta,"=0,5")),
                                                             expression(paste(alpha,"=",beta,"=1")),
                                                             expression(paste(alpha,"=",beta,"=2")),
                                                             expression(paste(alpha,"=",beta,"=4")),
                                                             expression(paste(alpha,"=0.8 ",beta,"=3")),
-                                                            expression(paste(alpha,"=3 ",beta,"=0.8"))
+                                                            expression(paste(alpha,"=3 ",beta,"=0,8"))
   )) + 
-  viridis::scale_fill_viridis(discrete = TRUE, labels = c(expression(paste(alpha,"=",beta,"=0.1")),
-                                                          expression(paste(alpha,"=",beta,"=0.5")),
+  viridis::scale_fill_viridis(discrete = TRUE, labels = c(expression(paste(alpha,"=",beta,"=0,1")),
+                                                          expression(paste(alpha,"=",beta,"=0,5")),
                                                           expression(paste(alpha,"=",beta,"=1")),
                                                           expression(paste(alpha,"=",beta,"=2")),
                                                           expression(paste(alpha,"=",beta,"=4")),
-                                                          expression(paste(alpha,"=0.8 ",beta,"=3")),
-                                                          expression(paste(alpha,"=3 ",beta,"=0.8"))
+                                                          expression(paste(alpha,"=0,8 ",beta,"=3")),
+                                                          expression(paste(alpha,"=3 ",beta,"=0,8"))
   ))
 ```
 
@@ -136,26 +136,26 @@ On peut maintenant évaluer l'impact de cet *a priori* Beta sur notre résultat 
 
 Table: Pour 493 472 naissances dont 241 945 filles
 
-| Interprétation de l'*a priori* | Paramètres de la Beta | $P(\theta\geq 0.5|\boldsymbol{y})$ |
+| Interprétation de l'*a priori* | Paramètres de la Beta | $P(\theta\geq 0,5|\boldsymbol{y})$ |
 |:-------------------------------|:----------------------|:----------------------------------:|
-| #garçons $>$ #filles | $\alpha=0.1, \beta=3$ | $1.08~10^{-42}$ |
-| #garçons $<$ #filles | $\alpha=3,\phantom{.1}\beta=0.1$ | $1.19~10^{-42}$
-| #garçons $=$ #filles | $\alpha=4,\phantom{.1}\beta=4$ | $1.15~10^{-42}$
-| #garçons $\neq$ #filles | $\alpha=0.1,\beta=0.1$ | $1.15~10^{-42}$
-| non informatif | $\alpha=1,\phantom{.1}\beta=1$ | $1.15~10^{-42}$
+| #garçons $>$ #filles | $\alpha=0,1; \beta=3$ | $1,08~10^{-42}$ |
+| #garçons $<$ #filles | $\alpha=3\phantom{,1};\beta=0.1$ | $1,19~10^{-42}$
+| #garçons $=$ #filles | $\alpha=4\phantom{,1};\beta=4$ | $1,15~10^{-42}$
+| #garçons $\neq$ #filles | $\alpha=0,1;\beta=0.1$ | $1,15~10^{-42}$
+| non informatif | $\alpha=1\phantom{,1};\beta=1$ | $1,15~10^{-42}$
 
 
 \noindent On remarque que l'*a priori* ne semble pas influer sur notre résultat ici. C'est parce que l'on dispose de beaucoup d'observations. Le poids de la distribution *a priori* dans la ditribution *a posteriori* devient alors très faible en regard de l'information apportée par les observations. Si l'on imagine que l'on avait observé seulement 20 naissances, dont 9 filles, on note alors une influence de l'*a priori* bien plus grande.
 
 Table: Pour 20 naissances dont 9 filles
 
-| Interprétation de l'*a priori* | Paramètres de la Beta | $P(\theta\geq 0.5|\boldsymbol{y})$ |
+| Interprétation de l'*a priori* | Paramètres de la Beta | $P(\theta\geq 0,5|\boldsymbol{y})$ |
 |:-------------------------------|:----------------------|:----------------------------------:|
-| #garçons $>$ #filles | $\alpha=0.1, \beta=3$ | $0.39$ |
-| #garçons $<$ #filles | $\alpha=3,\phantom{.1}\beta=0.1$ | $0.52$
-| #garçons $=$ #filles | $\alpha=4,\phantom{.1}\beta=4$ | $0.46$
-| #garçons $\neq$ #filles | $\alpha=0.1,\beta=0.1$ | $0.45$
-| non informatif | $\alpha=1,\phantom{.1}\beta=1$ | $0.45$
+| #garçons $>$ #filles | $\alpha=0,1; \beta=3$ | $0,39$ |
+| #garçons $<$ #filles | $\alpha=3\phantom{,1};\beta=0,1$ | $0,52$
+| #garçons $=$ #filles | $\alpha=4\phantom{,1};\beta=4$ | $0,46$
+| #garçons $\neq$ #filles | $\alpha=0,1;\beta=0,1$ | $0,45$
+| non informatif | $\alpha=1\phantom{,1};\beta=1$ | $0,45$
 
 
 
@@ -240,9 +240,10 @@ Une autre approche est de se donner une famille paramétrique de distributions $
  - puis pour le premier quartile : *Supposons que l'on vous dise que $\theta$ est en dessous de [telle valeur médiane], pouvez-vous alors déterminer une nouvelle valeur telle que $\theta$ ait autant de chances de se trouver au-dessus qu'au-dessous ?*
  - de façon similaire on détermine le troisième quartile...
 
-Des logiciels existent pour aider à l'élicitation des lois *a priori* par des experts : voir par exemple l'outil académique SHELF [^1].
+Des logiciels existent pour aider à l'élicitation des lois *a priori* par des experts : voir par exemple l'outil académique SHELF [^2] [^3].
 
-[^1]: (http://www.tonyohagan.co.uk/shelf/).
+[^2]: http://www.tonyohagan.co.uk/shelf/.
+[^3]: https://CRAN.R-project.org/package=SHELF.
 
 
 On peut également éliciter des lois *a priori* d'après les données de la littérature. L'idée est de définir les moments de la distribution *a priori* tels qu'ils donnent une probabilité raisonnable aux valeurs du paramètre qui ont été recensées dans la littérature. Si on propose un *a priori* normal de loi $\mathcal{N}(\mu, \sigma^2)$, on peut par exemple choisir $\mu$ et $\sigma$ de telle sorte que la plus petite valeur donnée dans la littérature soit égale à $\mu - 1.96\sigma$ et la plus grande à $\mu + 1.96\sigma$ . Une approche plus élaborée est de maximiser la vraisemblance des valeurs de la littérature...
@@ -260,7 +261,11 @@ Si $\int f(y|\theta)c\,\text{d}\theta = K$ (comme c'est souvent le cas), alors $
 
  - **Lois non-invariantes**
 
-La seconde difficulté vient de la non-invariance de la distribution uniforme pour des transformations non-linéaires des paramètres. En effet si on fait une transformation des paramètres $\gamma = g(\theta)$ la densité de $\gamma$ s'écrit : $\pi(\gamma) = |J|\,\pi(\theta)$, où $|J|$ est le Jacobien de la transformation, c'est-à-dire le déterminant de la matrice jacobienne $\textstyle J = \frac{\partial g^{-1}(\gamma)}{\partial \gamma}$. Par exemple si on prend une densité uniforme égale à 1 pour $\theta$ sur $(0, +\infty)$ et que l'on fait la transformation $\gamma = \log(\theta)$, on a $g^{-1}(\gamma) = e^\gamma$ et $|J| = e^\gamma$. Donc on a $\pi(\gamma) = e^\gamma$, ce qui n'est pas la caractérisation d'une loi uniforme. D'où le paradoxe suivant : si la loi uniforme pour $\theta$ traduit une absence totale de connaissance *a priori* sur $\theta$, on devrait avoir aussi une absence totale d'information *a priori* sur $\gamma$, ce qui devrait se traduire par une loi uniforme sur $\gamma$. Or ce ne peut être le cas. Donc la loi uniforme ne peut pas être d'une manière générale la loi représentant une absence totale de connaissance *a priori*. C'est un argument central qui a conduit Fisher, en 1922, à proposer les estimateurs du maximum de vraisemblance, possédant eux une propriété d'invariance pour des transformations non-linéaires des paramètres.\smallskip
+La seconde difficulté vient de la non-invariance de la distribution uniforme pour des transformations non-linéaires des paramètres. En effet si on fait une transformation des paramètres $\gamma = g(\theta)$ la densité de $\gamma$ s'écrit : $\pi(\gamma) = |J|\,\pi(\theta)$, où $|J|$ est le Jacobien de la transformation, c'est-à-dire le déterminant de la matrice jacobienne $\textstyle J = \frac{\partial g^{-1}(\gamma)}{\partial \gamma}$. Par exemple si on prend une densité uniforme égale à 1 pour $\theta$ sur $]0, 1]$ et que l'on fait la transformation $\gamma = \log(\theta)$, on a $g^{-1}(\gamma) = e^\gamma$ et $|J| = e^\gamma$. Donc on a $\pi(\gamma) = e^\gamma$, ce qui n'est pas la caractérisation d'une loi uniforme. D'où le paradoxe suivant : si la loi uniforme pour $\theta$ traduit une absence totale de connaissance *a priori* sur $\theta$, on devrait avoir aussi une absence totale d'information *a priori* sur $\gamma$, ce qui devrait se traduire par une loi uniforme sur $\gamma$. Or ce ne peut être le cas. Donc la loi uniforme ne peut pas être d'une manière générale la loi représentant une absence totale de connaissance *a priori*. C'est un argument central qui a conduit Fisher, en 1922, à proposer les estimateurs du maximum de vraisemblance, possédant eux une propriété d'invariance pour des transformations non-linéaires des paramètres.\smallskip
+
+\noindent
+*Démonstration :* Soit $F_X(x) = P(X < x)$ et considérons la transformation non linéaire $Y = g(X)$. On a alors $F_Y(y) = P(Y < y) = P(g(X) < y) = P(X < g^{-1}(y))$. La densité s'obtient naturellement en dérivant par rapport à $y$ : $\textstyle f_Y (y) = \frac{\partial g^{-1}(y)}{\partial y}f_X (g^{-1}(y))$. La formule s'étend au cas multidimensionnel où $|J|$ désigne le déterminant de la matrice jacobienne $J$ (matrice des dérivées partielles).
+
 
 **NB :** Ceci ne veut pas dire que l'on ne puisse pas prendre une loi uniforme comme *a priori*, mais il faut avoir conscience que la loi uniforme ne vaut que pour une certaine paramétrisation...
 
@@ -277,8 +282,6 @@ tandis que $\pi(\gamma)$ correspond bien à la même loi *a priori* sur $\theta$
 rigoureuses, et notons les densités $\pi_\theta(\cdot)$ et $\pi_\gamma(\cdot)$. $\pi_\gamma(\cdot)$ s'exprime en fonction de
 $\pi_\theta(\cdot)$ avec $\pi_\gamma(\cdot) = \pi_\theta(\cdot)|J|$. On vérifie donc bien que $\textstyle\sqrt{I(\gamma)} = \sqrt{I(\theta)}|J|$.\bigskip
 
-\noindent
-*Démonstration :* Soit $F_X(x) = P(X < x)$ et considérons la transformation non linéaire $Y = g(X)$. On a alors $F_Y(y) = P(Y < y) = P(g(X) < y) = P(X < g^{-1}(y))$. La densité s'obtient naturellement en dérivant par rapport à $y$ : $\textstyle f_Y (y) = \frac{\partial g^{-1}(y)}{\partial y}f_X (g^{-1}(y))$. La formule s'étend au cas multidimensionnel où $|J|$ désigne le déterminant de la matrice jacobienne $J$ (matrice des dérivées partielles).
 
 Dans le cas multidimensionnel (le plus courant) la loi *a priori* de Jeffreys est définie comme :
 $$\pi(\theta) \propto \sqrt{ | I(\theta) | }$$

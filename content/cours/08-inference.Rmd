@@ -95,7 +95,7 @@ On remarque le lien entre cette formule et celle de la distribution marginale : 
 
 #### Théorème de convergence de Doob 
 
-Un résultat très intéressant est le comportement asymptotique de la distribution *a posteriori* sous certaines hypothèses (cas $iid$, densités dérivables trois fois, existence de moments d'ordre 2). Il y a un premier résultat, le **théorème de convergence de Doob**, qui assure que la distribution *a posteriori* se concentre vers la vraie valeur du paramètre quand $n \rightarrow \infty$. On peut le noter (convergence en Loi) :
+Un résultat très intéressant est le comportement asymptotique de la distribution *a posteriori* sous certaines hypothèses (cas $iid$, densités dérivables trois fois, existence de moments d'ordre 2). Il y a un premier résultat, le **théorème de convergence de Doob**, qui assure que la distribution *a posteriori* se concentre vers la "vraie" valeur (au sens fréquentiste) du paramètre quand $n \rightarrow \infty$. On peut le noter (convergence en Loi) :
 $$p(\theta|\boldsymbol{y}_n) \overset{\mathcal{L}}{\rightarrow} \delta_{\theta^*}$$\medskip
 
 ```{r Posterior density Uniform, echo=FALSE, eval=TRUE, fig.width=13, fig.height=6, out.width="95%", warning=FALSE}

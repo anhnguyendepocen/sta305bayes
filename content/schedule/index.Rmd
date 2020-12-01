@@ -3,7 +3,7 @@ title: "Organisation du cours"
 slug: schedule
 ---
 
-Dû au format distanciel actuel, nous allons adopté une organisation de "classe inversée" pour ce cours. 
+Dû au format distanciel actuel, nous allons adopter une organisation de "classe inversée" pour ce cours. 
 
 ## Plan du site
 
@@ -12,6 +12,7 @@ Dû au format distanciel actuel, nous allons adopté une organisation de "classe
 - [**Travaux dirigés**](/TD/) <i class="fas fa-pencil-alt"></i> : cette page contient des exercices à réaliser à la main pour s'approprier les concepts du cours.
 - [**Travaux pratiques**](/practicals/) <i class="fas fa-laptop-code"></i> : cette page contient des exercices logiciels à réaliser sous `R` avec `JAGS`.
  - [**Evaluation**](/projet/) <i class="fas fa-user-graduate"></i> : cette page contient des exercices logiciels à réaliser sous `R` avec `JAGS`.
+ - [**Lectures**](/readings/) <i class="fas fa-newspaper"></i> : cette page contiens des références supplémentaire, dont la lecture (optionnelle) peut venir complémenter le cours.
 
 
 ## Emploi du temps
@@ -42,5 +43,5 @@ Dû au format distanciel actuel, nous allons adopté une organisation de "classe
 |                | 15h-15h30   | `r emo::ji("video_camera")` `r emo::ji("man_technologist")` `r emo::ji("check")` Correction sur zoom |  Exercice 3 |
 |                | 15h30pm- 16h15  | `r emo::ji("scroll")` `r emo::ji("pen")` TD en autonomie  | Exercice 4 |
 |                | 16h30-17h      | `r emo::ji("video_camera")` `r emo::ji("man_technologist")` `r emo::ji("check")` Correction sur zoom |  Exercice 4 |
-| | | | |
+| **Mardi 15 décembre** | 9h-12h | `r emo::ji("video_camera")` `r emo::ji("man_technologist")` `r emo::ji("question")` Suivi de Projet | [Évaluation](/projet/) |
 ***
