@@ -1,0 +1,40 @@
+---
+title: "Exercice 2"
+linktitle: "Exercice 2"
+date: "2020-11-30"
+exo_date: "2020-12-02"
+menu:
+  td:
+    parent: "TD"
+    weight: 1
+type: docs
+output:
+  blogdown::html_page:
+    toc: false
+    number_sections: false
+bibliography: "../../static/bib/references.bib"
+---
+
+```{r, include=FALSE}
+correction <-  FALSE # TRUE #
+knitr::opts_chunk$set(tidy = TRUE, message = FALSE, cache=TRUE)
+if(knitr::opts_knit$get("rmarkdown.pandoc.to") == "latex"){
+  knitr::opts_chunk$set(tidy = TRUE, message = FALSE, tidy.opts=list(width.cutoff=45), 
+                        dev="pdf", fig.align="center")
+  correction <-  FALSE
+}
+#"`r gsub(' 0', ' ', format.Date(Sys.Date(), '%B %dth, %Y'))`"
+```
+
+\noindent On considère les réalisations $\boldsymbol{x} = \{x_1,\ldots,x_n\}$ d'une suite de variables aléatoires $iid$ $\{X_i\}_{i=1, \dots, n}$ positives suivant une loi exponentielle de paramètre $\lambda$ : $\mathcal{E}(\lambda)$,
+où $\lambda>0$ est inconnu et on cherche à l'estimer. 
+
+On rappelle la densité de probabilité pour la distribution exponentielle : $f_\lambda(x) = \lambda e^{-\lambda x}$ pour $x>0$. 
+
+On utilise comme loi *a priori* sur $\lambda$ la loi Gamma $\mathcal G(\alpha,\beta)$ dont la densité s'écrit :
+$$ g(\lambda) = x^{\alpha-1} \frac{\beta^\alpha e^{-\beta x}}{\Gamma(\alpha)}$$
+
+ 1. Écrire est le modèle bayésien associé.
+	
+ 2. Pouvez-vous identifiez la loi *a posteriori* correspondante ?
+	

@@ -34,8 +34,11 @@ et donc <span class="math inline">\(\displaystyle f_{\sigma^2}(y_i|\theta) = \fr
 (car <span class="math inline">\(\sigma^2\)</span> est considérée connue).</p></li>
 </ol>
 </div>
+<p><br></p>
 <ol start="2" style="list-style-type: decimal">
-<li>Écrire la vraisemblance et la log-vraisemblance de l’échantillon <span class="math inline">\(y_i, i=1,\ldots,n\)</span>, en faisant apparaître <span class="math inline">\(\bar{y}_{(n)}=\frac{1}{n} \sum_{i=1}^n y_i\)</span> sous la forme <span class="math inline">\(\left(\theta-\bar{y}_{(n)}\right)^2\)</span>.<br />
+<li>Montrer que la log-vraisemblance de l’échantillon <span class="math inline">\(y_i, i=1,\ldots,n\)</span> peut s’écrire sous la forme :
+<span class="math display">\[\log f(\boldsymbol{y}|\theta) = h(\boldsymbol{y},\sigma)-\frac{\left(\bar y_{(n)} -\theta\right)^2}{2\sigma^2/n}\]</span>
+faisant apparaître <span class="math inline">\(\bar{y}_{(n)}=\frac{1}{n} \sum_{i=1}^n y_i\)</span> sous la forme <span class="math inline">\(\left(\theta-\bar{y}_{(n)}\right)^2\)</span>.<br />
 Attention : on rappelle qu’une somme de nombre au carré n’est pas égale au carré de la somme de ces nombres…</li>
 </ol>
 <div class="Correction">
@@ -53,21 +56,60 @@ Attention : on rappelle qu’une somme de nombre au carré n’est pas égale au
   &amp; \phantom{ = }+ \frac{n}{2\sigma^2}\bar{y}_{(n)}^2  - \frac{n}{2\sigma^2}\bar{y}_{(n)}^2\\
   &amp; = n\log\left(\frac{1}{\sqrt{2\pi}\sigma}\right) - \frac{1}{2\sigma^2}\sum_{i=1}^n y_i^2 + \frac{n}{2\sigma^2}\bar{y}_{(n)}^2 - \frac{n}{2\sigma^2}(\bar{y}_{(n)} - \theta)^2
 \end{align*}\]</span></p>
-<p>La log-vraisemblance se simplifie finalement en :
-<span class="math display">\[\log f(\boldsymbol{y}|\theta) = h(\boldsymbol{y},\sigma)-\frac{(\bar y_{(n)} -\theta)^2}{2\sigma^2/n}\]</span>
+<p>La log-vraisemblance se simplifie finalement bien en :
+<span class="math display">\[\log f(\boldsymbol{y}|\theta) = h(\boldsymbol{y},\sigma)-\frac{\left(\bar y_{(n)} -\theta\right)^2}{2\sigma^2/n}\]</span>
 où <span class="math inline">\(h(\boldsymbol{y},\sigma)\)</span> ne dépend pas de <span class="math inline">\(\theta\)</span>.</p>
 <ul>
 <li>Astuce n°1 : multiplier par <span class="math inline">\(n\)</span> au numérateur et au dénominateur</li>
 <li>Astuce n°2 : introduire le terme manquant et son opposé pour retrouvé l’identité remarquable (ce qui reste ne dépend pas de <span class="math inline">\(\theta\)</span>)</li>
 </ul>
 </div>
+<p><br></p>
 <ol start="3" style="list-style-type: decimal">
-<li><p>Écrire la dérivée première et seconde de la log-vraisembance par rapport à <span class="math inline">\(\theta\)</span> et l’information de Fisher pour <span class="math inline">\(\theta\)</span>.</p></li>
-<li><p>Quel est la loi  de Jeffrey pour <span class="math inline">\(\theta\)</span>? Est-ce qu’il définit densité propre ou impropre ?</p></li>
-<li><p>En prenant cette loi , écrire le numérateur de la loi  de <span class="math inline">\(\theta\)</span>. En déduire la distribution  de <span class="math inline">\(\theta\)</span>.</p></li>
-<li><p>On observe un deuxième échantillon <span class="math inline">\(\{y_i\}, i=n+1,\ldots,2n\)</span> <span class="math inline">\(iid\)</span> de même loi que le premier échantillon. Quelle est la distribution  de <span class="math inline">\(\theta\)</span> en prenant un  uniforme ? Faire le calcul de deux façons:</p>
+<li>Écrire la dérivée première et seconde de la log-vraisembance par rapport à <span class="math inline">\(\theta\)</span> et l’information de Fisher pour <span class="math inline">\(\theta\)</span>.</li>
+</ol>
+<div class="Correction">
+<p>La dérivée seconde de f(|) par rapport à <span class="math inline">\(\theta\)</span> est: <span class="math inline">\(-n/\sigma^2\)</span>.</p>
+<p>Cette quantité ne dépend pas de <span class="math inline">\(\boldsymbol{y} =\{y_1,\dots,y_n\}\)</span>, on obtient donc directement : <span class="math inline">\(I(\theta)=n/\sigma^2\)</span>.</p>
+</div>
+<p><br></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Quel est la loi <em>a priori</em> de Jeffrey pour <span class="math inline">\(\theta\)</span>? Est-ce qu’il définit densité propre ou impropre ?</li>
+</ol>
+<div class="Correction">
+<p>La loi <em>a priori</em> de Jeffrey est alors simplement : <span class="math inline">\(\pi(\theta)\propto \sqrt{n}/\sigma\)</span>.</p>
+<p>Comme cette valeur ne dépend pas de <span class="math inline">\(\theta\)</span>, il s’agit d’une distribution uniforme impropre :
+<span class="math display">\[\int_\Theta\pi(\theta)d\theta \propto \int_{-\infty}^{+\infty}\dfrac{\sqrt{n}}{\sigma} d\theta = \infty\]</span></p>
+</div>
+<p><br></p>
+<ol start="5" style="list-style-type: decimal">
+<li>En prenant utilisant cette loi <em>a priori</em>, écrire le numérateur de la loi <em>a posteriori</em> de <span class="math inline">\(\theta\)</span>. En déduire la distribution <em>a posteriori</em> de <span class="math inline">\(\theta\)</span>.</li>
+</ol>
+<div class="Correction">
+<p>Puisque la loi <em>a priori</em> de Jeffrey correspond à la loi Uniforme, d’après le théorème de Bayes, le numérateur de la loi <em>a posteriori</em> est simplement la vraisemblance :
+<span class="math display">\[\begin{align*}
+  p(\theta|\boldsymbol{y}) &amp;\propto f(\boldsymbol{y}|\theta) \pi(\theta)\\
+  &amp; \propto e^{-\frac{(\bar y_{(n)}-\theta)^2}{2\sigma^2/n}}
+\end{align*}\]</span></p>
+<p>On en déduit, par <strong>identification</strong>, que la distribution <em>a posteriori</em> de <span class="math inline">\(\theta\)</span> est une normale d’espérance <span class="math inline">\(\bar y_{(n)}\)</span> et de variance <span class="math inline">\(\sigma^2/n\)</span> !</p>
+<p>On remarque que ce résultat explicite illustre bien la concentration de la loi <em>a posteriori</em> au fur et à mesure que le nombre d’observations augmente.</p>
+</div>
+<p><br></p>
+<ol start="6" style="list-style-type: decimal">
+<li>On observe un deuxième échantillon <span class="math inline">\(\{y_i\}, i=n+1,\ldots,2n\)</span> <span class="math inline">\(iid\)</span> de même loi que le premier échantillon. Quelle est la distribution <em>a posteriori</em> de <span class="math inline">\(\theta\)</span> en prenant un <em>a priori</em> uniforme ? Faire le calcul de deux façons:
 <ol style="list-style-type: lower-alpha">
 <li>en considérant que l’on a un échantillon <span class="math inline">\(iid\)</span> de taille <span class="math inline">\(2n\)</span></li>
-<li>en utilisant la distribution <em>a posteriori</em> obtenue pour le premier échantillon comme distribution <em>a priori</em> pour le second échantillon.</li>
 </ol></li>
 </ol>
+<div class="Correction">
+<p>Considérant que l’échantillon est de taille <span class="math inline">\(2n\)</span> il suffit d’appliquer le même raisonnement que précédemment : la distribution <em>a posteriori</em> est donc <strong>normale</strong>, d’espérance <span class="math inline">\(\overline{y}_{(2n)}\)</span> (la moyenne calculée sur les <strong>deux</strong> échantillons !), et de variance <span class="math inline">\(\sigma^2/2n\)</span></p>
+</div>
+<p><br></p>
+<ol start="2" style="list-style-type: lower-alpha">
+<li>en utilisant la distribution <em>a posteriori</em> obtenue pour le premier échantillon comme distribution <em>a priori</em> pour le second échantillon (Bayésien séquentiel).</li>
+</ol>
+<div class="Correction">
+<p>La loi <em>a priori</em> pour l’analyse du second échantillon est, toujours d’après le résultat précédent <span class="math inline">\(\mathcal{N}(\mu, s^2)\)</span>, avec <span class="math inline">\(\mu=\bar y_{(n)}\)</span> et <span class="math inline">\(s^2=\sigma^2/n\)</span> (c’est-à-dire la loi <em>a posteriroi</em> du premier échantillon devient la loi <em>a priori</em> pour l’analyse du second.</p>
+<p>En appliquant à nouveau le théorème de Bayes pour calculer le numérateur de la distribution <em>a posteriori</em> du second échantillon, on identifie à nouveau est une loi normale, dont l’espérance est <span class="math inline">\((\bar y_{(n)}+ \bar y_{(n+1:2n)})/2=\bar y_{(2n)}\)</span> (où <span class="math inline">\(\bar y_{(n+1:2n)}= \dfrac{1}{n}\sum_{i=n+1}^{2n}y_i\)</span>), et de variance <span class="math inline">\(\sigma^2/2n\)</span>.</p>
+<p>NB: ne pas oublier d’introduire le 2 au dénominateur de la somme pour bien avoir la moyenne sur <span class="math inline">\(2n\)</span> lors du calcul</p>
+</div>
