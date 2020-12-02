@@ -39,7 +39,7 @@ output:
 
 ## Diaporamas
 
-Le **diaporama** pour la première partie de cette section sont affichées ci-dessous, et peuvent être téléchargées [ici](/slides/slidesInference.pdf).
+Le **diaporama** pour la première partie de cette section est affiché ci-dessous, et peut être téléchargé [ici](/slides/slidesInference.pdf).
 
 <html>
 <body>
@@ -49,7 +49,7 @@ Le **diaporama** pour la première partie de cette section sont affichées ci-de
 </body>
 </html>
 
-Le **diaporama** pour la deuxième partie de cette section sont affichées ci-dessous, et peuvent être téléchargées [ici](/slides/slidesMAP.pdf).
+Le **diaporama** pour la deuxième partie de cette section est affiché ci-dessous, et peut être téléchargé [ici](/slides/slidesMAP.pdf).
 
 <html>
 <body>
@@ -59,7 +59,7 @@ Le **diaporama** pour la deuxième partie de cette section sont affichées ci-de
 </body>
 </html>
 
-Le **diaporama** pour la troisième partie de cette section sont affichées ci-dessous, et peuvent être téléchargées [ici](/slides/slidesEAP).
+Le **diaporama** pour la troisième partie de cette section est affiché ci-dessous, et peut être téléchargé [ici](/slides/slidesEAP).
 
 <html>
 <body>
@@ -70,7 +70,7 @@ Le **diaporama** pour la troisième partie de cette section sont affichées ci-d
 </html>
 
 
-Le **diaporama** pour la quatrième partie de cette section sont affichées ci-dessous, et peuvent être téléchargées [ici](/slides/slidesUncertainty.pdf).
+Le **diaporama** pour la quatrième partie de cette section est affiché ci-dessous, et peut être téléchargé [ici](/slides/slidesUncertainty.pdf).
 
 <html>
 <body>
@@ -80,7 +80,7 @@ Le **diaporama** pour la quatrième partie de cette section sont affichées ci-d
 </body>
 </html>
 
-Le **diaporama** pour la cinquième partie de cette section sont affichées ci-dessous, et peuvent être téléchargées [ici](/slides/slidesAsymptotics.pdf).
+Le **diaporama** pour la cinquième partie de cette section est affiché ci-dessous, et peut être téléchargé [ici](/slides/slidesAsymptotics.pdf).
 
 <html>
 <body>
