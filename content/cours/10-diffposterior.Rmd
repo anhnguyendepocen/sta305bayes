@@ -64,9 +64,9 @@ Estimation du nombre $\pi=3,14\dots$ à l'aide de nombres aléatoires.
 \end{figure}\bigskip
 \endgraf
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, error=TRUE}
 if(knitr::is_html_output()){
-  knitr::include_graphics("../../static/cours/IllusRoulette.png")
+  knitr::include_graphics("/cours/IllusRoulette.png", error = FALSE)
 }
 ```
 
