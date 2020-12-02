@@ -1,8 +1,8 @@
 ---
-title: "Direct sampling"
-linktitle: "Direct sampling"
-date: "2020-06-11"
-read_date: "2020-06-11"
+title: "Méthodes d'échantillonnage directes"
+linktitle: "Échantillonnage direct"
+date: "2020-11-30"
+read_date: "2020-12-03"
 menu:
   lectures:
     parent: "III: Calcul numérique pour l'analyse bayésienne"
@@ -16,18 +16,18 @@ output:
     toc: true
 ---
 
-## Video lectures
+## Leçons vidéos
 
-### Direct sampling part 1
-<iframe width="560" height="315" src="https://www.youtube.com/embed/UMdlvAtsBuA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+### Echantillonnage direct : partie 1
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2x2ZUmU9hNA" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-### Direct sampling part 2
-<iframe width="560" height="315" src="https://www.youtube.com/embed/80SDLSI1jpk" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+### Echantillonnage direct : partie 2
+<iframe width="560" height="315" src="https://www.youtube.com/embed/xlDB8y-Pr8A" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
-## Slides
+## Diaporamas
 
-The **slides** for the first part of this section are displayed below, and can be downloaded [here](/slides/slidesMCMCDirectSampling1.pdf).
+Le **diaporama** pour la première partie de cette section est affiché ci-dessous, et peut être téléchargé [ici](/slides/slidesMCMCDirectSampling1.pdf).
 
 <html>
 <body>
@@ -37,8 +37,7 @@ The **slides** for the first part of this section are displayed below, and can b
 </body>
 </html>
 
-
-The **slides** for the second part of this section are displayed below, and can be downloaded [here](/slides/slidesMCMCDirectSampling2.pdf).
+Le **diaporama** pour la seconde partie de cette section est affiché ci-dessous, et peut être téléchargé [ici](/slides/slidesMCMCDirectSampling2.pdf).
 
 <html>
 <body>

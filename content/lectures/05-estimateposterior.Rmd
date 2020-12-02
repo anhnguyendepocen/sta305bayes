@@ -1,8 +1,8 @@
 ---
-title: "Estimating the posterior distribution is (often) costly"
-linktitle: "Estimating the posterior distribution is (often) costly"
-date: "2020-06-11"
-read_date: "2020-06-11"
+title: "Une difficile estimation de la distribution a posteriori"
+linktitle: "Une difficile estimation de la distribution a posteriori"
+date: "2020-11-30"
+read_date: "2020-12-03"
 menu:
   lectures:
     parent: "III: Calcul numérique pour l'analyse bayésienne"
@@ -16,34 +16,19 @@ output:
     toc: true
 ---
 
-## Video lectures
+## Leçon vidéo
 
-### Bayesian computation: posterior estimation part 1
-<iframe width="560" height="315" src="https://www.youtube.com/embed/1_uThH_ryBU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-
-### Bayesian computation: posterior estimation part 2
-<iframe width="560" height="315" src="https://www.youtube.com/embed/iKkBlSDqiEg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/2cJTX3GbByM" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 
-## Slides
+## Diaporama
 
-The **slides** for the first part of this section are displayed below, and can be downloaded [here](/slides/slidesMCMCIntro1.pdf).
+Le **diaporama** pour cette section est affiché ci-dessous, et peut être téléchargé [ici](/slides/slidesMCMCIntro.pdf).
 
 <html>
 <body>
-  <object data="/slides/slidesMCMCIntro1.pdf##view=fit" type="application/pdf" width="420" height="237">
-        <embed src="/slides/slidesMCMCIntro1.pdf##view=fit" type="application/pdf"/>
-  </object>
-</body>
-</html>
-
-
-The **slides** for the second part of this section are displayed below, and can be downloaded [here](/slides/slidesMCMCIntro2.pdf).
-
-<html>
-<body>
-  <object data="/slides/slidesMCMCIntro2.pdf##view=fit" type="application/pdf" width="420" height="237">
-        <embed src="/slides/slidesMCMCIntro2.pdf##view=fit" type="application/pdf"/>
+  <object data="/slides/slidesMCMCIntro.pdf##view=fit" type="application/pdf" width="420" height="237">
+        <embed src="/slides/slidesMCMCIntro.pdf##view=fit" type="application/pdf"/>
   </object>
 </body>
 </html>
