@@ -39,3 +39,8 @@ practicals:
     weight: 1
   - name: TP
     weight: 2
+td:
+  - name: Sujets
+    weight: 1
+  - name: TD
+    weight: 2

@@ -1,0 +1,87 @@
+---
+title: "Exercice 1"
+linktitle: "Exercice 1"
+date: "2020-11-30"
+exo_date: "2020-12-02"
+menu:
+  td:
+    parent: "TD"
+    weight: 1
+type: docs
+output:
+  blogdown::html_page:
+    toc: false
+    number_sections: false
+bibliography: "../../static/bib/references.bib"
+---
+
+```{r, include=FALSE}
+correction <-  FALSE # TRUE #
+knitr::opts_chunk$set(tidy = TRUE, message = FALSE, cache=TRUE)
+if(knitr::opts_knit$get("rmarkdown.pandoc.to") == "latex"){
+  knitr::opts_chunk$set(tidy = TRUE, message = FALSE, tidy.opts=list(width.cutoff=45), 
+                        dev="pdf", fig.align="center")
+  correction <-  FALSE
+}
+#"`r gsub(' 0', ' ', format.Date(Sys.Date(), '%B %dth, %Y'))`"
+```
+
+On observe les variables aléatoires $Y_i, i=1,\ldots,n$, qu'on considère indépendantes et identiquement distribuées ($iid$) suivant une loi Normale de paramètres $\theta$ et $\sigma^2$. On s'intéresse icià la moyenne des $Y_i$.
+Pour rappel, la densité de la loi de Normale est : $f_{\theta,\sigma^2}(y)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(y-\theta)^2}{2\sigma^2}}$ et on considérera la variance $\sigma^2$ connue.
+
+ 1. Écrire le modèle bayésien considéré.
+	
+:::Correction
+
+ 1. **Question d'intérêt**  
+ Elle porte ici sur la moyenne des $Y_i$.
+ 
+ 2. **Modèle d'échantillonnage**
+ $$Y_i\overset{iid}{\sim} \mathcal{N}(\theta, \sigma^2)$$
+ et donc $\displaystyle f_{\sigma^2}(y_i|\theta) = \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(y_i-\theta)^2}{2\sigma^2}}$
+ 
+ 3. **loi(s) *a priori***
+ $$\theta\sim\pi(\theta)$$
+ (car $\sigma^2$ est considérée connue).
+
+:::
+
+
+ 2. Écrire la vraisemblance et la log-vraisemblance de l'échantillon $y_i, i=1,\ldots,n$, en faisant apparaître $\bar{y}_{(n)}=\frac{1}{n} \sum_{i=1}^n y_i$ sous la forme $\left(\theta-\bar{y}_{(n)}\right)^2$.  
+Attention : on rappelle qu'une somme de nombre au carré n'est pas égale au carré de la somme de ces nombres...
+ 
+:::Correction
+La vraisemblance $\mathcal{L}$ s'écrit :
+\begin{align*}
+\mathcal{L}(y_1,\dots,y_n|\theta) =  f(\boldsymbol{y}|\theta) & = \prod_{i=1}^n f_{\sigma^2}(y_i|\theta)\\
+ & = \prod_{i=1}^n \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(y_i-\theta)^2}{2\sigma^2}}\\
+ & = \left(\frac{1}{\sqrt{2\pi}\sigma}\right)^n e^{-\frac{1}{2\sigma^2}\sum_{i=1}^n(y_i-\theta)^2}
+\end{align*}
+
+La log-vraisemblance $\ell$ s'écrit donc :
+\begin{align*}
+  \ell(y_1,\dots,y_n|\theta) = \log f(\boldsymbol{y}|\theta) & = n\left(\frac{1}{\sqrt{2\pi}\sigma}\right) -\frac{1}{2\sigma^2}\sum_{i=1}^n(y_i-\theta)^2\\
+  & = n\left(\frac{1}{\sqrt{2\pi}\sigma}\right) - \frac{1}{2\sigma^2}\sum_{i=1}^n y_i^2  + 2\frac{1}{2\sigma^2}\theta\sum_{i=1}^ny_i^2 - n\frac{1}{2\sigma^2} \theta^2\\
+  & = n\left(\frac{1}{\sqrt{2\pi}\sigma}\right) - \frac{1}{2\sigma^2}\sum_{i=1}^n y_i^2  + 2\frac{n}{2\sigma^2}\theta\bar{y}_{(n)} - \frac{n}{2\sigma^2} \theta^2 + \frac{n}{2\sigma^2}\bar{y}_{(n)}^2  - \frac{n}{2\sigma^2}\bar{y}_{(n)}^2\\
+  & = n\left(\frac{1}{\sqrt{2\pi}\sigma}\right) - \frac{1}{2\sigma^2}\sum_{i=1}^n y_i^2 + \frac{n}{2\sigma^2}\bar{y}_{(n)}^2 - \frac{n}{2\sigma^2}(\bar{y}_{(n)} - \theta)^2
+\end{align*}
+
+
+La log-vraisemblance se simplifie finalement en :
+$$\log f(\boldsymbol{y}|\theta) = h(\boldsymbol{y},\sigma)-\frac{(\bar y_{(n)} -\theta)^2}{2\sigma^2/n}$$
+où $h(\boldsymbol{y},\sigma)$ ne dépend pas de $\theta$. 
+
+ - Astuce n°1 : multiplier par $n$ au numérateur et au dénominateur
+ - Astuce n°2 : introduire le terme manquant et son opposé pour retrouvé l'identité remarquable (ce qui reste ne dépend pas de $\theta$)
+
+:::
+
+ 3. Écrire la dérivée première et seconde de la log-vraisembance par rapport à $\theta$ et l'information de Fisher pour $\theta$.
+
+ 4. Quel est la loi \textit{a priori} de Jeffrey pour $\theta$? Est-ce qu'il définit densité propre ou impropre ?
+
+ 5. En prenant cette loi \textit{a priori}, écrire le numérateur de la loi \textit{a posteriori} de $\theta$.  En déduire la distribution \textit{a posteriori} de $\theta$.
+
+ 6. On observe un deuxième échantillon $\{y_i\}, i=n+1,\ldots,2n$ $iid$ de même loi que le premier échantillon. Quelle est la distribution \textit{a posteriori} de $\theta$ en prenant un \textit{a priori} uniforme ? Faire le calcul de deux façons:
+    a. en considérant que l'on a un échantillon $iid$ de taille $2n$
+    b. en utilisant la distribution *a posteriori* obtenue pour le premier échantillon comme distribution *a priori* pour le second échantillon.

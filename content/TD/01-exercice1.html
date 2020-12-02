@@ -1,0 +1,72 @@
+---
+title: "Exercice 1"
+linktitle: "Exercice 1"
+date: "2020-11-30"
+exo_date: "2020-12-02"
+menu:
+  td:
+    parent: "TD"
+    weight: 1
+type: docs
+output:
+  blogdown::html_page:
+    toc: false
+    number_sections: false
+bibliography: "../../static/bib/references.bib"
+---
+
+
+
+<p>On observe les variables aléatoires <span class="math inline">\(Y_i, i=1,\ldots,n\)</span>, qu’on considère indépendantes et identiquement distribuées (<span class="math inline">\(iid\)</span>) suivant une loi Normale de paramètres <span class="math inline">\(\theta\)</span> et <span class="math inline">\(\sigma^2\)</span>. On s’intéresse icià la moyenne des <span class="math inline">\(Y_i\)</span>.
+Pour rappel, la densité de la loi de Normale est : <span class="math inline">\(f_{\theta,\sigma^2}(y)=\frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(y-\theta)^2}{2\sigma^2}}\)</span> et on considérera la variance <span class="math inline">\(\sigma^2\)</span> connue.</p>
+<ol style="list-style-type: decimal">
+<li>Écrire le modèle bayésien considéré.</li>
+</ol>
+<div class="Correction">
+<ol style="list-style-type: decimal">
+<li><p><strong>Question d’intérêt</strong><br />
+Elle porte ici sur la moyenne des <span class="math inline">\(Y_i\)</span>.</p></li>
+<li><p><strong>Modèle d’échantillonnage</strong>
+<span class="math display">\[Y_i\overset{iid}{\sim} \mathcal{N}(\theta, \sigma^2)\]</span>
+et donc <span class="math inline">\(\displaystyle f_{\sigma^2}(y_i|\theta) = \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(y_i-\theta)^2}{2\sigma^2}}\)</span></p></li>
+<li><p><strong>loi(s) <em>a priori</em></strong>
+<span class="math display">\[\theta\sim\pi(\theta)\]</span>
+(car <span class="math inline">\(\sigma^2\)</span> est considérée connue).</p></li>
+</ol>
+</div>
+<ol start="2" style="list-style-type: decimal">
+<li>Écrire la vraisemblance et la log-vraisemblance de l’échantillon <span class="math inline">\(y_i, i=1,\ldots,n\)</span>, en faisant apparaître <span class="math inline">\(\bar{y}_{(n)}=\frac{1}{n} \sum_{i=1}^n y_i\)</span> sous la forme <span class="math inline">\(\left(\theta-\bar{y}_{(n)}\right)^2\)</span>.<br />
+Attention : on rappelle qu’une somme de nombre au carré n’est pas égale au carré de la somme de ces nombres…</li>
+</ol>
+<div class="Correction">
+<p>La vraisemblance <span class="math inline">\(\mathcal{L}\)</span> s’écrit :
+<span class="math display">\[\begin{align*}
+\mathcal{L}(y_1,\dots,y_n|\theta) =  f(\boldsymbol{y}|\theta) &amp; = \prod_{i=1}^n f_{\sigma^2}(y_i|\theta)\\
+ &amp; = \prod_{i=1}^n \frac{1}{\sqrt{2\pi}\sigma}e^{-\frac{(y_i-\theta)^2}{2\sigma^2}}\\
+ &amp; = \left(\frac{1}{\sqrt{2\pi}\sigma}\right)^n e^{-\frac{1}{2\sigma^2}\sum_{i=1}^n(y_i-\theta)^2}
+\end{align*}\]</span></p>
+<p>La log-vraisemblance <span class="math inline">\(\ell\)</span> s’écrit donc :
+<span class="math display">\[\begin{align*}
+  \ell(y_1,\dots,y_n|\theta) = \log f(\boldsymbol{y}|\theta) &amp; = n\left(\frac{1}{\sqrt{2\pi}\sigma}\right) -\frac{1}{2\sigma^2}\sum_{i=1}^n(y_i-\theta)^2\\
+  &amp; = n\left(\frac{1}{\sqrt{2\pi}\sigma}\right) - \frac{1}{2\sigma^2}\sum_{i=1}^n y_i^2  + 2\frac{1}{2\sigma^2}\theta\sum_{i=1}^ny_i^2 - n\frac{1}{2\sigma^2} \theta^2\\
+  &amp; = n\left(\frac{1}{\sqrt{2\pi}\sigma}\right) - \frac{1}{2\sigma^2}\sum_{i=1}^n y_i^2  + 2\frac{n}{2\sigma^2}\theta\bar{y}_{(n)} - \frac{n}{2\sigma^2} \theta^2 + \frac{n}{2\sigma^2}\bar{y}_{(n)}^2  - \frac{n}{2\sigma^2}\bar{y}_{(n)}^2\\
+  &amp; = n\left(\frac{1}{\sqrt{2\pi}\sigma}\right) - \frac{1}{2\sigma^2}\sum_{i=1}^n y_i^2 + \frac{n}{2\sigma^2}\bar{y}_{(n)}^2 - \frac{n}{2\sigma^2}(\bar{y}_{(n)} - \theta)^2
+\end{align*}\]</span></p>
+<p>La log-vraisemblance se simplifie finalement en :
+<span class="math display">\[\log f(\boldsymbol{y}|\theta) = h(\boldsymbol{y},\sigma)-\frac{(\bar y_{(n)} -\theta)^2}{2\sigma^2/n}\]</span>
+où <span class="math inline">\(h(\boldsymbol{y},\sigma)\)</span> ne dépend pas de <span class="math inline">\(\theta\)</span>.</p>
+<ul>
+<li>Astuce n°1 : multiplier par <span class="math inline">\(n\)</span> au numérateur et au dénominateur</li>
+<li>Astuce n°2 : introduire le terme manquant et son opposé pour retrouvé l’identité remarquable (ce qui reste ne dépend pas de <span class="math inline">\(\theta\)</span>)</li>
+</ul>
+</div>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Écrire la dérivée première et seconde de la log-vraisembance par rapport à <span class="math inline">\(\theta\)</span> et l’information de Fisher pour <span class="math inline">\(\theta\)</span>.</p></li>
+<li><p>Quel est la loi  de Jeffrey pour <span class="math inline">\(\theta\)</span>? Est-ce qu’il définit densité propre ou impropre ?</p></li>
+<li><p>En prenant cette loi , écrire le numérateur de la loi  de <span class="math inline">\(\theta\)</span>. En déduire la distribution  de <span class="math inline">\(\theta\)</span>.</p></li>
+<li><p>On observe un deuxième échantillon <span class="math inline">\(\{y_i\}, i=n+1,\ldots,2n\)</span> <span class="math inline">\(iid\)</span> de même loi que le premier échantillon. Quelle est la distribution  de <span class="math inline">\(\theta\)</span> en prenant un  uniforme ? Faire le calcul de deux façons:</p>
+<ol style="list-style-type: lower-alpha">
+<li>en considérant que l’on a un échantillon <span class="math inline">\(iid\)</span> de taille <span class="math inline">\(2n\)</span></li>
+<li>en utilisant la distribution <em>a posteriori</em> obtenue pour le premier échantillon comme distribution <em>a priori</em> pour le second échantillon.</li>
+</ol></li>
+</ol>

@@ -287,6 +287,7 @@ div.warning:before {
 div.Example:before {
     content: "Exemple :";
     font-weight: bold;
+    font-size: 30px;
     left: 20px;
 }
 
@@ -300,6 +301,7 @@ div.Example:before {
 div.MyDef:before {
     content: "Définition :";
     font-weight: bold;
+    font-size: 30px;
     left: 200px;
 }
 
@@ -313,6 +315,21 @@ div.MyDef:before {
 div.MyProp:before {
     content: "Propriété :";
     font-weight: bold;
+    font-size: 30px;
     left: 20px;
+}
+
+.Correction {
+  padding: 1em;
+  background: #9fffb4;
+  border: 2px solid black;
+  border-radius: 10px;
+}
+
+div.Correction:before {
+    content: "Correction :";
+    font-weight: bold;
+    font-size: 30px;
+    left: 0px;
 }
 
