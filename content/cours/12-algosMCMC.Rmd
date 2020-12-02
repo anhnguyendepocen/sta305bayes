@@ -41,21 +41,25 @@ $$p(X_{i+1} = x|X_i = y) = p(X_i = x|X_{i-1} = y)$$\smallskip
 :::{.MyProp data-latex=""}
 Une chaîne de Markov est dite **irréductible** : si tous les ensembles de probabilité non nulle peuvent être atteints à partir de tout point de départ (i.e. tout état est accessible à partir de n'importe quel autre).
 :::
+<br>
 
 
 :::{.MyProp data-latex=""}
 Une chaîne de Markov est dite **récurrente** si les trajectoires $(X_i)$ passent une infinité de fois dans tout ensemble de probabilité non nulle de l'espace d'état.
 :::
+<br>
 
 :::{.MyProp data-latex=""}
 Une chaîne de Markov est dite **apériodique** si rien n'induit un comportement périodique des trajectoires.
 :::
+<br>
 
 
 
 :::{.MyDef data-latex=""}
 Une distribution de probabilité $\tilde{p}$ est appelée **loi invariante** (ou **loi stationnaire**) pour une chaîne de Markov si elle vérifie la propriété suivante : si $X_i$ suit $\tilde{p}$, alors $X_{i+1}$ (et les éléments suivants) sont nécessairement distribués suivant $\tilde{p}$.
 :::
+<br>
 
 \noindent
 *Remarque* : Une chaîne de Markov peut admettre plusieurs lois stationnaires.\medskip\bigskip
@@ -114,7 +118,7 @@ $$x_0 = \phantom{\begin{pmatrix}
 
 Ici la loi est apériodique, récurrente et irréductible, il y a donc une loi stationnaire : $\tilde{p}=\tilde{p}P$.
 :::
-
+<br>
 
 ### Échantillonnage MCMC
   
@@ -142,7 +146,6 @@ Les algorithmes MCMC utilisent une approche d'acceptation-rejet :
     Si $t>n$, "sauver"  $x^{(t)}$ (pour calculer la fonctionnelle d'intérêt)
     où $q$ est la loi instrumentale de proposition et $\alpha$ est la probabilité d'acceptation.
 :::
-
 $\qquad$*Schéma général des algorithmes MCMC*
   
 Pour la loi instrumentale de proposition $q$ il n'existe pas de choix absolument optimal mais une infinité de lois possibles (certaines meilleures que d'autres). Afin de garantir la convergence vers la loi cible $\tilde{p}$ : (i) le support de $q$ doit contenir le support $\tilde{p}$, (ii) $q$ ne doit pas générer de valeurs périodiques. Idéalement, on choisit $q$ de manière à ce que son calcul soit simple (par exemple on peut choisir $q$ symétrique).\bigskip\medskip
@@ -163,6 +166,7 @@ L'algorithme de Metropolis-Hastings est un algorithme très simple et très gén
     c. Étape d'acceptation-rejet : générer une valeur $u^{(t)}\sim \mathcal{U}_{[0;1]}$  
     $\quad x^{(t)}=\begin{cases}y^{(t)}\text{ si }u^{(t)} \leq \alpha^{(t)}\\x^{(t-1)}\text{ sinon}\end{cases}$
 :::
+<br>
 
 \noindent On peut reformuler la probabilité d'acceptation $\alpha^{(t)}$ ainsi : $\displaystyle\alpha^{(t)} = \min\left\{1, \frac{\tilde{p}(y^{(t)})}{\tilde{p}(x^{(t-1)})}\frac{q(x^{(t-1)}|y^{(t)})^{(t)}}{q(y^{(t)}|x^{(t-1)})}\right\}$. On voit donc qu'on peut la calculer en ne connaissant $\tilde{p}$ qu'à une constante près, puisqu'elle se simplifie dans ce ratio.
 
@@ -190,6 +194,7 @@ Afin de dépasser certaines limitations de l'algorithme de Metropolis-Hastings, 
     c. Étape d'acceptation-rejet : générer une valeur $u^{(t)}\sim \mathcal{U}_{[0;1]}$  
      $\quad x^{(t)}:=\begin{cases}y^{(t)}\text{ si }u^{(t)} \leq \alpha^{(t)}\\x^{(t-1)}\text{ sinon}\end{cases}$
 :::
+<br>
 
 Par exemple, on peut prendre $T(t) = T_0 \left(\frac{T_f}{T_0}\right)^\frac{t}{n}$ avec $T_0$ la température de base, $n$ le nombre d'itérations au-delà duquel on pense être proche de la convergence, $T_f$ la température après $n$ itérations. Cet algorithme est particulièrement utile lors de la présence d'optimums locaux.
   
@@ -213,19 +218,7 @@ Lorsque la dimension (de $x$) augmente, il devient très difficile de proposer d
     e. ...
     f. Générer $x_d^{(t)} \sim p(x_d | x_1^{(t)}, \dots, x_{d-1}^{(t)})$
 :::
+<br>
 
 \noindent
 *Remarque* : si l'on ne connaît pas certaines lois conditionnelles pour certaines coordonnées, on peut tout de les échantillonner en introduisant une étape d'acceptation-rejet pour cette coordonnée uniquement. On parle alors d'algorithme de Métropolis à l'intérieur de Gibbs (*Metropolis within Gibbs*).
-
-
-
-
-
-
-
-
-
-
-
-
-

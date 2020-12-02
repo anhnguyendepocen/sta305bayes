@@ -36,15 +36,19 @@ L’ensemble des valeurs possible pour <span class="math inline">\(X_i\)</span> 
 <div class="MyProp">
 <p>Une chaîne de Markov est dite <strong>irréductible</strong> : si tous les ensembles de probabilité non nulle peuvent être atteints à partir de tout point de départ (i.e. tout état est accessible à partir de n’importe quel autre).</p>
 </div>
+<p><br></p>
 <div class="MyProp">
 <p>Une chaîne de Markov est dite <strong>récurrente</strong> si les trajectoires <span class="math inline">\((X_i)\)</span> passent une infinité de fois dans tout ensemble de probabilité non nulle de l’espace d’état.</p>
 </div>
+<p><br></p>
 <div class="MyProp">
 <p>Une chaîne de Markov est dite <strong>apériodique</strong> si rien n’induit un comportement périodique des trajectoires.</p>
 </div>
+<p><br></p>
 <div class="MyDef">
 <p>Une distribution de probabilité <span class="math inline">\(\tilde{p}\)</span> est appelée <strong>loi invariante</strong> (ou <strong>loi stationnaire</strong>) pour une chaîne de Markov si elle vérifie la propriété suivante : si <span class="math inline">\(X_i\)</span> suit <span class="math inline">\(\tilde{p}\)</span>, alors <span class="math inline">\(X_{i+1}\)</span> (et les éléments suivants) sont nécessairement distribués suivant <span class="math inline">\(\tilde{p}\)</span>.</p>
 </div>
+<p><br></p>
 <p>
 <em>Remarque</em> : Une chaîne de Markov peut admettre plusieurs lois stationnaires.</p>
 <p>
@@ -89,6 +93,7 @@ C &amp; 0.8 &amp; 0 &amp; 0.2\\
 \end{pmatrix}^T}\]</span></p>
 <p>Ici la loi est apériodique, récurrente et irréductible, il y a donc une loi stationnaire : <span class="math inline">\(\tilde{p}=\tilde{p}P\)</span>.</p>
 </div>
+<p><br></p>
 </div>
 <div id="échantillonnage-mcmc" class="section level3">
 <h3>Échantillonnage MCMC</h3>
@@ -136,6 +141,7 @@ où <span class="math inline">\(q\)</span> est la loi instrumentale de propositi
 </ol></li>
 </ol>
 </div>
+<p><br></p>
 <p>On peut reformuler la probabilité d’acceptation <span class="math inline">\(\alpha^{(t)}\)</span> ainsi : <span class="math inline">\(\displaystyle\alpha^{(t)} = \min\left\{1, \frac{\tilde{p}(y^{(t)})}{\tilde{p}(x^{(t-1)})}\frac{q(x^{(t-1)}|y^{(t)})^{(t)}}{q(y^{(t)}|x^{(t-1)})}\right\}\)</span>. On voit donc qu’on peut la calculer en ne connaissant <span class="math inline">\(\tilde{p}\)</span> qu’à une constante près, puisqu’elle se simplifie dans ce ratio.</p>
 <p>Dans certains cas particuliers (très utilisés en pratique), le calcul de <span class="math inline">\(\alpha^{(t)}\)</span> est simplifié :</p>
 <ul>
@@ -160,6 +166,7 @@ où <span class="math inline">\(q\)</span> est la loi instrumentale de propositi
 </ol></li>
 </ol>
 </div>
+<p><br></p>
 <p>Par exemple, on peut prendre <span class="math inline">\(T(t) = T_0 \left(\frac{T_f}{T_0}\right)^\frac{t}{n}\)</span> avec <span class="math inline">\(T_0\)</span> la température de base, <span class="math inline">\(n\)</span> le nombre d’itérations au-delà duquel on pense être proche de la convergence, <span class="math inline">\(T_f\)</span> la température après <span class="math inline">\(n\)</span> itérations. Cet algorithme est particulièrement utile lors de la présence d’optimums locaux.</p>
 </div>
 <div id="échantillonneur-de-gibbs" class="section level4">
@@ -179,6 +186,7 @@ où <span class="math inline">\(q\)</span> est la loi instrumentale de propositi
 </ol></li>
 </ol>
 </div>
+<p><br></p>
 <p>
 <em>Remarque</em> : si l’on ne connaît pas certaines lois conditionnelles pour certaines coordonnées, on peut tout de les échantillonner en introduisant une étape d’acceptation-rejet pour cette coordonnée uniquement. On parle alors d’algorithme de Métropolis à l’intérieur de Gibbs (<em>Metropolis within Gibbs</em>).</p>
 </div>
