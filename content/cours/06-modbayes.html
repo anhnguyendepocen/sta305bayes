@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Construction d'un modèle bayésien"
 linktitle: "Construction d'un modèle bayésien"
 date: "2020-11-30"
 read_date: "2020-12-01"
@@ -13,13 +13,19 @@ csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
 slides: "01-slides"
 output:
   blogdown::html_page:
-    toc: false
+    toc: true
 ---
 
 
+<div id="TOC">
+<ul>
+<li><a href="#modèle-déchantillonnage">Modèle d’échantillonnage</a></li>
+<li><a href="#distribution-a-priori">Distribution <em>a priori</em></a></li>
+<li><a href="#distribution-a-posteriori">Distribution <em>a posteriori</em></a></li>
+<li><a href="#la-question-épineuse-du-choix-de-la-distribution-a-priori">La question épineuse du choix de la distribution <em>a priori</em></a></li>
+</ul>
+</div>
 
-<div id="construction-dun-modèle-bayésien" class="section level2">
-<h2>Construction d’un modèle bayésien</h2>
 <p>La première étape dans la construction d’un modèle est toujours d’identifier la question à laquelle on souhaite répondre. Une fois cette étape accomplie, il s’agit de déterminer quelles observations sont disponibles, et vont pouvoir nous informer dans notre réponse à la question d’intérêt.</p>
 <div id="modèle-déchantillonnage" class="section level3">
 <h3>Modèle d’échantillonnage</h3>
@@ -239,7 +245,6 @@ où <span class="math inline">\(|I(\theta)|\)</span> est le déterminant de la m
 <div id="lois-a-priori-diffuses" class="section level4">
 <h4>Lois <em>a priori</em> diffuses</h4>
 <p>En pratique, une alternative très courante pour donner une loi <em>a priori</em> faiblement informative est l’utilisation de lois paramétriques (telles que la loi normale) avec des paramètres de variances très importants (ce qui se rapproche de la loi uniforme mais évite le problème de loi impropre).</p>
-</div>
 </div>
 </div>
 <div class="footnotes">

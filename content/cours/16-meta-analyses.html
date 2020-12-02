@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Méta-analyses bayésienne"
 linktitle: "Méta-analyses bayésienne"
 date: "2020-11-30"
 read_date: "2020-11-30"
@@ -13,14 +13,20 @@ csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
 slides: "01-slides"
 output:
   blogdown::html_page:
-    toc: false
+    toc: true
 ---
 
 <link href="/rmarkdown-libs/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
 
+<div id="TOC">
+<ul>
+<li><a href="#introduction-à-la-méta-analyse">Introduction à la méta-analyse</a></li>
+<li><a href="#la-méta-analyse-en-pratique">La Méta-analyse en pratique</a></li>
+<li><a href="#jeu-de-données-dexemple-crins-et-al.-2014">Jeu de données d’exemple : Crins <em>et al.</em>, 2014</a></li>
+<li><a href="#pour-aller-plus-loin">Pour aller plus loin</a></li>
+</ul>
+</div>
 
-<div id="méta-analyses-bayésienne" class="section level2">
-<h2>Méta-analyses bayésienne</h2>
 <div id="introduction-à-la-méta-analyse" class="section level3">
 <h3>Introduction à la méta-analyse</h3>
 <p>Une méta-analyse est une analyse d’analyses, qui produit un seul et unique résumé quantitatif à partir d’un ensemble d’études répondant à une même question de recherche. Dans les applications biomédicales où les effets des thérapies sont souvent évalués dans plusieurs études différentes, cela peut se révéler particulièrement intéressant afin d’évaluer l’ensemble des preuves scientifiques disponibles sur une question précise. Idéalement, on regrouperait les observations individuelles de ces multiples études (tout en tenant compte des différences potentielles dans les expériences ainsi regroupées), mais, la plupart du temps, seules des estimations statistiques sommaires agrégées (souvent appelées tailles de l’effet) sont disponibles, ainsi que certaines mesures d’incertitude (généralement les erreurs types correspondantes).</p>
@@ -61,7 +67,6 @@ output:
 <h4>Synthèse des preuves (<em>evidence synthesis</em>)</h4>
 <p>La méta-analyse est une des méthodes pour la synthèse des preuves, un domaine qui vise à synthétiser les connaissances scientifiques factuelles sur un sujet particulier. Par exemple, la méta-régression est une extension de la meta-analyse pour prendre en compte l’effet de covariables. D’autres approches, comme la modélisation mécaniste, peuvent également être envisagées pour la synthèse des données probantes (e.g. Commenges <em>et al.</em>, <em>LIDA</em>, 2012)<span class="citation"><a href="#fn2" class="footnote-ref" id="fnref2"><sup>2</sup></a></span>.</p>
 <p>La méta-analyse, et plus généralement les méthodes de synthèse des preuves font encore l’objet de recherches actives, et doivent être utilisées avec soin et réflexion. Par exemple, l’une des propriétés débattues du modèle à effets aléatoires est qu’il accordera effectivement moins de poids aux études dont l’échantillon est plus important (et dont les erreurs estimées autour des estimations sont mécaniquement plus petite — Serghiou &amp; Goodman, <em>JAMA</em>, 2018<span class="citation"><a href="#fn3" class="footnote-ref" id="fnref3"><sup>3</sup></a></span>), ce qui peut être considéré soit comme un inconvénient (<em>bug</em>), soit comme un avantage (<em>feature</em>) selon le contexte (et en particulier selon la fiabilité de ces études).</p>
-</div>
 </div>
 </div>
 <div class="footnotes">

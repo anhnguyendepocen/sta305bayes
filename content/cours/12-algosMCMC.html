@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Algorithmes MCMC"
 linktitle: "Algorithmes MCMC"
 date: "2020-11-30"
 read_date: "2020-12-03"
@@ -13,13 +13,17 @@ csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
 slides: "01-slides"
 output:
   blogdown::html_page:
-    toc: false
+    toc: true
 ---
 
 
+<div id="TOC">
+<ul>
+<li><a href="#chaînes-de-markov">Chaînes de Markov</a></li>
+<li><a href="#échantillonnage-mcmc">Échantillonnage MCMC</a></li>
+</ul>
+</div>
 
-<div id="algorithmes-mcmc" class="section level2">
-<h2>Algorithmes MCMC</h2>
 <p>Le principe des algorithmes MCMC est de construire une chaîne de Markov visitant l’espace des paramètres dont la loi de probabilité invariante est la loi <em>a posteriori</em>.</p>
 <div id="chaînes-de-markov" class="section level3">
 <h3>Chaînes de Markov</h3>
@@ -189,6 +193,5 @@ où <span class="math inline">\(q\)</span> est la loi instrumentale de propositi
 <p><br></p>
 <p>
 <em>Remarque</em> : si l’on ne connaît pas certaines lois conditionnelles pour certaines coordonnées, on peut tout de les échantillonner en introduisant une étape d’acceptation-rejet pour cette coordonnée uniquement. On parle alors d’algorithme de Métropolis à l’intérieur de Gibbs (<em>Metropolis within Gibbs</em>).</p>
-</div>
 </div>
 </div>

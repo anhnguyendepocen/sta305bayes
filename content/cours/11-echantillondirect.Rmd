@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Méthodes d'échantillonnage directes"
 linktitle: "Méthodes d'échantillonnage directes"
 date: "2020-11-30"
 read_date: "2020-12-03"
@@ -13,10 +13,8 @@ csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
 slides: "01-slides"
 output:
   blogdown::html_page:
-    toc: false
+    toc: true
 ---
-
-## Méthodes d'échantillonnage directes
 
 ### Génération de nombres aléatoires selon des lois de probabilité usuelles
     

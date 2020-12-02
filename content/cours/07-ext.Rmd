@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Extensions"
 linktitle: "Extensions"
 date: "2020-11-30"
 read_date: "2020-12-01"
@@ -13,10 +13,8 @@ csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
 slides: "01-slides"
 output:
   blogdown::html_page:
-    toc: false
+    toc: true
 ---
-
-## Extensions
 
 ### Hyper-*priors* & modèles hiérarchiques
 

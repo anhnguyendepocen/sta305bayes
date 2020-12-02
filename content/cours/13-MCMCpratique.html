@@ -1,6 +1,6 @@
 ---
-title: ""
-linktitle: "Les algorithmes MCMC pour l'inférence bayésienne dans la pratique"
+title: "Les algorithmes MCMC pour l'inférence bayésienne dans la pratique"
+linktitle: "Algorithmes MCMC en pratique"
 date: "2020-11-30"
 read_date: "2020-12-03"
 menu:
@@ -13,14 +13,18 @@ csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
 slides: "01-slides"
 output:
   blogdown::html_page:
-    toc: false
+    toc: true
 ---
 
 <link href="/rmarkdown-libs/font-awesome/css/fontawesome-all.min.css" rel="stylesheet" />
 
+<div id="TOC">
+<ul>
+<li><a href="#convergence-des-algorithmes-mcmc">Convergence des algorithmes MCMC</a></li>
+<li><a href="#inférence-à-partir-déchantillonnage-mcmc">Inférence à partir d’échantillonnage MCMC</a></li>
+</ul>
+</div>
 
-<div id="les-algorithmes-mcmc-pour-linférence-bayésienne-dans-la-pratique" class="section level2">
-<h2>Les algorithmes MCMC pour l’inférence bayésienne dans la pratique</h2>
 <p>La mise en place d’algorithmes de Metropolis-Hastings, de Gibbs ou de Metropolis à l’intérieur de Gibbs peut ainsi permettre d’échantillonner selon la loi <em>a posteriori</em> dans le cadre d’un modèle bayésien. On remplace alors <span class="math inline">\(x\)</span> par <span class="math inline">\(\theta\)</span> et <span class="math inline">\(\tilde{p}\)</span> par <span class="math inline">\(p(\theta|\boldsymbol{y})\)</span>. Un certain nombre de logiciels tels que <code>JAGS</code> (<a href="http://mcmc-jags.sourceforge.net/" class="uri">http://mcmc-jags.sourceforge.net/</a>), <code>STAN</code> (<a href="http://mc-stan.org/" class="uri">http://mc-stan.org/</a>) ou <code>WinBUGS</code> (<a href="https://www.mrc-bsu.cam.ac.uk/software/bugs/the-bugs-project-winbugs/" class="uri">https://www.mrc-bsu.cam.ac.uk/software/bugs/the-bugs-project-winbugs/</a>) propose une implémentation de tels algorithmes.</p>
 <p>Le projet <code>BUGS</code> (<em>Bayesian inference Using Gibbs Sampling</em> : <a href="https://www.mrc-bsu.cam.ac.uk/software/bugs/" class="uri">https://www.mrc-bsu.cam.ac.uk/software/bugs/</a>) a été initié en 1989 par l’unité de Biostatistique du MRC (<em>Medical Research Council</em>) de l’Université de Cambridge (au Royaume-Uni) afin de proposer un logiciel flexible pour l’analyse bayésienne de modèles statistique complexe à l’aide d’algorithmes MCMC. Son implémentation la plus connue est <code>WinBUGS</code>, un logiciel clic-bouton disponible sous le système d’exploitation <em>Windows</em>. <code>OpenBUGS</code> est une implémentation fonctionnant sous <em>Windows</em>, <em>Mac OS</em> ou <em>Linux</em>. <code>JAGS</code> (<em>Just another Gibbs Sampler</em>) est une autre implémentation plus récente qui s’appuie également sur le langage <code>BUGS</code>. Une ressource très utile est le manuel de l’utilisateur de JAGS (<a href="http://sourceforge.net/projects/mcmc-jags/files/Manuals/3.x/jags_user_manual.pdf" class="uri">http://sourceforge.net/projects/mcmc-jags/files/Manuals/3.x/jags_user_manual.pdf</a>). Enfin, il faut également noter le logiciel <code>STAN</code>, récemment développé à l’Université de Columbia qui n’est similaire à <code>BUGS</code> que dans son interface, s’appuyant sur des algorithmes MCMC innovants, comme par exemple les approches de Monte-Carlo Hamiltonien ou l’approche variationnelle.</p>
 <div id="convergence-des-algorithmes-mcmc" class="section level3">
@@ -86,7 +90,6 @@ où <span class="math inline">\(\rho(k)\)</span> désigne l’auto-corrélation 
 <h4><em>Deviance Information Criterion</em> (<span class="math inline">\(DIC\)</span>)</h4>
 <p>Le <strong><em>Deviance Information Criterion</em></strong> (<span class="math inline">\(DIC\)</span>) s’appuie sur la déviance,<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> qui s’écrit comme : <span class="math inline">\(D(\theta) = -2\log(p(\theta|\boldsymbol{y})) + C\)</span> où <span class="math inline">\(C\)</span> est une constante. Le <span class="math inline">\(DIC\)</span> est alors définit par :
 <span class="math display">\[DIC = \overline{D(\theta)} + p_D\]</span> où <span class="math inline">\(p_D = \left(D(\overline{\theta}) - \overline{D(\theta)}\right)\)</span> représente une pénalité pour le nombre effectif de paramètres. Le <span class="math inline">\(DIC\)</span> permet notamment de comparer différents modèles sur les mêmes données (plus il est bas, meilleur est le modèle), et de faire des choix de modélisation dans le contexte bayésien.</p>
-</div>
 </div>
 </div>
 <div class="footnotes">

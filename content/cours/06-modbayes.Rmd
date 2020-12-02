@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Construction d'un modèle bayésien"
 linktitle: "Construction d'un modèle bayésien"
 date: "2020-11-30"
 read_date: "2020-12-01"
@@ -13,10 +13,8 @@ csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
 slides: "01-slides"
 output:
   blogdown::html_page:
-    toc: false
+    toc: true
 ---
-
-## Construction d'un modèle bayésien
 
 La première étape dans la construction d'un modèle est toujours d'identifier la question à laquelle on souhaite répondre. Une fois cette étape accomplie, il s'agit de déterminer quelles observations sont disponibles, et vont pouvoir nous informer dans notre réponse à la question d'intérêt.
 

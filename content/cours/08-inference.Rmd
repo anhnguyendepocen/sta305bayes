@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Inférence bayésienne"
 linktitle: "Inférence bayésienne"
 date: "2020-11-30"
 read_date: "2020-12-01"
@@ -13,10 +13,9 @@ csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
 slides: "01-slides"
 output:
   blogdown::html_page:
-    toc: false
+    toc: true
 ---
 
-## Inférence bayésienne
 
 Une fois la modélisation bayésienne terminée, on dispose de la distribution *a posteriori* (obtenue grâce au choix de la distribution *a priori*, du modèle d'échantillonnage et des données observées). Cette distribution contient l'ensemble de l'information sur $\theta$ conditionnellement au modèle et aux données. On peut néanmoins s'intéresser à des résumés de cette distribution, par exemple à un paramètre central de cette distribution tel que l'espérance, le mode ou encore la médiane (ces derniers sont analogues aux estimateurs ponctuels obtenus par l'analyse fréquentiste), où à des intervalles de valeurs dont la probabilité *a posteriori* est forte.
 

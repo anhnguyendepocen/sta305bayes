@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Autres méthodes"
 linktitle: "Autres méthodes"
 date: "2020-11-30"
 read_date: "2020-12-03"
@@ -13,13 +13,17 @@ csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
 slides: "01-slides"
 output:
   blogdown::html_page:
-    toc: false
+    toc: true
 ---
 
 
+<div id="TOC">
+<ul>
+<li><a href="#bayésien-variationnel">Bayésien variationnel</a></li>
+<li><a href="#calcul-bayésien-approché-abc">Calcul Bayésien Approché (<em>ABC</em>)</a></li>
+</ul>
+</div>
 
-<div id="autres-méthodes" class="section level2">
-<h2>Autres méthodes</h2>
 <div id="bayésien-variationnel" class="section level3">
 <h3>Bayésien variationnel</h3>
 <p>L’inférence bayésienne variationnelle est une technique d’approximation de l’approche bayésienne s’intéressant à l’estimation des moyennes <em>a posteriori</em>, ainsi qu’à l’incertitude qui les entoure. Elle s’appuie sur une approximation paramétrique de la loi <em>a posteriori</em> qui minimise la divergence de Kullback-Leibler par rapport à la véritable distribution <em>a posteriori</em>. Le calcul de la solution bayésienne variationnelle revient donc à un problème d’optimisation classique, dont le calcul numérique est généralement très rapide — ce qui peut en faire une solution attractive dans les problèmes de données massives. Néanmoins la qualité de l’approximation variationnelle dépendra de l’adéquation du modèle paramétrique choisie pour lequel on ne dispose pas de garanties. De plus, cette approche nécessite généralement une étude analytique de la distribution <em>a posteriori</em> relativement poussée.</p>
@@ -27,5 +31,4 @@ output:
 <div id="calcul-bayésien-approché-abc" class="section level3">
 <h3>Calcul Bayésien Approché (<em>ABC</em>)</h3>
 <p>Le calcul bayésien approché par rejet (<em>ABC</em> en anglais) désigne une autre alternative aux méthodes MCMC, qui utilise le modèle d’échantillonnage pour éviter d’avoir à calculer la vraisemblance au numérateur de la formule de Bayes en générant des observations selon le modèle génératif des données. On obtient alors un échantillon de la loi <em>a posteriori</em> en conservant les valeurs de paramètre <span class="math inline">\(\theta\)</span>, générées à partir de la loi <em>a priori</em>, ayant permis de générer les échantillons suffisamment proche des données réellement observées. La difficulté de cette approche réside dans la formalisation de ce “suffisamment proche”, qui induit une approximation par rapport à l’approche bayésienne exacte qui conserverait toutes les valeurs de <span class="math inline">\(\theta\)</span> (mais dont le coût de calcul par cette méthode est alors souvent très important).</p>
-</div>
 </div>

@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Présentation de l'application historique"
 linktitle: "Présentation de l'application historique"
 date: "2020-11-30"
 read_date: "2020-11-30"
@@ -15,8 +15,6 @@ output:
   blogdown::html_page:
     toc: false
 ---
-
-## Présentation de l'application historique
 
 Laplace s'est intéressé à la probabilité de naissance de filles (plutôt que de garçons). Pour cela, il a utilisé les naissances observées à Paris entre 1745 et 1770, période durant laquelle sont nés 241 945 filles et 251 527 garçons. La question que l'on se pose est la suivante : "Lorsqu'un enfant naît, y a-t-il autant de chance que ce soit une fille ou un garçon ?"
 

@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Méthodes d'échantillonnage directes"
 linktitle: "Méthodes d'échantillonnage directes"
 date: "2020-11-30"
 read_date: "2020-12-03"
@@ -13,13 +13,17 @@ csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
 slides: "01-slides"
 output:
   blogdown::html_page:
-    toc: false
+    toc: true
 ---
 
 
+<div id="TOC">
+<ul>
+<li><a href="#génération-de-nombres-aléatoires-selon-des-lois-de-probabilité-usuelles">Génération de nombres aléatoires selon des lois de probabilité usuelles</a></li>
+<li><a href="#échantillonner-selon-une-loi-définie-analytiquement">Échantillonner selon une loi définie analytiquement</a></li>
+</ul>
+</div>
 
-<div id="méthodes-déchantillonnage-directes" class="section level2">
-<h2>Méthodes d’échantillonnage directes</h2>
 <div id="génération-de-nombres-aléatoires-selon-des-lois-de-probabilité-usuelles" class="section level3">
 <h3>Génération de nombres aléatoires selon des lois de probabilité usuelles</h3>
 <p>Il existe plusieurs manières de générer des nombres dits “aléatoires” selon des lois connues. La très grande partie des programmes informatiques ne génèrent pas des nombres totalement aléatoires. On parle plutôt de nombres pseudo-aléatoires, qui semblent aléatoires mais sont en réalité générés selon un processus déterministe (qui dépend notamment d’une “graine”).</p>
@@ -98,7 +102,6 @@ sinon on le <strong>rejette</strong> et on retourne en 1.</p></li>
 </div>
 <div class="Exercise">
 <p>👉  <em>Exercice</em> <em>3</em> : Écrire un algorithme d’acceptation-rejet pour simuler la réalisation d’un pseudo-échantillon de taille <span class="math inline">\(n\)</span> d’une loi normale <span class="math inline">\(N(0,1)\)</span> en utilisant une loi de Cauchy comme proposition. Trouvez la valeur de <span class="math inline">\(M\)</span> optimale.</p>
-</div>
 </div>
 </div>
 </div>

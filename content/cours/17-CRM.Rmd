@@ -1,6 +1,6 @@
 ---
-title: ""
-linktitle: "Essai clinique adaptatifs de phase I/II : analyse bayésienne et méthodes de recherche de doses"
+title: "Essai clinique adaptatifs de phase I/II : analyse bayésienne et méthodes de recherche de doses"
+linktitle: "Essais en CRM"
 date: "2020-11-30"
 read_date: "2020-11-30"
 menu:
@@ -15,8 +15,6 @@ output:
   blogdown::html_page:
     toc: false
 ---
-
-## Essai clinique adaptatifs de phase I/II : analyse bayésienne et méthodes de recherche de doses
 
 ### Introduction à la méthode de ré-évaluation séquentielle pour la recherche de dose
 

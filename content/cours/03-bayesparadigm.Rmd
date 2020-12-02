@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Le paradigme bayésien"
 linktitle: "Le paradigme bayésien"
 date: "2020-11-30"
 read_date: "2020-11-30"
@@ -13,10 +13,8 @@ csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
 slides: "01-slides"
 output:
   blogdown::html_page:
-    toc: false
+    toc: true
 ---
-
-## Le paradigme bayésien
 
 ### Le théorème de Bayes
 

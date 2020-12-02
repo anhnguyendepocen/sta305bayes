@@ -1,6 +1,6 @@
 ---
-title: ""
-linktitle: "Les algorithmes MCMC pour l'inférence bayésienne dans la pratique"
+title: "Les algorithmes MCMC pour l'inférence bayésienne dans la pratique"
+linktitle: "Algorithmes MCMC en pratique"
 date: "2020-11-30"
 read_date: "2020-12-03"
 menu:
@@ -13,10 +13,8 @@ csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
 slides: "01-slides"
 output:
   blogdown::html_page:
-    toc: false
+    toc: true
 ---
-
-## Les algorithmes MCMC pour l'inférence bayésienne dans la pratique
 
 La mise en place d'algorithmes de Metropolis-Hastings, de Gibbs ou de Metropolis à l'intérieur de Gibbs peut ainsi permettre d'échantillonner selon la loi *a posteriori* dans le cadre d'un modèle bayésien. On remplace alors $x$ par $\theta$ et $\tilde{p}$ par $p(\theta|\boldsymbol{y})$. Un certain nombre de logiciels tels que `JAGS` (http://mcmc-jags.sourceforge.net/), `STAN` (http://mc-stan.org/) ou `WinBUGS` (https://www.mrc-bsu.cam.ac.uk/software/bugs/the-bugs-project-winbugs/) propose une implémentation de tels algorithmes.
 

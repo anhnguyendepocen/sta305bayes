@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Vocabulaire"
 linktitle: "Vocabulaire"
 date: "2020-11-30"
 read_date: "2020-11-30"
@@ -15,8 +15,6 @@ output:
   blogdown::html_page:
     toc: false
 ---
-
-## Vocabulaire
 
 Quelques mots très utilisés dans le paradigme bayésien :
 

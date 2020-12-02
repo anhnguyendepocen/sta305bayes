@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Extensions"
 linktitle: "Extensions"
 date: "2020-11-30"
 read_date: "2020-12-01"
@@ -13,13 +13,18 @@ csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
 slides: "01-slides"
 output:
   blogdown::html_page:
-    toc: false
+    toc: true
 ---
 
 
+<div id="TOC">
+<ul>
+<li><a href="#hyper-priors-modèles-hiérarchiques">Hyper-<em>priors</em> &amp; modèles hiérarchiques</a></li>
+<li><a href="#approche-bayésienne-empirique">Approche bayésienne empirique</a></li>
+<li><a href="#bayésien-séquentiel">Bayésien séquentiel</a></li>
+</ul>
+</div>
 
-<div id="extensions" class="section level2">
-<h2>Extensions</h2>
 <div id="hyper-priors-modèles-hiérarchiques" class="section level3">
 <h3>Hyper-<em>priors</em> &amp; modèles hiérarchiques</h3>
 <p>Dans le modèle bayésien classique, on considère deux niveaux hierarchiques : d’abord <span class="math inline">\(\pi(\theta)\)</span>, puis <span class="math inline">\(f(\boldsymbol{y}|\theta)\)</span>. Il est possible de rajouter un niveau en donnant également un <em>a priori</em> au paramètre <span class="math inline">\(\eta\)</span> de <span class="math inline">\(\pi(\theta)\)</span>, appelé hyper-paramètre : <span class="math inline">\(\pi(\theta|\eta)\)</span>. Appliquant l’approche bayésienne, on peut donner à cet hyper-paramètre une loi <em>a priori</em>, appelée alors hyper-<em>prior</em> et que l’on note <span class="math inline">\(h(\eta)\)</span>. La distribution <em>a posteriori</em> est :
@@ -42,5 +47,4 @@ On remarque donc que cette modélisation hierarchique à 3 niveaux est équivale
 <div id="bayésien-séquentiel" class="section level3">
 <h3>Bayésien séquentiel</h3>
 <p>À noter que le théorème de Bayes peut être utilisé de manière séquentielle. Omettant le dénominateur (qui ne dépend pas de <span class="math inline">\(\theta\)</span>) on peut écrire : <span class="math inline">\(p(\theta|\boldsymbol{y}) \propto f(\boldsymbol{y}|\theta)\pi(\theta)\)</span>. Si <span class="math inline">\(\boldsymbol{y} = (\boldsymbol{y}_1,\boldsymbol{y}_2)\)</span>, on a : <span class="math inline">\(p(\theta|\boldsymbol{y}) \propto f(\boldsymbol{y}_2|\theta)f(\boldsymbol{y}_1|\theta)\pi(\theta) \propto f(\boldsymbol{y}_2|\theta)p(\theta|\boldsymbol{y}_1)\)</span>. La distribution <em>a posteriori</em> sachant <span class="math inline">\(\boldsymbol{y}_1\)</span> devient ainsi la distribution <em>a priori</em> pour la nouvelle observation <span class="math inline">\(\boldsymbol{y}_2\)</span>. On peut donc mettre à jour l’information sur <span class="math inline">\(\theta\)</span> au fur et à mesure qu’arrivent les observations (approche <em>online</em>).</p>
-</div>
 </div>

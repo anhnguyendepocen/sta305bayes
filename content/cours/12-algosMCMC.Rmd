@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Algorithmes MCMC"
 linktitle: "Algorithmes MCMC"
 date: "2020-11-30"
 read_date: "2020-12-03"
@@ -13,10 +13,8 @@ csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
 slides: "01-slides"
 output:
   blogdown::html_page:
-    toc: false
+    toc: true
 ---
-
-## Algorithmes MCMC
 
 Le principe des algorithmes MCMC est de construire une chaîne de Markov visitant l'espace des paramètres dont la loi de probabilité invariante est la loi *a posteriori*.
 

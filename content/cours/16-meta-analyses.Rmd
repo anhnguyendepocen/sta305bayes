@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Méta-analyses bayésienne"
 linktitle: "Méta-analyses bayésienne"
 date: "2020-11-30"
 read_date: "2020-11-30"
@@ -13,10 +13,8 @@ csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
 slides: "01-slides"
 output:
   blogdown::html_page:
-    toc: false
+    toc: true
 ---
-
-## Méta-analyses bayésienne
 
 ### Introduction à la méta-analyse
 

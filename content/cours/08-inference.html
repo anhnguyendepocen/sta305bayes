@@ -1,5 +1,5 @@
 ---
-title: ""
+title: "Inférence bayésienne"
 linktitle: "Inférence bayésienne"
 date: "2020-11-30"
 read_date: "2020-12-01"
@@ -13,13 +13,22 @@ csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
 slides: "01-slides"
 output:
   blogdown::html_page:
-    toc: false
+    toc: true
 ---
 
 
+<div id="TOC">
+<ul>
+<li><a href="#théorie-de-la-décision">Théorie de la décision</a></li>
+<li><a href="#lespérance-a-posteriori">L’espérance <em>a posteriori</em></a></li>
+<li><a href="#le-maximum-a-posteriori">Le maximum <em>a posteriori</em></a></li>
+<li><a href="#la-médiane-a-posteriori">La médiane <em>a posteriori</em></a></li>
+<li><a href="#lintervalle-de-crédibilité">L’intervalle de crédibilité</a></li>
+<li><a href="#distribution-prédictive">Distribution prédictive</a></li>
+<li><a href="#propriétés-asymptotiques-et-fréquentistes-de-la-distribution-a-posteriori">Propriétés asymptotiques – et fréquentistes – de la distribution <em>a posteriori</em></a></li>
+</ul>
+</div>
 
-<div id="inférence-bayésienne" class="section level2">
-<h2>Inférence bayésienne</h2>
 <p>Une fois la modélisation bayésienne terminée, on dispose de la distribution <em>a posteriori</em> (obtenue grâce au choix de la distribution <em>a priori</em>, du modèle d’échantillonnage et des données observées). Cette distribution contient l’ensemble de l’information sur <span class="math inline">\(\theta\)</span> conditionnellement au modèle et aux données. On peut néanmoins s’intéresser à des résumés de cette distribution, par exemple à un paramètre central de cette distribution tel que l’espérance, le mode ou encore la médiane (ces derniers sont analogues aux estimateurs ponctuels obtenus par l’analyse fréquentiste), où à des intervalles de valeurs dont la probabilité <em>a posteriori</em> est forte.</p>
 <div id="théorie-de-la-décision" class="section level3">
 <h3>Théorie de la décision</h3>
@@ -94,6 +103,5 @@ On note que le terme linéaire (omis ci-dessus) est nul, puisque la dérivée de
 <li><p>il peut être utilisé pour expliquer pourquoi les <strong>procédures bayésienne et fréquentiste basées sur le maximum de vraisemblance</strong> donnent, pour <span class="math inline">\(n\)</span> grand, des résultats très voisins. Ainsi, en dimension 1, l’intervalle de crédibilité asymptotique est : <span class="math inline">\([\hat{\theta} \pm 1.96 \sqrt{I(\hat{\theta})^{-1}}]\)</span>, et si on le compare à l’intervalle de confiance fréquentiste construit à partir de la loi asymptotique de l’estimateur : <span class="math inline">\([\hat{\theta}_{MLE} \pm 1.96 \sqrt{I(\hat{\theta}_{MLE})^{-1}}]\)</span> (où <span class="math inline">\(I(\hat{\theta}_{MLE}\)</span>) est ici la matrice d’information de Fisher observée, et correspond à la définition précédente pour des lois <em>a priori</em> uniformes), on note qu’ils sont tous les deux identiques (pour un <em>a priori</em> uniforme). Pour ces lois <em>a priori</em>, on note que l’on a aussi <span class="math inline">\(\hat{\theta} = \hat{\theta}_{MLE}\)</span> (et même si on ne prend pas des <em>a priori</em> uniformes, les estimateurs et intervalles sont très proches, puisque le poids de la loi <em>a priori</em> devient négligeable quand <span class="math inline">\(n \rightarrow \infty\)</span>). L’interprétation théorique de ces intervalles reste évidemment différente.</p></li>
 <li><p>il signifie que l’on peut <strong>approximer la distribution <em>a posteriori</em> par une loi normale</strong>, dont on peut calculer l’espérance et la variance simplement à l’aide du MAP, et permet donc de faciliter les calculs numériques de l’inférence bayésienne.</p></li>
 </ul>
-</div>
 </div>
 </div>

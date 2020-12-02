@@ -18,7 +18,7 @@ output:
 
 Dans ce chapitre, nous nous intéressons à 3 cas d'utilisation illustrant l'intérêt que peut avoir l'approche bayésienne pour les sciences biomédicales.
 
-## Analyse *post-mortem* d'un essai clinique randomisé sous-dimensionné
+# Analyse *post-mortem* d'un essai clinique randomisé sous-dimensionné
 
 
 \noindent L'essai clinique randomisé *EOLIA* (Combes *et al.*, *NEJM*, 2018) [@combes2018Extracorporeal]

@@ -1,6 +1,6 @@
 ---
-title: ""
-linktitle: "Conclusion et mise en perspective de la modélisation bayésienne"
+title: "Conclusion et mise en perspective de la modélisation bayésienne"
+linktitle: "Conclusion"
 date: "2020-11-30"
 read_date: "2020-12-01"
 menu:
@@ -13,10 +13,8 @@ csl: "../../static/bib/chicago-fullnote-bibliography-no-bib.csl"
 slides: "01-slides"
 output:
   blogdown::html_page:
-    toc: false
+    toc: true
 ---
-
-## Conclusion et mise en perspective de la modélisation bayésienne
 
 ### Les points essentiels
   
