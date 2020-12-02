@@ -19,16 +19,12 @@ output:
 
 <div id="TOC">
 <ul>
-<li><a href="#une-difficile-estimation-de-la-distribution-a-posteriori">Une difficile estimation de la distribution <em>a posteriori</em></a><ul>
 <li><a href="#paramètres-multidimensionnels">Paramètres multidimensionnels</a></li>
 <li><a href="#statistique-bayésienne-computationnelle">Statistique bayésienne computationnelle</a></li>
 <li><a href="#méthode-de-monte-carlo">Méthode de Monte-Carlo</a></li>
-</ul></li>
 </ul>
 </div>
 
-<div id="une-difficile-estimation-de-la-distribution-a-posteriori" class="section level2">
-<h2>Une difficile estimation de la distribution <em>a posteriori</em></h2>
 <div id="paramètres-multidimensionnels" class="section level3">
 <h3>Paramètres multidimensionnels</h3>
 <p>Dans les applications réelles il y a en général plusieurs paramètres. On a donc un vecteur de paramètres <span class="math inline">\(\boldsymbol{\theta} = (\theta_1,\dots, \theta_d)\)</span>. La formule de Bayes donnant la distribution <em>a posteriori</em> à partir de la loi <em>a priori</em> et de la vraisemblance est toujours valable dans ce cas : elle donne la loi <em>a posteriori</em> conjointe des <span class="math inline">\(d\)</span> paramètres. Toute l’information est contenue dans cette loi conjointe. Mais son calcul numérique n’est pas toujours facile, notamment dans des modèles complexes, et dans certains modèles même la vraisemblance est difficile à calculer. De plus, pour obtenir la distribution <em>a posteriori</em> conjointe, il faut aussi calculer la constante d’intégration <span class="math inline">\(f(\boldsymbol{y}) = \textstyle \int_{\Theta^d} f(\boldsymbol{y}|\boldsymbol{\theta})\pi(\boldsymbol{\theta})\,\text{d}\boldsymbol{\theta}\)</span>. Une solution analytique n’est disponible que dans des cas très particuliers (notamment lors de l’utilisation de lois conjuguées); et dans la majorité des cas pratiques, l’intégrale doit en fait être calculée numériquement. Si <span class="math inline">\(\theta\)</span> est de dimension <span class="math inline">\(d\)</span>, il s’agit de calculer une intégrale de multiplicité <span class="math inline">\(d\)</span>, ce qui devient difficile lorsque <span class="math inline">\(d\)</span> est grand (les problèmes numériques apparaissent dès que <span class="math inline">\(d&gt; 4\)</span>).</p>
@@ -37,7 +33,7 @@ output:
 <div id="statistique-bayésienne-computationnelle" class="section level3">
 <h3>Statistique bayésienne computationnelle</h3>
 <p>Identifier la loi <em>a posteriori</em> apparaît simple en théorie grâce au théorème de Bayes. Mais en pratique le calcul de l’intégrale au dénominateur s’avère souvent extrêmement difficile. Trouver une expression analytique n’est possible que dans quelques cas bien particuliers, et l’évaluation numérique peut se révéler tout aussi difficile, notamment lorsque la dimension de l’espace des paramètres augmente.</p>
-<p>La statistique bayésienne computationnelle cherche des solutions pour pouvoir estimer la distribution <em>a posteriori</em>, y compris lorsqu’on ne connaît que le numérateur dans le théorème de Bayes (loi <em>a posteriori</em> non-normée). Les principales méthodes utilisées s’appuient sur des algorithmes d’échantillonnage permettant de générer un échantillon distribué selon la loi {a posteriori}. On peut distinguer deux grands types parmi ces algorithmes : i) d’abord les méthodes d’échantillonnage directes, où l’on génère un échantillon à partir d’une loi simple (par exemple uniforme), que l’on transforme afin que le résultat soit distribué selon la loi <em>a posteriori</em> ; ii) les méthodes de Monte-Carlo par chaînes de Markov (MCMC), où l’on construit une chaîne de Markov sur l’espace des paramètres dont la loi invariante correspond à la loi <em>a posteriori</em>.</p>
+<p>La statistique bayésienne computationnelle cherche des solutions pour pouvoir estimer la distribution <em>a posteriori</em>, y compris lorsqu’on ne connaît que le numérateur dans le théorème de Bayes (loi <em>a posteriori</em> non-normée). Les principales méthodes utilisées s’appuient sur des algorithmes d’échantillonnage permettant de générer un échantillon distribué selon la loi <em>a posteriori</em>. On peut distinguer deux grands types parmi ces algorithmes : i) d’abord les méthodes d’échantillonnage directes, où l’on génère un échantillon à partir d’une loi simple (par exemple uniforme), que l’on transforme afin que le résultat soit distribué selon la loi <em>a posteriori</em> ; ii) les méthodes de Monte-Carlo par chaînes de Markov (MCMC), où l’on construit une chaîne de Markov sur l’espace des paramètres dont la loi invariante correspond à la loi <em>a posteriori</em>.</p>
 </div>
 <div id="méthode-de-monte-carlo" class="section level3">
 <h3>Méthode de Monte-Carlo</h3>
@@ -55,6 +51,5 @@ output:
 <p>Si <span class="math inline">\(n=1000\)</span> et que l’on trouve <span class="math inline">\(786\)</span> points sont dans le cercle, alors on a <span class="math inline">\(\textstyle\widehat{\pi} = 4\times \frac{786}{1000}=3,144\)</span>. On pourrait améliorer notre estimation en augmentant la résolution de notre grille, et aussi en augmentant notre nombre de points <span class="math inline">\(n\)</span>. En effet, on a <span class="math inline">\(\lim_{n\to+\infty}\widehat{p}_C = p_C\)</span> d’après la loi des grands nombres.</p>
 <p>Ainsi on a construit un <strong>échantillon de Monte-Carlo</strong> à partir de cet échantillon on peut calculer de nombreuses fonctionnelles, notamment <span class="math inline">\(\pi\)</span> qui correspond à 4 fois la probabilité d’être dans le cercle.</p>
 <p>De manière analogue, les méthodes d’échantillonnage directes ou par MCMC cherchent à construire un échantillon de Monte-Carlo de la distribution <em>a posteriori</em>, afin de calculer un certain nombre de fonctionnelles (Moyennes a posteriori, intervalles de crédibilité, etc.)…</p>
-</div>
 </div>
 </div>

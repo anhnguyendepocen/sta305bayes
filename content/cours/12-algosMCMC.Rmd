@@ -74,7 +74,7 @@ Une distribution de probabilité $\tilde{p}$ est appelée **loi invariante** (ou
 
 :::{.Example data-latex=""} 
 \smallskip Bébé `r if(knitr::is_html_output()){emo::ji("baby")}`  
-Nous allons maintenant développer un exemple d'une chaîne de Markov à espace d'état discret. Supposons que l'état de Bébé, suive à chaque minute une chaîne de Markov discrète à trois états : dormir (D), manger (M), changer la couche (C). Ainsi, son état dans une minute ne dépend que de son état actuel, et pas des minutes précédentes. Supposons que la matrice des probabilités de transition soit alors la suivante :
+Nous allons maintenant développer un exemple d'une chaîne de Markov à espace d'état discret. Supposons que l'état de Bébé, suive à chaque minute une chaîne de Markov discrète à trois états : dormir `r if(knitr::is_html_output()){emo::ji("sleeping")}` (D), manger `r if(knitr::is_html_output()){emo::ji("baby_bottle")}` (M), changer la couche `r if(knitr::is_html_output()){emo::ji("poop")}` (C). Ainsi, son état dans une minute ne dépend que de son état actuel, et pas des minutes précédentes. Supposons que la matrice des probabilités de transition soit alors la suivante :
 $$P = 
 \begin{pmatrix}
 X_i/X_{i+1} & D & M & C \\
@@ -87,7 +87,7 @@ C & 0.8 & 0 & 0.2\\
 $\quad$    
 \phantom{\centerline{\includegraphics[width=0.4\textwidth]{Doudou}}}  
 
-`r if(knitr::is_html_output()){emo::ji("point_right")}` \textcolor{gold}{\faHandORight} 2) Supposons que Bébé dorme. Que fait-il 2 min après? et 10 min après ?  
+`r if(knitr::is_html_output()){emo::ji("point_right")}` \textcolor{gold}{\faHandORight} 2) Supposons que Bébé dorme (`r if(knitr::is_html_output()){emo::ji("crossed_fingers")}`!). Que fait-il 2 min après? et 10 min après ?  
 $$x_0 = \phantom{\begin{pmatrix}
 1 \\
 0 \\
