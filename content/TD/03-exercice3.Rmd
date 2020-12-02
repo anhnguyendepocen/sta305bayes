@@ -1,0 +1,27 @@
+---
+title: "Exercice 3"
+linktitle: "Exercice 3"
+date: "2020-11-30"
+exo_date: "2020-12-03"
+menu:
+  td:
+    parent: "TD"
+    weight: 3
+type: docs
+output:
+  blogdown::html_page:
+    toc: false
+    number_sections: false
+bibliography: "../../static/bib/references.bib"
+---
+
+```{r, include=FALSE}
+correction <-  FALSE # TRUE #
+knitr::opts_chunk$set(tidy = TRUE, message = FALSE, cache=TRUE)
+if(knitr::opts_knit$get("rmarkdown.pandoc.to") == "latex"){
+  knitr::opts_chunk$set(tidy = TRUE, message = FALSE, tidy.opts=list(width.cutoff=45), 
+                        dev="pdf", fig.align="center")
+  correction <-  FALSE
+}
+#"`r gsub(' 0', ' ', format.Date(Sys.Date(), '%B %dth, %Y'))`"
+```
