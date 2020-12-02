@@ -18,13 +18,16 @@ output:
 
 ## Leçons vidéos
 
-### Markov chains
+### Chaînes de Markov partie 1
 <iframe width="560" height="315" src="https://www.youtube.com/embed/YrN85dfVY1w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-### Monte Carlo Markov Chain (MCMC) algorithms
+### Chaînes de Markov partie 2
+<iframe width="560" height="315" src="https://www.youtube.com/embed/PVyD1CBs2KU" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+
+### Algorithmes de Monte-Carlo à Chaîne de Markov (MCMC)
 <iframe width="560" height="315" src="https://www.youtube.com/embed/O-pYazQrbH4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-### Metropolis-Hastings algorithm & Gibbs sampler
+### Algorithm de Metropolis-Hastings & Echantilloneur de Gibbs
 <iframe width="560" height="315" src="https://www.youtube.com/embed/ZTxrt08oec0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ## Diaporamas

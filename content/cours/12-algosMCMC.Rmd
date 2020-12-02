@@ -114,7 +114,7 @@ $$x_0 = \phantom{\begin{pmatrix}
 0.072 \\
 \end{pmatrix}^T}$$  
 
-Ici la loi est apériodique, récurrente et irréductible, il y a donc une loi stationnaire : $\tilde{p}=\tilde{p}P$.
+Ici la chaîne de Markov est apériodique, récurrente et irréductible, il y a donc une loi stationnaire : $\tilde{p}=\tilde{p}P$.
 :::
 <br>
 
