@@ -1,6 +1,6 @@
 ---
-title: "MCMC algorithms"
-linktitle: "MCMC algorithms"
+title: "Algorithmes MCMC"
+linktitle: "Algorithmes MCMC"
 date: "2020-06-18"
 read_date: "2020-06-18"
 menu:
@@ -16,10 +16,10 @@ output:
     toc: true
 ---
 
-## Video lectures
+## Leçons vidéos
 
 ### Markov chains
-<iframe width="560" height="315" src="https://www.youtube.com/embed/ghyhUUqPKW8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+<iframe width="560" height="315" src="https://www.youtube.com/embed/YrN85dfVY1w" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
 ### Monte Carlo Markov Chain (MCMC) algorithms
 <iframe width="560" height="315" src="https://www.youtube.com/embed/O-pYazQrbH4" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
@@ -27,9 +27,9 @@ output:
 ### Metropolis-Hastings algorithm & Gibbs sampler
 <iframe width="560" height="315" src="https://www.youtube.com/embed/ZTxrt08oec0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-## Slides
+## Diaporamas
 
-The **slides** for the first part of this section are displayed below, and can be downloaded [here](/slides/slidesMCMCMarkovChains.pdf).
+Le **diaporama** pour la première partie de cette section est affiché ci-dessous, et peut être téléchargé [ici](/slides/slidesMCMCMarkovChains.pdf).
 
 <html>
 <body>
@@ -39,23 +39,12 @@ The **slides** for the first part of this section are displayed below, and can b
 </body>
 </html>
 
-
-The **slides** for the second part of this section are displayed below, and can be downloaded [here](/slides/slidesMCMCgeneral.pdf).
-
-<html>
-<body>
-  <object data="/slides/slidesMCMCgeneral.pdf##view=fit" type="application/pdf" width="420" height="237">
-        <embed src="/slides/slidesMCMCgeneral.pdf##view=fit" type="application/pdf"/>
-  </object>
-</body>
-</html>
-
-The **slides** for the third part of this section are displayed below, and can be downloaded [here](/slides/slidesMCMCMHGibbs.pdf).
+Le **diaporama** pour la seconde partie de cette section est affiché ci-dessous, et peut être téléchargé [ici](/slides/slidesMCMCAlgos.pdf).
 
 <html>
 <body>
-  <object data="/slides/slidesMCMCMHGibbs.pdf##view=fit" type="application/pdf" width="420" height="237">
-        <embed src="/slides/slidesMCMCMHGibbs.pdf##view=fit" type="application/pdf"/>
+  <object data="/slides/slidesMCMCAlgos.pdf##view=fit" type="application/pdf" width="420" height="237">
+        <embed src="/slides/slidesMCMCAlgos.pdf##view=fit" type="application/pdf"/>
   </object>
 </body>
 </html>
