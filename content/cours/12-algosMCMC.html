@@ -85,7 +85,7 @@ C &amp; 0.8 &amp; 0 &amp; 0.2\\
 0.044 \\
 0.072 \\
 \end{pmatrix}^T}\]</span></p>
-<p>👉 3) Supposons maintenant se couche soit en train d’être changée. Que fait-il 10 min après ?<br />
+<p>👉 3) Supposons maintenant que sa couche soit en train d’être changée. Que fait-il 10 min après ?<br />
 <span class="math display">\[x_0 = \phantom{\begin{pmatrix}
 0 \\
 0 \\
@@ -175,7 +175,7 @@ où <span class="math inline">\(q\)</span> est la loi instrumentale de propositi
 </div>
 <div id="échantillonneur-de-gibbs" class="section level4">
 <h4>Échantillonneur de Gibbs</h4>
-<p>Lorsque la dimension (de <span class="math inline">\(x\)</span>) augmente, il devient très difficile de proposer des valeurs probables dans les algorithmes utilisant la stratégie d’acceptation-rejet. L’idée de l’échantillonneur de Gibbs est de générer <span class="math inline">\(x\)</span> coordonnée par coordonnée, en conditionnant sur les dernières valeurs obtenues. Il faut donc que <span class="math inline">\(x\)</span> admette une décomposition telle que <span class="math inline">\(x=(x_1, \dots, x_d)\)</span>, et que les distributions <span class="math inline">\(p(x_i | x_1, \dots, x_{i-1}, x_{i+1}, \dots, x_d)\)</span> soit connues et aisément simulables. L’échantillonneur de Gibbs est une suite d’étape de Metropolis-Hastings (coordonnée par coordonnée), les propositions échantillonnées sont toujours acceptée (<span class="math inline">\(\alpha = 1\)</span>). On obtient cette acceptation inconditionnelle en imposant les lois de propositions : il s’agit de la distribution conditionnelle respective de chaque coordonnée. On peut donc voir l’échantillonneur de Gibbs comme un algorithme de réactualisation composante par composante :</p>
+<p>Lorsque la dimension (de <span class="math inline">\(x\)</span>) augmente, il devient très difficile de proposer des valeurs probables dans les algorithmes utilisant la stratégie d’acceptation-rejet. L’idée de l’échantillonneur de Gibbs est de générer <span class="math inline">\(x\)</span> coordonnée par coordonnée, en conditionnant sur les dernières valeurs obtenues. Il faut donc que <span class="math inline">\(x\)</span> admette une décomposition telle que <span class="math inline">\(x=(x_1, \dots, x_d)\)</span>, et que les distributions <span class="math inline">\(p(x_i | x_1, \dots, x_{i-1}, x_{i+1}, \dots, x_d)\)</span> soit connues et aisément simulables. L’échantillonneur de Gibbs est une suite d’étapes de Metropolis-Hastings (coordonnée par coordonnée) où les propositions échantillonnées sont toujours acceptée (<span class="math inline">\(\alpha = 1\)</span>). On obtient cette acceptation inconditionnelle en imposant les lois de propositions : il s’agit de la distribution conditionnelle respective de chaque coordonnée. On peut donc voir l’échantillonneur de Gibbs comme un algorithme de réactualisation composante par composante :</p>
 <div class="Algo">
 <ol style="list-style-type: decimal">
 <li>Initialiser <span class="math inline">\(x^{(0)}= (x_1^{(0)}, \dots, x_d^{(0)})\)</span></li>
