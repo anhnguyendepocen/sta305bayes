@@ -23,7 +23,7 @@ Le principe des algorithmes MCMC est de construire une chaîne de Markov visitan
 
 Une chaîne de Markov est un processus stochastique à temps discret. On peut la définir comme une suite de variables aléatoires $X_0$, $X_1$, $X_2$, $X_3$, ... (toutes définies sur le même espace) possédant la **propriété de Markov** ("sans mémoire") : 
 $$p(X_i = x | X_0 = x_0, X_1 = x_1, \dots , X_{i-1} = x_{i-1}) = p(X_i = x |X_{i-1} = x_{i-1})$$
-L'ensemble des valeurs possible pour $X_i$ est appelé **espace d'état* et est noté $E$.\smallskip 
+L'ensemble des valeurs possible pour $X_i$ est appelé **espace d'état** et est noté $E$.\smallskip 
 
 Une chaîne de Markov est déterminée par deux paramètres : 
 
