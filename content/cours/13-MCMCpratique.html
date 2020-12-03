@@ -32,7 +32,7 @@ output:
 <p>L’échantillonnage selon la distribution <em>a posteriori</em> par un algorithme MCMC comporte 2 phases :</p>
 <ol style="list-style-type: decimal">
 <li><p>La <strong>phase de chauffe</strong> (<em>burn-in</em>) :<br />
-elle correspond aux premières itérations de l’algorithme MCMC, qui ne doivent pas être conservées dans l’analyse de l’échantillon de Monte-Carlo. En effet, celles-ci ne proviennent pas de la distribution. Cette phase correspond donc au temps nécessaire à la chaîne de Markov pour converger vers sa loi stationnaire. Sa longueur varie d’un modèle à l’autre. Il n’y a aucune conséquence à prendre une phase de chauffe trop longue, si ce n’est son coût computationnel.</p></li>
+elle correspond aux premières itérations de l’algorithme MCMC, qui ne doivent pas être conservées dans l’analyse de l’échantillon de Monte-Carlo. En effet, celles-ci ne proviennent pas de la distribution <em>a posteriori</em>. Cette phase correspond donc au temps nécessaire à la chaîne de Markov pour converger vers sa loi stationnaire. Sa longueur varie d’un modèle à l’autre. Il n’y a aucune conséquence à prendre une phase de chauffe trop longue, si ce n’est son coût computationnel.</p></li>
 <li><p>La <strong>phase d’échantillonnage</strong> :<br />
 elle doit être suffisamment longue pour permettre une bonne estimation de la distribution <em>a posteriori</em>, notamment concernant les plages de valeurs de faible probabilité.</p></li>
 </ol>
@@ -46,7 +46,7 @@ elle doit être suffisamment longue pour permettre une bonne estimation de la di
 <h4>Statistique de Gelman-Rubin</h4>
 <p>Une façon de d’évaluer la convergence d’un échantillonneur MCMC est de comparer la variation entre les différentes chaînes à la variation à l’intérieur d’une même chaîne après un certain nombre d’itérations. Si l’algorithme a bien convergé, la variation inter-chaîne doit être proche de zéro.</p>
 <p>Soit <span class="math inline">\(\theta_{[c]} = (\theta_{[c]}^{(1)}, \dots, \theta_{[c]}^{(N)})\)</span> le <span class="math inline">\(N\)</span>-échantillon obtenu à partir de la chaîne <span class="math inline">\(c=1,\dots, C\)</span> d’un algorithme MCMC échantillonnant <span class="math inline">\(\theta\)</span>. La <strong>statistique de Gelman-Rubin</strong> s’écrit :</p>
-<p><span class="math display">\[R=\dfrac{\frac{N-1}{N}W\frac{1}{N}B}{W}\]</span></p>
+<p><span class="math display">\[R=\dfrac{\frac{N-1}{N}W + \frac{1}{N}B}{W}\]</span></p>
 <p>avec <span class="math inline">\(\textstyle B = \frac{N}{C-1}\sum_{c=1}^C (\bar{\theta}_{[C]} - \bar{\theta}_{\cdot})^2\)</span> la variance inter-chaînes, <span class="math inline">\(\textstyle \bar{\theta}_{[c]} = \frac{1}{N}\sum_{t=1}^N \theta_{[c]}^{(t)}\)</span>, <span class="math inline">\(\textstyle \bar{\theta}_{\cdot} = \frac{1}{C}\sum_{c=1}^C \bar{\theta}_{[C]}\)</span>, et <span class="math inline">\(\textstyle W = \frac{1}{C}\sum_{c=1}^C s_{[c]}^2\)</span> la variance intra-chaîne, <span class="math inline">\(\textstyle s_{[c]}^2 = \frac{1}{N-1}\sum_{t=1}^N (\theta_{[c]}^{(t)} - \bar{\theta}_{[C]})^2\)</span>. Lorsque <span class="math inline">\(N\rightarrow +\infty\)</span> tandis que <span class="math inline">\(B\rightarrow 0\)</span>, <span class="math inline">\(R\)</span> s’approche de la valeur de 1. On va donc chercher à itérer suffisamment un algorithme MCMC afin d’obtenir une valeur de <span class="math inline">\(R\)</span> proche de 1, par exemple entre <span class="math inline">\(1\)</span> et <span class="math inline">\(1,01\)</span> ou <span class="math inline">\(1,05\)</span>.</p>
 <p>La statistique Gelman-Rubin est un ratio (donc sans unité) ce qui en fait un résumé s’interprétant simplement et de la même manière pour tout échantillonneur MCMC. Autre avantage, il ne nécessite pas de choisir au préalable un paramètre à estimer (contrairement aux erreurs de Monte-Carlo). La statistique de Gelman-Rubin est donc un bon moyen de diagnostiquer la convergence d’un algorithme MCMC. Néanmoins, son calcul peut être instable et elle ne peut garantir la convergence à elle seule. Il s’agit d’un outil général pour la surveillance plus générale d’une chaîne de Markov.</p>
 <p>À noter que d’autres statistiques (par exemple la statistqiue de Geweke) sont parfois utilisées à la place ou en complément de celle de Gelman-Rubin, qui reste la plus populaire.</p>
@@ -66,7 +66,7 @@ elle doit être suffisamment longue pour permettre une bonne estimation de la di
 <em>Remarque</em> : il est fréquent que les diagnostiques soient satisfaisants pour certains paramètres, mais ne le soient pas pour d’autres. Il s’agit d’une appréciation subjective, et l’objectif est que la majorité des critères soient satisfaits (ou plus ou moins satisfaits) pour une grande majorité des paramètres.</p>
 
 <div class="figure"><span id="fig:unnamed-chunk-1"></span>
-<img src="../../static/cours/ConvergenceDiagTable.png" alt="Exemples de référence pour les diagnostiques graphiques de convergence" width="1318" />
+<img src="/cours/ConvergenceDiagTable.png" alt="Exemples de référence pour les diagnostiques graphiques de convergence"  />
 <p class="caption">
 Figure 1: Exemples de référence pour les diagnostiques graphiques de convergence
 </p>
@@ -89,7 +89,7 @@ où <span class="math inline">\(\rho(k)\)</span> désigne l’auto-corrélation 
 <div id="deviance-information-criterion-dic" class="section level4">
 <h4><em>Deviance Information Criterion</em> (<span class="math inline">\(DIC\)</span>)</h4>
 <p>Le <strong><em>Deviance Information Criterion</em></strong> (<span class="math inline">\(DIC\)</span>) s’appuie sur la déviance,<a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a> qui s’écrit comme : <span class="math inline">\(D(\theta) = -2\log(p(\theta|\boldsymbol{y})) + C\)</span> où <span class="math inline">\(C\)</span> est une constante. Le <span class="math inline">\(DIC\)</span> est alors définit par :
-<span class="math display">\[DIC = \overline{D(\theta)} + p_D\]</span> où <span class="math inline">\(p_D = \left(D(\overline{\theta}) - \overline{D(\theta)}\right)\)</span> représente une pénalité pour le nombre effectif de paramètres. Le <span class="math inline">\(DIC\)</span> permet notamment de comparer différents modèles sur les mêmes données (plus il est bas, meilleur est le modèle), et de faire des choix de modélisation dans le contexte bayésien.</p>
+<span class="math display">\[DIC = \overline{D(\theta)} + p_D\]</span> où <span class="math inline">\(\overline{D(\theta)}\)</span> désigne la valeur moyenne de la déviance sur l’ensemble des <span class="math inline">\(\{\theta_t\}\)</span> échantillonnés et <span class="math inline">\(p_D = \left(D(\overline{\theta}) - \overline{D(\theta)}\right)\)</span> représente une pénalité pour le nombre effectif de paramètres -– avec  la moyenne des <span class="math inline">\(\{\theta_t\}\)</span>. Le <span class="math inline">\(DIC\)</span> permet notamment de comparer différents modèles sur les mêmes données (plus il est bas, meilleur est le modèle), et de faire des choix de modélisation dans le contexte bayésien.</p>
 </div>
 </div>
 <div class="footnotes">

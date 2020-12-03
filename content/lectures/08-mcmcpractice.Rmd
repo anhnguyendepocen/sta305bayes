@@ -1,6 +1,6 @@
 ---
-title: "MCMC in practice"
-linktitle: "MCMC in practice"
+title: "Les algorithmes MCMC pour l'inférence bayésienne dans la pratique"
+linktitle: "Algorithmes MCMC en pratique"
 date: "2020-06-18"
 read_date: "2020-06-18"
 menu:
@@ -15,20 +15,20 @@ output:
   blogdown::html_page:
     toc: true
 ---
-## Video lectures
+## Leçons video
 
-### MCMC software
-<iframe width="560" height="315" src="https://www.youtube.com/embed/bbj2MeFyfz8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+### Les logiciels implémentant des algorithmes MCMC 
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Aux8mB3K7f0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-### MCMC convergence
-<iframe width="560" height="315" src="https://www.youtube.com/embed/92YmdRIicTg" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+### Diagnostiquer la convergence des algorithmes MCMC
+<iframe width="560" height="315" src="https://www.youtube.com/embed/9KoKYBiKjx0" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-### MCMC inference
-<iframe width="560" height="315" src="https://www.youtube.com/embed/Mr3QNpaU2X8" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+### Inférence
+<iframe width="560" height="315" src="https://www.youtube.com/embed/Po8As-ONm4s" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 
-## Slides
+## Diaporama
 
-The **slides** for the first part of this section are displayed below, and can be downloaded [here](/slides/slidesMCMCsoftware.pdf).
+Le **diaporama** pour cette section est affiché ci-dessous, et peut être téléchargé [ici](/slides/slidesMCMCsoftware.pdf).
 
 <html>
 <body>
@@ -39,23 +39,4 @@ The **slides** for the first part of this section are displayed below, and can b
 </html>
 
 
-The **slides** for the second part of this section are displayed below, and can be downloaded [here](/slides/slidesMCMCconvergence.pdf).
-
-<html>
-<body>
-  <object data="/slides/slidesMCMCconvergence.pdf##view=fit" type="application/pdf" width="420" height="237">
-        <embed src="/slides/slidesMCMCconvergence.pdf##view=fit" type="application/pdf"/>
-  </object>
-</body>
-</html>
-
-The **slides** for the third part of this section are displayed below, and can be downloaded [here](/slides/slidesMCMCinference.pdf).
-
-<html>
-<body>
-  <object data="/slides/slidesMCMCinference.pdf##view=fit" type="application/pdf" width="420" height="237">
-        <embed src="/slides/slidesMCMCinference.pdf##view=fit" type="application/pdf"/>
-  </object>
-</body>
-</html>
 

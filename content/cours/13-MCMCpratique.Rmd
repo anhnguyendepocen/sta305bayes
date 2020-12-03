@@ -27,7 +27,7 @@ Le projet `BUGS` (*Bayesian inference Using Gibbs Sampling* : https://www.mrc-bs
 L'échantillonnage selon la distribution *a posteriori* par un algorithme MCMC comporte 2 phases : 
 
  1. La **phase de chauffe** (*burn-in*) :  
- elle correspond aux premières itérations de l'algorithme MCMC, qui ne doivent pas être conservées dans l'analyse de l'échantillon de Monte-Carlo. En effet, celles-ci ne proviennent pas de la distribution. Cette phase correspond donc au temps nécessaire à la chaîne de Markov pour converger vers sa loi stationnaire. Sa longueur varie d'un modèle à l'autre. Il n'y a aucune conséquence à prendre une phase de chauffe trop longue, si ce n'est son coût computationnel.
+ elle correspond aux premières itérations de l'algorithme MCMC, qui ne doivent pas être conservées dans l'analyse de l'échantillon de Monte-Carlo. En effet, celles-ci ne proviennent pas de la distribution *a posteriori*. Cette phase correspond donc au temps nécessaire à la chaîne de Markov pour converger vers sa loi stationnaire. Sa longueur varie d'un modèle à l'autre. Il n'y a aucune conséquence à prendre une phase de chauffe trop longue, si ce n'est son coût computationnel.
 
  2. La **phase d'échantillonnage** :  
  elle doit être suffisamment longue pour permettre une bonne estimation de la distribution *a posteriori*, notamment concernant les plages de valeurs de faible probabilité.
@@ -47,7 +47,7 @@ Une façon de d'évaluer la convergence d'un échantillonneur MCMC est de compar
 
 Soit $\theta_{[c]} = (\theta_{[c]}^{(1)}, \dots, \theta_{[c]}^{(N)})$ le $N$-échantillon obtenu à partir de la chaîne $c=1,\dots, C$ d'un algorithme MCMC échantillonnant $\theta$. La **statistique de Gelman-Rubin** s'écrit :
 
-$$R=\dfrac{\frac{N-1}{N}W\frac{1}{N}B}{W}$$
+$$R=\dfrac{\frac{N-1}{N}W + \frac{1}{N}B}{W}$$
 
 \noindent avec $\textstyle B = \frac{N}{C-1}\sum_{c=1}^C (\bar{\theta}_{[C]} - \bar{\theta}_{\cdot})^2$ la variance inter-chaînes, $\textstyle \bar{\theta}_{[c]} = \frac{1}{N}\sum_{t=1}^N \theta_{[c]}^{(t)}$, $\textstyle \bar{\theta}_{\cdot} = \frac{1}{C}\sum_{c=1}^C \bar{\theta}_{[C]}$, et $\textstyle W = \frac{1}{C}\sum_{c=1}^C s_{[c]}^2$ la variance intra-chaîne, $\textstyle s_{[c]}^2 = \frac{1}{N-1}\sum_{t=1}^N (\theta_{[c]}^{(t)} - \bar{\theta}_{[C]})^2$. Lorsque $N\rightarrow +\infty$ tandis que $B\rightarrow 0$, $R$ s'approche de la valeur de 1. On va donc chercher à itérer suffisamment un algorithme MCMC afin d'obtenir une valeur de $R$ proche de 1, par exemple entre $1$ et $1,01$ ou $1,05$.
 
@@ -99,7 +99,7 @@ En complément de la statistique de Gelman-Rubin et, un certain nombre de diagno
 
 ```{r, echo=FALSE, fig.cap="Exemples de référence pour les diagnostiques graphiques de convergence"}
 if(knitr::is_html_output()){
-  knitr::include_graphics("../../static/cours/ConvergenceDiagTable.png")
+  knitr::include_graphics("/cours/ConvergenceDiagTable.png", error = FALSE)
 }
 ```
 
@@ -122,7 +122,7 @@ Grâce aux algorithmes MCMC, on est donc capable d'obtenir un **échantillon de 
 #### *Deviance Information Criterion* ($DIC$)
 
 Le ***Deviance Information Criterion*** ($DIC$) s'appuie sur la déviance [^1], qui s'écrit comme : $D(\theta) = -2\log(p(\theta|\boldsymbol{y})) + C$ où $C$ est une constante. Le $DIC$ est alors définit par :
-	$$DIC = \overline{D(\theta)} + p_D$$ où $p_D = \left(D(\overline{\theta}) - \overline{D(\theta)}\right)$ représente une pénalité pour le nombre effectif de paramètres. Le $DIC$ permet notamment de comparer différents modèles sur les mêmes données (plus il est bas, meilleur est le modèle), et de faire des choix de modélisation dans le contexte bayésien.
+	$$DIC = \overline{D(\theta)} + p_D$$ où $\overline{D(\theta)}$ désigne la valeur moyenne de la déviance sur l'ensemble des $\{\theta_t\}$ échantillonnés et $p_D = \left(D(\overline{\theta}) - \overline{D(\theta)}\right)$ représente une pénalité pour le nombre effectif de paramètres \--- avec \overline{\theta} la moyenne des $\{\theta_t\}$. Le $DIC$ permet notamment de comparer différents modèles sur les mêmes données (plus il est bas, meilleur est le modèle), et de faire des choix de modélisation dans le contexte bayésien.
 
 [^1]: M Plummer, Penalized loss functions for Bayesian model comparison, *Biostatistics*, 2008
 
