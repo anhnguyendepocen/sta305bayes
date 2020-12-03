@@ -17,4 +17,17 @@ bibliography: "../../static/bib/references.bib"
 
 
 
-
+<p>On considère les réalisations <span class="math inline">\(\boldsymbol{x} = \{x_1,\ldots,x_n\}\)</span> d’une suite de variables aléatoires <span class="math inline">\(iid\)</span> <span class="math inline">\(\{X_i\}_{i=1, \dots, n}\)</span> réelles et supérieures à 1, dont la loi <span class="math inline">\(P_\theta\)</span> est supposée connue à un paramètre <span class="math inline">\(\theta &gt; 0\)</span> près. Cette loi <span class="math inline">\(P_\theta\)</span> est une loi continue, appelée loi de Pareto de paramètres <span class="math inline">\((\theta+1,1)\)</span> dont la densité est définie, pour <span class="math inline">\(x&gt;1\)</span>, par :
+<span class="math display">\[\begin{align*}
+f_\theta(x) &amp;=\frac{\theta+1}{x^{\theta+2}}
+\end{align*}\]</span></p>
+<ol style="list-style-type: decimal">
+<li><p>La loi <em>a priori</em> utilisée pour <span class="math inline">\(\theta\)</span> est une loi exponentielle de paramètre 1, dont la fonction de densité s’écrit :
+<span class="math inline">\(g(\theta) = e^{-\theta}\)</span>. Écrire alors le modèle bayésien associé.</p></li>
+<li><p>Montrer que la densité de la loi <em>a posteriori</em> de <span class="math inline">\(\theta | \boldsymbol{x}\)</span>, notée <span class="math inline">\(p(\theta|\boldsymbol{x})\)</span>, est proportionnelle à :
+<span class="math display">\[
+exp(-\theta)\left(\theta+1\right)^{n}\left(\prod_{i=1}^{n}x_i^{-\theta}\right) \qquad ; \quad \theta &gt; 0
+\]</span></p></li>
+<li><p>Proposer un algorithme de Metropolis-Hastings indépendant pour estimer la loi <em>a posteriori</em> de <span class="math inline">\(\theta |X_1,...,X_n\)</span>. On prendra comme loi instrumentale la loi <em>a priori</em> de <span class="math inline">\(\theta\)</span>. Expliciter l’estimateur Bayésien de <span class="math inline">\(\theta\)</span> construit pour le coût quadratique. Ne pas oublier de faire apparaître les calculs et la formule de la probabilité d’acceptation.</p></li>
+<li><p>Quel résultat théorique garantit sa convergence ? Expliquer brièvement.</p></li>
+</ol>

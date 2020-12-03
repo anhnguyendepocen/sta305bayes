@@ -25,3 +25,21 @@ if(knitr::opts_knit$get("rmarkdown.pandoc.to") == "latex"){
 }
 #"`r gsub(' 0', ' ', format.Date(Sys.Date(), '%B %dth, %Y'))`"
 ```
+
+On considère les réalisations $\boldsymbol{x} = \{x_1,\ldots,x_n\}$ d'une suite de variables aléatoires $iid$ $\{X_i\}_{i=1, \dots, n}$ réelles et supérieures à 1, dont la loi $P_\theta$ est supposée connue à un paramètre $\theta > 0$ près. Cette loi $P_\theta$ est une loi continue, appelée loi de Pareto de paramètres $(\theta+1,1)$ dont la densité est définie, pour $x>1$, par :
+\begin{align*}
+f_\theta(x) &=\frac{\theta+1}{x^{\theta+2}}
+\end{align*}
+
+
+ 1. La loi *a priori* utilisée pour $\theta$ est une loi exponentielle de paramètre 1, dont la fonction de densité s'écrit :
+$g(\theta) = e^{-\theta}$. Écrire alors le modèle bayésien associé.
+
+ 2. Montrer que la densité de la loi *a posteriori* de $\theta | \boldsymbol{x}$, notée $p(\theta|\boldsymbol{x})$, est proportionnelle à :
+\[
+exp(-\theta)\left(\theta+1\right)^{n}\left(\prod_{i=1}^{n}x_i^{-\theta}\right) \qquad ; \quad \theta > 0
+\]
+
+ 3. Proposer un algorithme de Metropolis-Hastings indépendant pour estimer la loi *a posteriori* de $\theta |X_1,...,X_n$. On  prendra comme loi instrumentale la loi *a priori* de $\theta$. Expliciter l'estimateur Bayésien de $\theta$ construit pour le coût quadratique. Ne pas oublier de faire apparaître les calculs et la formule de la probabilité d'acceptation.
+
+ 4. Quel résultat théorique garantit sa convergence ? Expliquer brièvement.
