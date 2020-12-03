@@ -2,7 +2,7 @@
 title: "Exercice 3"
 linktitle: "Exercice 3"
 date: "2020-11-30"
-exo_date: "2020-12-03"
+exo_date: "2020-12-04"
 menu:
   td:
     parent: "TD"

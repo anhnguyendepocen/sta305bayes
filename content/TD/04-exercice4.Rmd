@@ -1,0 +1,81 @@
+---
+title: "Exercice 4"
+linktitle: "Exercice 4"
+date: "2020-11-30"
+exo_date: "2020-12-04"
+menu:
+  td:
+    parent: "TD"
+    weight: 4
+type: docs
+output:
+  blogdown::html_page:
+    toc: false
+    number_sections: false
+bibliography: "../../static/bib/references.bib"
+---
+
+```{r, include=FALSE}
+correction <-  FALSE # TRUE #
+knitr::opts_chunk$set(tidy = TRUE, message = FALSE, cache=TRUE)
+if(knitr::opts_knit$get("rmarkdown.pandoc.to") == "latex"){
+  knitr::opts_chunk$set(tidy = TRUE, message = FALSE, tidy.opts=list(width.cutoff=45), 
+                        dev="pdf", fig.align="center")
+  correction <-  FALSE
+}
+#"`r gsub(' 0', ' ', format.Date(Sys.Date(), '%B %dth, %Y'))`"
+```
+
+\noindent \textit{Propriétés utiles :}
+\begin{itemize} 
+	\item La densité de probabilité de la
+loi Beta de paramètres $a>0$ et $b>0$ évaluée en $\theta$ est donnée par%
+\[
+\text{Beta}(\theta;a,b)=\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}\theta
+^{a-1}(1-\theta)^{b-1}%
+\]
+
+	\item Soit $\theta$ une variable aléatoire suivant une loi Beta de paramètres $a$ et
+$b$. On a alors $$\mathbb{E}[\theta]=\frac{a}{a+b}$$
+\end{itemize}\bigskip
+
+\noindent On souhaite estimer la probabilité de contracter une maladie $M$ dans
+l'hopital $A$.\ On dispose pour cela de données de $n_{A}$ patients indiquant
+s'ils ont ou non contracté la maladie.\ On note $\boldsymbol{y}^{A} = (y_{1}^{A}, \dots, y_{n_{A}}^{A})$ l'échantillon observé de la variable binaire définie par :
+\[
+y_{i}^{A}=\left\{
+\begin{array}
+[c]{ll}%
+1 & \text{si le patient }i\text{ a contracté la maladie}\\
+0 & \text{sinon}%
+\end{array}
+\right.
+\]
+
+\noindent On note $\theta_A\in\lbrack0,1]$ la probabilité inconnue de contracter la
+maladie dans l'hôpital $A$ et l'on suppose que les variables aléatoires $\{Y_{i}^{A}\}_{i=1,\ldots,n_{A}}$ sont $iid$ conditionnellement à $\theta_A$.
+
+
+ 1. Écrire la vraisemblance des données $p(\boldsymbol{y}^{A} | \theta_A)$
+
+ 2. On utilise une approche bayésienne, et l'on suppose que $\theta_A$ suit *a priori* une distribution uniforme sur l'intervalle $[0,1]$. Donner la forme de la densité *a posteriori* $p(\theta_A | \boldsymbol{y}^{A})$. Montrer que celle-ci prend une forme paramétrique connue.
+
+ 3. Cette densité *a posteriori* est-elle propre? Pourquoi ?
+
+ 4. Calculer la loi marginale des observations $f(\boldsymbol{y}^{A})$.
+
+ 5. Donner la probabilité $p(y_{n_{A}+1}^{A} = 1|\boldsymbol{y}^{A})$ qu'un nouveau patient $n_{A}+1$ contracte la maladie sachant $\boldsymbol{y}^{A} = \{y_{1}^{A},\ldots,y_{n_{A}}^{A}\}$.
+
+
+ 6. On dispose maintenant des données $y_{1}^{B},\ldots,y_{n_{B}}^{B}$ de contraction de la maladie pour $n_{B}$ patients d'un second hôpital $B$. On note $\theta_B$ la probabilité que le patient $i$ de l'hôpital $B$ ait contracté la maladie, et l'on suppose toujours l'indépendance conditionnellement à $\theta_B.$ On souhaite tester l'hypothèse $H_{0}$ selon laquelle les taux de contraction de la maladie sont les mêmes dans les hôpitaux $A$ et $B$, versus l'hypothèse $H_{1}$ que ces taux sont différents:
+$$
+H_{0}:\theta_{B}=\theta_{A}\text{, }\theta_{A}\sim U(0,1)\text{ vs }%
+H_{1}:\theta_{A}\sim U([0,1]) \perp \theta_{B}\sim U([0,1])
+$$
+où $U([0,1])$ dénote la distribution uniforme sur l'intervalle $[0,1]$.  
+Écrire $p(\boldsymbol{y}^{A},\boldsymbol{y}^{B} | H_{0})$ et $p(\boldsymbol{y}^{A},\boldsymbol{y}^{B} | H_{1})$
+
+ 7. En déduire le facteur de Bayes $B_{10}$ de l'hypothèse $H_{1}$ par
+rapport à l'hypothèse $H_{0}$, qui se définie comme le ratio des probabilités à posteriori :  
+$$B_{10}=\frac{p(\boldsymbol{y}^{A},\boldsymbol{y}^{B} | H_{1})}{p(\boldsymbol{y}^{A},\boldsymbol{y}^{B} | H_{0})}$$
+

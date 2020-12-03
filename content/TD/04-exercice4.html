@@ -1,0 +1,52 @@
+---
+title: "Exercice 4"
+linktitle: "Exercice 4"
+date: "2020-11-30"
+exo_date: "2020-12-04"
+menu:
+  td:
+    parent: "TD"
+    weight: 4
+type: docs
+output:
+  blogdown::html_page:
+    toc: false
+    number_sections: false
+bibliography: "../../static/bib/references.bib"
+---
+
+
+
+
+
+<p>On souhaite estimer la probabilité de contracter une maladie <span class="math inline">\(M\)</span> dans
+l’hopital <span class="math inline">\(A\)</span>. On dispose pour cela de données de <span class="math inline">\(n_{A}\)</span> patients indiquant
+s’ils ont ou non contracté la maladie. On note <span class="math inline">\(\boldsymbol{y}^{A} = (y_{1}^{A}, \dots, y_{n_{A}}^{A})\)</span> l’échantillon observé de la variable binaire définie par :
+<span class="math display">\[
+y_{i}^{A}=\left\{
+\begin{array}
+[c]{ll}%
+1 &amp; \text{si le patient }i\text{ a contracté la maladie}\\
+0 &amp; \text{sinon}%
+\end{array}
+\right.
+\]</span></p>
+<p>On note <span class="math inline">\(\theta_A\in\lbrack0,1]\)</span> la probabilité inconnue de contracter la
+maladie dans l’hôpital <span class="math inline">\(A\)</span> et l’on suppose que les variables aléatoires <span class="math inline">\(\{Y_{i}^{A}\}_{i=1,\ldots,n_{A}}\)</span> sont <span class="math inline">\(iid\)</span> conditionnellement à <span class="math inline">\(\theta_A\)</span>.</p>
+<ol style="list-style-type: decimal">
+<li><p>Écrire la vraisemblance des données <span class="math inline">\(p(\boldsymbol{y}^{A} | \theta_A)\)</span></p></li>
+<li><p>On utilise une approche bayésienne, et l’on suppose que <span class="math inline">\(\theta_A\)</span> suit <em>a priori</em> une distribution uniforme sur l’intervalle <span class="math inline">\([0,1]\)</span>. Donner la forme de la densité <em>a posteriori</em> <span class="math inline">\(p(\theta_A | \boldsymbol{y}^{A})\)</span>. Montrer que celle-ci prend une forme paramétrique connue.</p></li>
+<li><p>Cette densité <em>a posteriori</em> est-elle propre? Pourquoi ?</p></li>
+<li><p>Calculer la loi marginale des observations <span class="math inline">\(f(\boldsymbol{y}^{A})\)</span>.</p></li>
+<li><p>Donner la probabilité <span class="math inline">\(p(y_{n_{A}+1}^{A} = 1|\boldsymbol{y}^{A})\)</span> qu’un nouveau patient <span class="math inline">\(n_{A}+1\)</span> contracte la maladie sachant <span class="math inline">\(\boldsymbol{y}^{A} = \{y_{1}^{A},\ldots,y_{n_{A}}^{A}\}\)</span>.</p></li>
+<li><p>On dispose maintenant des données <span class="math inline">\(y_{1}^{B},\ldots,y_{n_{B}}^{B}\)</span> de contraction de la maladie pour <span class="math inline">\(n_{B}\)</span> patients d’un second hôpital <span class="math inline">\(B\)</span>. On note <span class="math inline">\(\theta_B\)</span> la probabilité que le patient <span class="math inline">\(i\)</span> de l’hôpital <span class="math inline">\(B\)</span> ait contracté la maladie, et l’on suppose toujours l’indépendance conditionnellement à <span class="math inline">\(\theta_B.\)</span> On souhaite tester l’hypothèse <span class="math inline">\(H_{0}\)</span> selon laquelle les taux de contraction de la maladie sont les mêmes dans les hôpitaux <span class="math inline">\(A\)</span> et <span class="math inline">\(B\)</span>, versus l’hypothèse <span class="math inline">\(H_{1}\)</span> que ces taux sont différents:
+<span class="math display">\[
+H_{0}:\theta_{B}=\theta_{A}\text{, }\theta_{A}\sim U(0,1)\text{ vs }%
+H_{1}:\theta_{A}\sim U([0,1]) \perp \theta_{B}\sim U([0,1])
+\]</span>
+où <span class="math inline">\(U([0,1])\)</span> dénote la distribution uniforme sur l’intervalle <span class="math inline">\([0,1]\)</span>.<br />
+Écrire <span class="math inline">\(p(\boldsymbol{y}^{A},\boldsymbol{y}^{B} | H_{0})\)</span> et <span class="math inline">\(p(\boldsymbol{y}^{A},\boldsymbol{y}^{B} | H_{1})\)</span></p></li>
+<li><p>En déduire le facteur de Bayes <span class="math inline">\(B_{10}\)</span> de l’hypothèse <span class="math inline">\(H_{1}\)</span> par
+rapport à l’hypothèse <span class="math inline">\(H_{0}\)</span>, qui se définie comme le ratio des probabilités à posteriori :<br />
+<span class="math display">\[B_{10}=\frac{p(\boldsymbol{y}^{A},\boldsymbol{y}^{B} | H_{1})}{p(\boldsymbol{y}^{A},\boldsymbol{y}^{B} | H_{0})}\]</span></p></li>
+</ol>
