@@ -1,0 +1,43 @@
+---
+title: "Exercice 6"
+linktitle: "Exercice 6"
+date: "2020-11-30"
+exo_date: "2020-12-04"
+menu:
+  td:
+    parent: "TD"
+    weight: 6
+type: docs
+output:
+  blogdown::html_page:
+    toc: false
+    number_sections: false
+bibliography: "../../static/bib/references.bib"
+---
+
+```{r, include=FALSE}
+correction <-  FALSE # TRUE #
+knitr::opts_chunk$set(tidy = TRUE, message = FALSE, cache=TRUE)
+if(knitr::opts_knit$get("rmarkdown.pandoc.to") == "latex"){
+  knitr::opts_chunk$set(tidy = TRUE, message = FALSE, tidy.opts=list(width.cutoff=45), 
+                        dev="pdf", fig.align="center")
+  correction <-  FALSE
+}
+#"`r gsub(' 0', ' ', format.Date(Sys.Date(), '%B %dth, %Y'))`"
+```
+
+Dans cet exercice, nous nous proposons de voir comment il est possible de simuler des réalisations d'une loi puis de vérifier qu'elles sont bien issues de cette loi en ré-estimant les paramètres. 
+
+
+ 1. Proposer un algorithme basé sur la méthode par inversion, permettant de simuler la réalisation d'un échantillon de taille n d'une loi de Pareto de paramètres $\lambda=2$ et $k=5$. La densité de la loi de Pareto est la suivante : $f(x)=k \frac{\lambda^k}{ x^{k+1}}$).
+
+ 
+ 2. Grâce à ce premier algorithme nous pouvons donc maintenant simuler un $n$-échantillon $iid$ $\boldsymbol{x}=x^(1), ...x^(n)$ suivant une loi de Pareto de paramètres $\lambda=2$ et $k=5$. Désormais, nous voulons vérifier que l'algorithme est valide et nous voulons ré-estimer le paramètre $k$ ayant servi à simuler ces données. On suppose $\lambda=2$ connu et fixé. Pour cela, nous allons appliquer des méthodes bayésiennes avec l'*a priori* suivant pour $k$ : $\pi(k)=\frac{1}{200}e^{-\frac{k^2}{2*100^2}}\mathds{1}_{k\in]0,\infty[}$. Écrire le modèle bayésien associé puis calculer la loi *a posteriori* de $k |\boldsymbol{x}$.
+ 
+ 3. Expliquer brièvement la logique de l'acceptation/rejet en fonction de la loi instrumentale de proposition et de la loi que l'on veut échantillonner. Quelle simplification apparait en prenant pour loi instrumentale la loi *a priori* du paramètre? Comment appelle-t-on ce phénomène ?
+
+ 4. Proposer un algorithme de Métropolis-Hastings indépendant pour échantillonner la loi a posteriori* de $k | \boldsymbol{x}$. On  prendra comme loi instrumentale la loi \textit{a priori} de $k$. 
+
+ 5. Expliciter l'estimateur Bayésien $\hat{E}(k|X_1,..., X_n)$ de $k$ construit pour le coût quadratique.
+ 
+ 

@@ -1,0 +1,27 @@
+---
+title: "Exercice 6"
+linktitle: "Exercice 6"
+date: "2020-11-30"
+exo_date: "2020-12-04"
+menu:
+  td:
+    parent: "TD"
+    weight: 6
+type: docs
+output:
+  blogdown::html_page:
+    toc: false
+    number_sections: false
+bibliography: "../../static/bib/references.bib"
+---
+
+
+
+<p>Dans cet exercice, nous nous proposons de voir comment il est possible de simuler des réalisations d’une loi puis de vérifier qu’elles sont bien issues de cette loi en ré-estimant les paramètres.</p>
+<ol style="list-style-type: decimal">
+<li><p>Proposer un algorithme basé sur la méthode par inversion, permettant de simuler la réalisation d’un échantillon de taille n d’une loi de Pareto de paramètres <span class="math inline">\(\lambda=2\)</span> et <span class="math inline">\(k=5\)</span>. La densité de la loi de Pareto est la suivante : <span class="math inline">\(f(x)=k \frac{\lambda^k}{ x^{k+1}}\)</span>).</p></li>
+<li><p>Grâce à ce premier algorithme nous pouvons donc maintenant simuler un <span class="math inline">\(n\)</span>-échantillon <span class="math inline">\(iid\)</span> <span class="math inline">\(\boldsymbol{x}=x^(1), ...x^(n)\)</span> suivant une loi de Pareto de paramètres <span class="math inline">\(\lambda=2\)</span> et <span class="math inline">\(k=5\)</span>. Désormais, nous voulons vérifier que l’algorithme est valide et nous voulons ré-estimer le paramètre <span class="math inline">\(k\)</span> ayant servi à simuler ces données. On suppose <span class="math inline">\(\lambda=2\)</span> connu et fixé. Pour cela, nous allons appliquer des méthodes bayésiennes avec l’<em>a priori</em> suivant pour <span class="math inline">\(k\)</span> : <span class="math inline">\(\pi(k)=\frac{1}{200}e^{-\frac{k^2}{2*100^2}}\mathds{1}_{k\in]0,\infty[}\)</span>. Écrire le modèle bayésien associé puis calculer la loi <em>a posteriori</em> de <span class="math inline">\(k |\boldsymbol{x}\)</span>.</p></li>
+<li><p>Expliquer brièvement la logique de l’acceptation/rejet en fonction de la loi instrumentale de proposition et de la loi que l’on veut échantillonner. Quelle simplification apparait en prenant pour loi instrumentale la loi <em>a priori</em> du paramètre? Comment appelle-t-on ce phénomène ?</p></li>
+<li><p>Proposer un algorithme de Métropolis-Hastings indépendant pour échantillonner la loi a posteriori* de <span class="math inline">\(k | \boldsymbol{x}\)</span>. On prendra comme loi instrumentale la loi  de <span class="math inline">\(k\)</span>.</p></li>
+<li><p>Expliciter l’estimateur Bayésien <span class="math inline">\(\hat{E}(k|X_1,..., X_n)\)</span> de <span class="math inline">\(k\)</span> construit pour le coût quadratique.</p></li>
+</ol>

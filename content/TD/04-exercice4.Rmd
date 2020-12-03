@@ -26,18 +26,14 @@ if(knitr::opts_knit$get("rmarkdown.pandoc.to") == "latex"){
 #"`r gsub(' 0', ' ', format.Date(Sys.Date(), '%B %dth, %Y'))`"
 ```
 
-\noindent \textit{Propriétés utiles :}
-\begin{itemize} 
-	\item La densité de probabilité de la
-loi Beta de paramètres $a>0$ et $b>0$ évaluée en $\theta$ est donnée par%
-\[
-\text{Beta}(\theta;a,b)=\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}\theta
-^{a-1}(1-\theta)^{b-1}%
-\]
+***Propriétés utiles :***
 
-	\item Soit $\theta$ une variable aléatoire suivant une loi Beta de paramètres $a$ et
-$b$. On a alors $$\mathbb{E}[\theta]=\frac{a}{a+b}$$
-\end{itemize}\bigskip
+ - La densité de probabilité de la
+loi Beta de paramètres $a>0$ et $b>0$ évaluée en $\theta$ est donnée par :
+$$\text{Beta}(\theta;a,b)=\frac{\Gamma(a+b)}{\Gamma(a)\Gamma(b)}\theta^{a-1}(1-\theta)^{b-1}$$
+
+ - Soit $\theta$ une variable aléatoire suivant une loi Beta de paramètres $a$ et $b$. On a alors : $$\mathbb{E}[\theta]=\frac{a}{a+b}$$
+
 
 \noindent On souhaite estimer la probabilité de contracter une maladie $M$ dans
 l'hopital $A$.\ On dispose pour cela de données de $n_{A}$ patients indiquant
@@ -65,7 +61,6 @@ maladie dans l'hôpital $A$ et l'on suppose que les variables aléatoires $\{Y_{
  4. Calculer la loi marginale des observations $f(\boldsymbol{y}^{A})$.
 
  5. Donner la probabilité $p(y_{n_{A}+1}^{A} = 1|\boldsymbol{y}^{A})$ qu'un nouveau patient $n_{A}+1$ contracte la maladie sachant $\boldsymbol{y}^{A} = \{y_{1}^{A},\ldots,y_{n_{A}}^{A}\}$.
-
 
  6. On dispose maintenant des données $y_{1}^{B},\ldots,y_{n_{B}}^{B}$ de contraction de la maladie pour $n_{B}$ patients d'un second hôpital $B$. On note $\theta_B$ la probabilité que le patient $i$ de l'hôpital $B$ ait contracté la maladie, et l'on suppose toujours l'indépendance conditionnellement à $\theta_B.$ On souhaite tester l'hypothèse $H_{0}$ selon laquelle les taux de contraction de la maladie sont les mêmes dans les hôpitaux $A$ et $B$, versus l'hypothèse $H_{1}$ que ces taux sont différents:
 $$

@@ -1,0 +1,40 @@
+---
+title: "Exercice 5"
+linktitle: "Exercice 5"
+date: "2020-11-30"
+exo_date: "2020-12-04"
+menu:
+  td:
+    parent: "TD"
+    weight: 5
+type: docs
+output:
+  blogdown::html_page:
+    toc: false
+    number_sections: false
+bibliography: "../../static/bib/references.bib"
+---
+
+```{r, include=FALSE}
+correction <-  FALSE # TRUE #
+knitr::opts_chunk$set(tidy = TRUE, message = FALSE, cache=TRUE)
+if(knitr::opts_knit$get("rmarkdown.pandoc.to") == "latex"){
+  knitr::opts_chunk$set(tidy = TRUE, message = FALSE, tidy.opts=list(width.cutoff=45), 
+                        dev="pdf", fig.align="center")
+  correction <-  FALSE
+}
+#"`r gsub(' 0', ' ', format.Date(Sys.Date(), '%B %dth, %Y'))`"
+```
+
+Une personne effectue un test afin de détecter si elle est porteuse d'un virus A, potentiellement mortel, présent dans $0.1\%$ de la population. Le test a les propriétés suivantes:
+
+ - Si la personne est porteuse du virus, le test sera positif dans $99\%$
+des cas
+ - Si la personne n'est pas porteuse du virus, le test sera négatif
+dans $95\%$ des cas
+ 
+ 1. Le résultat du test est positif. Quelle est probabilité que la personne soit porteuse du virus ?
+ 
+ 2. Suite à ce test positif, la personne a le choix de suivre ou non un traitement thérapeutique. Si elle est effectivement porteuse du virus, ce traitement rallongera sa durée de vie de 6 mois. Qu'elle soit ou non porteuse du virus, ce traitement est assez lourd, et l'on considère qu'il diminue de 1 mois la durée de vie. Déterminer le coût moyen de la décision de suivre ce traitement.
+ 
+ 
