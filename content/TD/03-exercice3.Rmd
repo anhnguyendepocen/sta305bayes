@@ -81,15 +81,16 @@ p(\theta | \boldsymbol{x})\quad  \propto  \quad  e^{-\theta} (\theta+1)^n \prod_
 	  b. Calcul de la probabilité d'acceptation $\alpha^{(t)}$ (voir après)
 	  c. Étape d'acceptation-rejet de $y^{(t)}$
 		    - Générer aléatoirement $u^{(t)}$ à partir de la loi $U[0;1]$
-	  		- $\theta^{(t)}  :=  \left\{ \begin{array}{l} y^{(t)} \text{ si } u_t \leq \alpha^{(t)} \\ \theta^{(t-1)} \text{ sinon} \end{array} \right.$
+	  		- $\theta^{(t)}  :=  \left\{ \begin{array}{l} y^{(t)} \text{ si } u^{(t)} \leq \alpha^{(t)} \\ \theta^{(t-1)} \text{ sinon} \end{array} \right.$
 :::
 
 On détaille maintenant le calcul de la probabilité d'acceptation : 
-$$\alpha^{(t)} = min \left( 1, \frac{p(y^{(t)} | \boldsymbol{x})}{p(\theta^{(t-1)} | \boldsymbol{x})}\frac{\pi(\theta^{(t-1)})}{\pi(y)} \right)$$
+$$\alpha^{(t)} = min \left( 1, \frac{p(y^{(t)} | \boldsymbol{x})}{p(\theta^{(t-1)} | \boldsymbol{x})}\frac{\pi(\theta^{(t-1)})}{\pi(y^{(t)})} \right)$$
 
 \begin{align*}
-		  \dfrac{p(y^{(t)} | \boldsymbol{x})}{p(\theta^{(t-1)} | \boldsymbol{x})}\dfrac{\pi(\theta^{(t-1)})}{\pi(y)} & = \dfrac{p(y | \boldsymbol{x})}{p(\theta^{(t-1)} | \boldsymbol{x})}\dfrac{e^{-\theta^{(t-1)}}}{e^{-y}} \\
-          &  = \dfrac{(y +1)^n(\prod_{i=1}^n x_i^{-y}) e^{-y}}{(\theta^{(t-1)}+1)^n\left(\prod_{k=1}^n x_i^{-\theta^{(t-1)} }\right)e^{-\theta^{(t-1)}}}\dfrac{e^{-\theta^{(t-1)}}}{e^{-y}}
+\require{cancel}
+		  \dfrac{p(y^{(t)} | \boldsymbol{x})}{p(\theta^{(t-1)} | \boldsymbol{x})}\dfrac{\pi(\theta^{(t-1)})}{\pi(y^{(t)})} & = \dfrac{p(y^{(t)} | \boldsymbol{x})}{p(\theta^{(t-1)} | \boldsymbol{x})}\dfrac{e^{-\theta^{(t-1)}}}{e^{-y^{(t)}}} \\
+          &  = \dfrac{(y^{(t)} +1)^n(\prod_{i=1}^n x_i^{-y^{(t)}})\cancel{e^{-y^{(t)}}}}{(\theta^{(t-1)}+1)^n\left(\prod_{k=1}^n x_i^{-\theta^{(t-1)} }\right)\cancel{e^{-\theta^{(t-1)}}}}\dfrac{\cancel{e^{-\theta^{(t-1)}}}}{\cancel{e^{-y^{(t)}}}}
 \end{align*}
 
 Finalement $\alpha = min \left( 1, \dfrac{(y +1)^n \prod_{i=1}^n x_i^{-y}}{(\theta^{(t-1)}  +1)^n \prod_{k=1}^n x_i^{-\theta^{(t-1)} }} \right)$
