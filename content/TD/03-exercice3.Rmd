@@ -26,20 +26,77 @@ if(knitr::opts_knit$get("rmarkdown.pandoc.to") == "latex"){
 #"`r gsub(' 0', ' ', format.Date(Sys.Date(), '%B %dth, %Y'))`"
 ```
 
-On considère les réalisations $\boldsymbol{x} = \{x_1,\ldots,x_n\}$ d'une suite de variables aléatoires $iid$ $\{X_i\}_{i=1, \dots, n}$ réelles et supérieures à 1, dont la loi $P_\theta$ est supposée connue à un paramètre $\theta > 0$ près. Cette loi $P_\theta$ est une loi continue, appelée loi de Pareto de paramètres $(\theta+1,1)$ dont la densité est définie, pour $x>1$, par :
+On observe les réalisations $\boldsymbol{x} = \{x_1,\ldots,x_n\}$ d'une suite de variables aléatoires $iid$ $\{X_i\}_{i=1, \dots, n}$ réelles et supérieures à 1, dont la loi $P_\theta$ est supposée connue à un paramètre $\theta > 0$ près. Cette loi $P_\theta$ est une loi continue, appelée loi de Pareto de paramètres $(\theta+1,1)$ dont la densité est définie, pour $x>1$, par :
 \begin{align*}
 f_\theta(x) &=\frac{\theta+1}{x^{\theta+2}}
 \end{align*}
 
 
  1. La loi *a priori* utilisée pour $\theta$ est une loi exponentielle de paramètre 1, dont la fonction de densité s'écrit :
-$g(\theta) = e^{-\theta}$. Écrire alors le modèle bayésien associé.
+$g(\theta) = e^{-\theta}$.  Écrire alors le modèle bayésien associé.
 
- 2. Montrer que la densité de la loi *a posteriori* de $\theta | \boldsymbol{x}$, notée $p(\theta|\boldsymbol{x})$, est proportionnelle à :
+:::Correction
+ 1. **Question d'intérêt**  
+ Elle porte ici sur l'estimation de $\theta$, le paramètre de la loi de Pareto supposée pour les observations.
+ 
+ 2. **Modèle d'échantillonnage**
+ $$X_i | \theta \overset{iid}{\sim} \text{Pareto}(\theta +1, 1)$$
+ et donc $\displaystyle f(x_i|\theta) =\frac{\theta+1}{x_i^{\theta+2}}$
+ 
+ 3. **loi(s) *a priori***
+ $$\theta \sim \mathcal{E}(1)$$
+:::
+<br>
+
+ 2. Montrer que la densité de la loi *a posteriori* de $\theta | \boldsymbol{x}$ (notée $p(\theta|\boldsymbol{x})$) est proportionnelle à :
 \[
 exp(-\theta)\left(\theta+1\right)^{n}\left(\prod_{i=1}^{n}x_i^{-\theta}\right) \qquad ; \quad \theta > 0
 \]
 
+:::Correction
+D'après le théorème de Bayes, on peut écrire que le numérateur de la loi *a posteriori* est proportionnel au produit de la densité de la loi *a priori* avec et la vraisemblance des données :
+\begin{align*}
+p(\theta | \boldsymbol{x}) &\quad \propto  \quad \pi(\theta)f(x_1, ..., x_n | \theta) \\
+                                        &\quad \propto \quad exp(-\theta)\prod_{i=1}^n f_\theta(x_i) \\
+                                        &\quad \propto  \quad exp(-\theta) (\theta+1)^n \prod_{i=1}^n \frac{1}{x_i^{\theta+2}}\\
+                                        &\quad \propto  \quad exp(-\theta) (\theta+1)^n (\prod_{i=1}^n x_i^{-\theta}) (\prod_{i=1}^n x_i^{-2})
+\end{align*}
+Or $(\prod_{i=1}^n x_i^{-2})$ est indépendant de $\theta$, donc :
+\begin{align*}
+p(\theta | \boldsymbol{x})\quad  \propto  \quad  exp(-\theta) (\theta+1)^n (\prod_{i=1}^n x_i^{-\theta})  \qquad \theta \geq 0
+\end{align*}
+:::
+<br>
+
  3. Proposer un algorithme de Metropolis-Hastings indépendant pour estimer la loi *a posteriori* de $\theta |X_1,...,X_n$. On  prendra comme loi instrumentale la loi *a priori* de $\theta$. Expliciter l'estimateur Bayésien de $\theta$ construit pour le coût quadratique. Ne pas oublier de faire apparaître les calculs et la formule de la probabilité d'acceptation.
+ 
+:::Correction
+
+:::Algo
+ 1. Initialiser $\theta^{(0)}$
+ 2. Pour $t=1, \dots, n+N$ faire : 
+    a. Générer $y\sim \mathcal{E}(1)$
+	  b. Calcul de la probabilité d'acceptation $\alpha^{(t)}$ (voir après)
+	  c. Étape d'acceptation-rejet de $y$
+		    - Générer $u_t\sim U[0;1]$
+	  		- $\theta^{(t)}  :=  \left\{ \begin{array}{l} y \text{ si } u_t \leq \alpha^{(t)} \\ \theta^{(t-1)} \text{ sinon} \end{array} \right.$
+:::
+
+On détail maintenant le calcul de la probabilité d'acceptation :
+\begin{align*}
+\alpha_k & \quad = \quad min \left( 1, \frac{p(\theta' | \boldsymbol{x}) \pi(\theta^{(k-1)})} {p(\theta^{(k-1)} | \boldsymbol{x}) \pi(\theta')} \right) \\
+		  & \quad = \quad min \left( 1, \frac{p(\theta' | \boldsymbol{x}) e^{-\theta^{(k-1)}}} {p(\theta^{(k-1)} | \boldsymbol{x})e^{-\theta'}} \right) \\
+          & \quad = \quad min \left( 1, \frac{(\theta' +1)^n(\prod_{i=1}^n x_i^{-\theta'}) e^{-\theta'} e^{-\theta^{(k-1)}}}{(\theta^{(k-1)}  +1)^n(\prod_{k=1}^n x_i^{-\theta^{(k-1)} })e^{-\theta^{(k-1)}}e^{-\theta'}} \right) \\
+          & \quad = \quad min \left( 1, \frac{(\theta' +1)^n(\prod_{i=1}^n x_i^{-\theta'})}{(\theta^{(k-1)}  +1)^n(\prod_{k=1}^n x_i^{-\theta^{(k-1)} })} \right)
+\end{align*}
+
+Cet algorithme échantillonne la loi *a posteriori* du paramètre $\theta$. Appliquer la méthode de Monte-Carlo permet d'obtenir un estimateur de la moyenne *a posteriori* de $\theta$. Après une phase de chauffe, nous recueillons un n-échantillon de $\theta$ généré par l'algorithme de Metropolis-Hasting $(\theta^{(1)}, ... , \theta^{(n)})$. L'estimateur bayésien pour une fonction de coût quadratique est la moyenne *a posteriori*, calculée par :
+$$\hat{E}(\theta|\boldsymbol{x}) = \frac{1}{N} \sum_{k=1}^{n}\theta^{(n + k)}$$
+:::
+<br>
 
  4. Quel résultat théorique garantit sa convergence ? Expliquer brièvement.
+ 
+:::Correction
+La convergence de l'algorithme de Metropolis-Hastings est garantie par le **théorème ergodique**. L'algorithme de Metropolis-Hastings échantillonne les réalisations de $\theta$ à l'aide d'une chaine de Markov dont la distribution stationnaire  est la loi *a posteriori* de $\theta$. Le théorème ergodique permet donc d'appliquer la loi des grands nombres aux réalisations de cette chaîne.
+:::

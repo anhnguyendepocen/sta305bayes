@@ -17,17 +17,79 @@ bibliography: "../../static/bib/references.bib"
 
 
 
-<p>On considère les réalisations <span class="math inline">\(\boldsymbol{x} = \{x_1,\ldots,x_n\}\)</span> d’une suite de variables aléatoires <span class="math inline">\(iid\)</span> <span class="math inline">\(\{X_i\}_{i=1, \dots, n}\)</span> réelles et supérieures à 1, dont la loi <span class="math inline">\(P_\theta\)</span> est supposée connue à un paramètre <span class="math inline">\(\theta &gt; 0\)</span> près. Cette loi <span class="math inline">\(P_\theta\)</span> est une loi continue, appelée loi de Pareto de paramètres <span class="math inline">\((\theta+1,1)\)</span> dont la densité est définie, pour <span class="math inline">\(x&gt;1\)</span>, par :
+<p>On observe les réalisations <span class="math inline">\(\boldsymbol{x} = \{x_1,\ldots,x_n\}\)</span> d’une suite de variables aléatoires <span class="math inline">\(iid\)</span> <span class="math inline">\(\{X_i\}_{i=1, \dots, n}\)</span> réelles et supérieures à 1, dont la loi <span class="math inline">\(P_\theta\)</span> est supposée connue à un paramètre <span class="math inline">\(\theta &gt; 0\)</span> près. Cette loi <span class="math inline">\(P_\theta\)</span> est une loi continue, appelée loi de Pareto de paramètres <span class="math inline">\((\theta+1,1)\)</span> dont la densité est définie, pour <span class="math inline">\(x&gt;1\)</span>, par :
 <span class="math display">\[\begin{align*}
 f_\theta(x) &amp;=\frac{\theta+1}{x^{\theta+2}}
 \end{align*}\]</span></p>
 <ol style="list-style-type: decimal">
-<li><p>La loi <em>a priori</em> utilisée pour <span class="math inline">\(\theta\)</span> est une loi exponentielle de paramètre 1, dont la fonction de densité s’écrit :
-<span class="math inline">\(g(\theta) = e^{-\theta}\)</span>. Écrire alors le modèle bayésien associé.</p></li>
-<li><p>Montrer que la densité de la loi <em>a posteriori</em> de <span class="math inline">\(\theta | \boldsymbol{x}\)</span>, notée <span class="math inline">\(p(\theta|\boldsymbol{x})\)</span>, est proportionnelle à :
+<li>La loi <em>a priori</em> utilisée pour <span class="math inline">\(\theta\)</span> est une loi exponentielle de paramètre 1, dont la fonction de densité s’écrit :
+<span class="math inline">\(g(\theta) = e^{-\theta}\)</span>. Écrire alors le modèle bayésien associé.</li>
+</ol>
+<div class="Correction">
+<ol style="list-style-type: decimal">
+<li><p><strong>Question d’intérêt</strong><br />
+Elle porte ici sur l’estimation de <span class="math inline">\(\theta\)</span>, le paramètre de la loi de Pareto supposée pour les observations.</p></li>
+<li><p><strong>Modèle d’échantillonnage</strong>
+<span class="math display">\[X_i | \theta \overset{iid}{\sim} \text{Pareto}(\theta +1, 1)\]</span>
+et donc <span class="math inline">\(\displaystyle f(x_i|\theta) =\frac{\theta+1}{x_i^{\theta+2}}\)</span></p></li>
+<li><p><strong>loi(s) <em>a priori</em></strong>
+<span class="math display">\[\theta \sim \mathcal{E}(1)\]</span></p></li>
+</ol>
+</div>
+<p><br></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Montrer que la densité de la loi <em>a posteriori</em> de <span class="math inline">\(\theta | \boldsymbol{x}\)</span> (notée <span class="math inline">\(p(\theta|\boldsymbol{x})\)</span>) est proportionnelle à :
 <span class="math display">\[
 exp(-\theta)\left(\theta+1\right)^{n}\left(\prod_{i=1}^{n}x_i^{-\theta}\right) \qquad ; \quad \theta &gt; 0
-\]</span></p></li>
-<li><p>Proposer un algorithme de Metropolis-Hastings indépendant pour estimer la loi <em>a posteriori</em> de <span class="math inline">\(\theta |X_1,...,X_n\)</span>. On prendra comme loi instrumentale la loi <em>a priori</em> de <span class="math inline">\(\theta\)</span>. Expliciter l’estimateur Bayésien de <span class="math inline">\(\theta\)</span> construit pour le coût quadratique. Ne pas oublier de faire apparaître les calculs et la formule de la probabilité d’acceptation.</p></li>
-<li><p>Quel résultat théorique garantit sa convergence ? Expliquer brièvement.</p></li>
+\]</span></li>
 </ol>
+<div class="Correction">
+<p>D’après le théorème de Bayes, on peut écrire que le numérateur de la loi <em>a posteriori</em> est proportionnel au produit de la densité de la loi <em>a priori</em> avec et la vraisemblance des données :
+<span class="math display">\[\begin{align*}
+p(\theta | \boldsymbol{x}) &amp;\quad \propto  \quad \pi(\theta)f(x_1, ..., x_n | \theta) \\
+                                        &amp;\quad \propto \quad exp(-\theta)\prod_{i=1}^n f_\theta(x_i) \\
+                                        &amp;\quad \propto  \quad exp(-\theta) (\theta+1)^n \prod_{i=1}^n \frac{1}{x_i^{\theta+2}}\\
+                                        &amp;\quad \propto  \quad exp(-\theta) (\theta+1)^n (\prod_{i=1}^n x_i^{-\theta}) (\prod_{i=1}^n x_i^{-2})
+\end{align*}\]</span>
+Or <span class="math inline">\((\prod_{i=1}^n x_i^{-2})\)</span> est indépendant de <span class="math inline">\(\theta\)</span>, donc :
+<span class="math display">\[\begin{align*}
+p(\theta | \boldsymbol{x})\quad  \propto  \quad  exp(-\theta) (\theta+1)^n (\prod_{i=1}^n x_i^{-\theta})  \qquad \theta \geq 0
+\end{align*}\]</span></p>
+</div>
+<p><br></p>
+<ol start="3" style="list-style-type: decimal">
+<li>Proposer un algorithme de Metropolis-Hastings indépendant pour estimer la loi <em>a posteriori</em> de <span class="math inline">\(\theta |X_1,...,X_n\)</span>. On prendra comme loi instrumentale la loi <em>a priori</em> de <span class="math inline">\(\theta\)</span>. Expliciter l’estimateur Bayésien de <span class="math inline">\(\theta\)</span> construit pour le coût quadratique. Ne pas oublier de faire apparaître les calculs et la formule de la probabilité d’acceptation.</li>
+</ol>
+<div class="Correction">
+<div class="Algo">
+<ol style="list-style-type: decimal">
+<li>Initialiser <span class="math inline">\(\theta^{(0)}\)</span></li>
+<li>Pour <span class="math inline">\(t=1, \dots, n+N\)</span> faire :
+<ol style="list-style-type: lower-alpha">
+<li>Générer <span class="math inline">\(y\sim \mathcal{E}(1)\)</span></li>
+<li>Calcul de la probabilité d’acceptation <span class="math inline">\(\alpha^{(t)}\)</span> (voir après)</li>
+<li>Étape d’acceptation-rejet de <span class="math inline">\(y\)</span>
+<ul>
+<li>Générer <span class="math inline">\(u_t\sim U[0;1]\)</span></li>
+<li><span class="math inline">\(\theta^{(t)} := \left\{ \begin{array}{l} y \text{ si } u_t \leq \alpha^{(t)} \\ \theta^{(t-1)} \text{ sinon} \end{array} \right.\)</span></li>
+</ul></li>
+</ol></li>
+</ol>
+</div>
+<p>On détail maintenant le calcul de la probabilité d’acceptation :
+<span class="math display">\[\begin{align*}
+\alpha_k &amp; \quad = \quad min \left( 1, \frac{p(\theta&#39; | \boldsymbol{x}) \pi(\theta^{(k-1)})} {p(\theta^{(k-1)} | \boldsymbol{x}) \pi(\theta&#39;)} \right) \\
+          &amp; \quad = \quad min \left( 1, \frac{p(\theta&#39; | \boldsymbol{x}) e^{-\theta^{(k-1)}}} {p(\theta^{(k-1)} | \boldsymbol{x})e^{-\theta&#39;}} \right) \\
+          &amp; \quad = \quad min \left( 1, \frac{(\theta&#39; +1)^n(\prod_{i=1}^n x_i^{-\theta&#39;}) e^{-\theta&#39;} e^{-\theta^{(k-1)}}}{(\theta^{(k-1)}  +1)^n(\prod_{k=1}^n x_i^{-\theta^{(k-1)} })e^{-\theta^{(k-1)}}e^{-\theta&#39;}} \right) \\
+          &amp; \quad = \quad min \left( 1, \frac{(\theta&#39; +1)^n(\prod_{i=1}^n x_i^{-\theta&#39;})}{(\theta^{(k-1)}  +1)^n(\prod_{k=1}^n x_i^{-\theta^{(k-1)} })} \right)
+\end{align*}\]</span></p>
+<p>Cet algorithme échantillonne la loi <em>a posteriori</em> du paramètre <span class="math inline">\(\theta\)</span>. Appliquer la méthode de Monte-Carlo permet d’obtenir un estimateur de la moyenne <em>a posteriori</em> de <span class="math inline">\(\theta\)</span>. Après une phase de chauffe, nous recueillons un n-échantillon de <span class="math inline">\(\theta\)</span> généré par l’algorithme de Metropolis-Hasting <span class="math inline">\((\theta^{(1)}, ... , \theta^{(n)})\)</span>. L’estimateur bayésien pour une fonction de coût quadratique est la moyenne <em>a posteriori</em>, calculée par :
+<span class="math display">\[\hat{E}(\theta|\boldsymbol{x}) = \frac{1}{N} \sum_{k=1}^{n}\theta^{(n + k)}\]</span></p>
+</div>
+<p><br></p>
+<ol start="4" style="list-style-type: decimal">
+<li>Quel résultat théorique garantit sa convergence ? Expliquer brièvement.</li>
+</ol>
+<div class="Correction">
+<p>La convergence de l’algorithme de Metropolis-Hastings est garantie par le <strong>théorème ergodique</strong>. L’algorithme de Metropolis-Hastings échantillonne les réalisations de <span class="math inline">\(\theta\)</span> à l’aide d’une chaine de Markov dont la distribution stationnaire est la loi <em>a posteriori</em> de <span class="math inline">\(\theta\)</span>. Le théorème ergodique permet donc d’appliquer la loi des grands nombres aux réalisations de cette chaîne.</p>
+</div>

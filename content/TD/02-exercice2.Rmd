@@ -26,7 +26,7 @@ if(knitr::opts_knit$get("rmarkdown.pandoc.to") == "latex"){
 #"`r gsub(' 0', ' ', format.Date(Sys.Date(), '%B %dth, %Y'))`"
 ```
 
-\noindent On considère les réalisations $\boldsymbol{x} = \{x_1,\ldots,x_n\}$ d'une suite de variables aléatoires $iid$ $\{X_i\}_{i=1, \dots, n}$ positives suivant une loi exponentielle de paramètre $\lambda$ : $\mathcal{E}(\lambda)$,
+\noindent On observe les réalisations $\boldsymbol{x} = \{x_1,\ldots,x_n\}$ d'une suite de variables aléatoires $iid$ $\{X_i\}_{i=1, \dots, n}$ positives suivant une loi exponentielle de paramètre $\lambda$ : $\mathcal{E}(\lambda)$,
 où $\lambda>0$ est inconnu et on cherche à l'estimer. 
 
 On rappelle la densité de probabilité pour la distribution exponentielle : $f_\lambda(x) = \lambda e^{-\lambda x}$ pour $x>0$. 
