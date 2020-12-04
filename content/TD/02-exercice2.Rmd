@@ -63,7 +63,8 @@ D'après le théorème de Bayes, le numérateur de la loi *a posteriori* s'écri
   &\propto \lambda^{\alpha + n -1} e^{-\left(\beta + \sum_{i=1}^n x_i\right)\lambda}\\
 \end{align*}
 
-On reconnait, à une constante (en $\lambda$) près la forme de la densité d'une loi Gamma de paramètres $\alpha + n$ et $\beta + \sum_{i=1}^n x_i$ : $\mathcal G(\alpha + n, \beta + \sum_{i=1}^n x_i)$. On remarque que nous sommes dans une situation de conjugaison.
+On reconnaît là, à une constante (en $\lambda$) près la forme de la densité d'une loi Gamma de paramètres $\alpha + n$ et $\beta + \sum_{i=1}^n x_i$ : $\mathcal G(\alpha + n, \beta + \sum_{i=1}^n x_i)$.  
+On remarque que nous sommes dans une situation de conjugaison.
 :::
 <br>
 	
