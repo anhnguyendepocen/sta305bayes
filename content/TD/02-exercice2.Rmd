@@ -32,7 +32,7 @@ où $\lambda>0$ est inconnu et on cherche à l'estimer.
 On rappelle la densité de probabilité pour la distribution exponentielle : $f_\lambda(x) = \lambda e^{-\lambda x}$ pour $x>0$. 
 
 On utilise comme loi *a priori* sur $\lambda$ la loi Gamma $\mathcal G(\alpha,\beta)$ dont la densité s'écrit :
-$$ g(\lambda) = x^{\alpha-1} \frac{\beta^\alpha e^{-\beta x}}{\Gamma(\alpha)}$$
+$$ g(\lambda) = \lambda^{\alpha-1} \frac{\beta^\alpha e^{-\beta \lambda}}{\Gamma(\alpha)}$$
 
  1. Écrire est le modèle bayésien associé.
 	
