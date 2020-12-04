@@ -1,0 +1,85 @@
+---
+title: "Exercice 3 : Algorithme(s) de Metropolis-Hastings pour l'exemple historique (modèle Beta-Bernoulli)"
+linktitle: "Exercice 3 : Metropolis-Hastings"
+date: "2020-06-18"
+read_date: "2020-06-18"
+menu:
+  practicals:
+    parent: "TP"
+    weight: 3
+type: docs
+output:
+  blogdown::html_page:
+    toc: false
+    number_sections: false
+bibliography: "../../static/bib/references.bib"
+---
+
+
+
+<p>En reprenant l’exemple historique, programmer un algorithme de Metropolis-Hastings indépendant pour estimer la loi <em>a posteriori</em> du paramètre <span class="math inline">\(\theta\)</span> (la probabilité d’avoir une fille à la naissance). On prendra comme loi instrumentale la loi <em>a priori</em> de <span class="math inline">\(\theta\)</span>, et on utilisera dans un premier temps un <em>a priori</em> uniforme. On considerera les <span class="math inline">\(493\,472\)</span> naissances observées à Paris entre 1745 et 1770, dont <span class="math inline">\(241\,945\)</span> furent des filles.</p>
+<ol style="list-style-type: decimal">
+<li><p>Programmer une fonction calculant le numérateur du posterior, dont on rappel l’expression : <span class="math inline">\(p(\theta|n,S)\propto\theta^S(1-\theta)^{n-S}\)</span> où <span class="math inline">\(S = 241\,945\)</span> et <span class="math inline">\(n = 493\,472\)</span> (prévoir un argument permettant de renvoyer - ou non - le logarithme).</p>
+<pre class="r"><code>post_num_hist &lt;- function(theta, log = FALSE) {
+
+    # data
+    n &lt;- 493472
+    S &lt;- 241945
+
+    if (log) {
+        num &lt;- ...
+    } else {
+        num &lt;- ...
+    }
+    return(num)
+}</code></pre>
+<pre class="r"><code>post_num_hist(0.2, log = FALSE)
+post_num_hist(0.6, log = FALSE)
+post_num_hist(0.2, log = TRUE)
+post_num_hist(0.6, log = TRUE)</code></pre></li>
+<li><p>Programmer l’algorithme de Metropolis-Hastings correspondant qui renvoie un vecteur de taille <span class="math inline">\(n\)</span> échantillonné selon la loi <em>a posteriori</em> (on utilisera l’a priori - la loi Uniforme - comme loi instrumentale). On prendra soin également de renvoyer le vecteur des probabilités d’acceptation. Que se passe-t-il si l’on ne calcule <strong>PAS</strong> cette probabilité d’acceptation dans l’échelle <em>log</em> ?</p>
+<pre class="r"><code>monMH &lt;- function(niter, post_num) {
+
+    x_save &lt;- numeric(length = niter)  # store the sampled values
+    alpha &lt;- numeric(length = niter)  # to store the acceptance probabilities
+
+    # initialisation de x0
+    x &lt;- ...
+
+    for (t in 1:niter) {
+
+        # proposer une valeur a partir de la loi instumentale (a priori uniforme)
+        y &lt;- ...
+
+        # calculer la probabilité d&#39;acceptation-rejet
+        alpha[t] &lt;- ...
+        # message(&#39;alpha :&#39;, alpha) # permet d&#39;afficher alpha
+
+        # etape d&#39;acceptation-rejet
+
+        # mise-à-jour de la valeur courante de theta
+        x &lt;- x_save[t]
+    }
+    return(list(theta = x_save, alpha = alpha))
+}</code></pre></li>
+<li><p>Comparer la densité a posteriori obtenu avec l’algorithme M-H sur 2000 itérations à celle théorique. On prendra soin d’enlever les 500 premières itérations afin d’obtenir la convergence de la chaîne de Markov. Commenter ces résultats, notamment au vu des différentes probabilités d’acceptation calculées au cours de l’algorithme et des différentes valeurs échantillonnées pour <span class="math inline">\(\theta\)</span>.</p></li>
+<li><p>Considérer maintenant que l’on n’observe que <span class="math inline">\(100\)</span> naissances dont <span class="math inline">\(49\)</span> filles, et prendre un <em>a priori</em> de loi <span class="math inline">\(\text{Beta}(\alpha = 3, \beta=3)\)</span>. Programmer l’algorithme correspondant et étudier à nouveau les résultats ainsi obtenus (on pourra faire <span class="math inline">\(10\,000\)</span> itérations du nouvel algorithme de M-H).</p>
+<pre class="r"><code>post_num_beta &lt;- function(theta, a = 3, b = 3, log = TRUE) {
+    ...
+}
+
+monMH_betaprior &lt;- function(niter, post_num, a = 3, b = 3) {
+    ...
+}
+...</code></pre></li>
+<li><p>En utilisant les données de l’example historique et avec un <em>a priori</em> de loi <span class="math inline">\(\text{Beta}(\alpha = 3, \beta=3)\)</span>, programmer un algorithme de Metropolis-Hastings à marche aléatoire (on pourra commencer par prendre un pas aléatoire uniforme d’amplitude <span class="math inline">\(0.02\)</span>, puis (si le temps le permet) un pas gaussien d’écart-type <span class="math inline">\(0,02\)</span>). Étudier à nouveau les résultats ainsi obtenus (on pourra faire varier la taille du pas aléatoire).</p>
+<pre class="r"><code>post_num_beta_hist &lt;- function(theta, a = 3, b = 3, log = TRUE) {
+    ...
+    return(num)
+}
+
+monMH_betaprior_marchalea &lt;- function(niter, post_num, a = 3, b = 3) {
+    ...
+}
+...</code></pre></li>
+</ol>
