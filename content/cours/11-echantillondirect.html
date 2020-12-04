@@ -138,6 +138,18 @@ sinon on le <strong>rejette</strong> et on retourne en 1.</p></li>
 <p>On cherche <span class="math inline">\(M\)</span> le plus petit possible tel que <span class="math inline">\(M \geq \dfrac{f(x)}{g(x)} \,\forall\, x\)</span>.</p>
 <p>En dérivant <span class="math inline">\(\dfrac{f(x)}{g(x)}\)</span>, on trouve <span class="math inline">\(\max\left(\dfrac{f(x)}{g(x)}\right)\)</span> pour <span class="math inline">\(x=-1\)</span> ou <span class="math inline">\(x=1\)</span> (la dérivée s’annule en -1,0, et 1). Donc <span class="math inline">\(\dfrac{f(x)}{g(x)}\leq \sqrt{\dfrac{2\pi}{e}}\)</span></p>
 <p>On va donc utiliser : <span class="math inline">\(M = \sqrt{\dfrac{2\pi}{e}}\)</span></p>
+<pre class="r"><code>f &lt;- function(x){
+  exp(-x^2/2)/sqrt(2*pi)
+}
+g &lt;- function(x){
+  1/(pi*(1+x^2))
+}
+x &lt;- seq(from = -10, to = 10, by = 0.01)
+plot(x=x, y=f(x)/g(x), type=&#39;l&#39;, lwd = 2, ylab=&quot;Densité de probabilité&quot;)
+lines(x = x, y=f(x), type = &quot;l&quot;, lwd = 2, col=&quot;red&quot;)
+lines(x = x, y=g(x), type = &quot;l&quot;, lwd = 2, col=&quot;blue&quot;)
+lines(x = x, y=g(x)*sqrt(2*pi/exp(1)), type = &quot;l&quot;, lwd = 1.5, lty=3, col=&quot;purple&quot;)
+legend(&quot;topleft&quot;, legend = c(&quot;f(x)&quot;, &quot;g(x)&quot;, &quot;f(x)/g(x)&quot;, &quot;M*g(x)&quot;), col=c(&quot;red&quot;, &quot;blue&quot;, &quot;black&quot;, &quot;purple&quot;), lwd=c(2, 2, 2, 1.5), lty=c(1, 1, 1, 3))</code></pre>
 <p><img src="/cours/11-echantillondirect_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
 </div>
 </div>
