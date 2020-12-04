@@ -62,7 +62,7 @@ La vraisemblance $\mathcal{L}$ s'écrit :
 La log-vraisemblance $\ell$ s'écrit donc :
 \begin{align*}
   \ell(y_1,\dots,y_n|\theta) = \log f(\boldsymbol{y}|\theta) & = n\left(\frac{1}{\sqrt{2\pi}\sigma}\right) -\frac{1}{2\sigma^2}\sum_{i=1}^n(y_i-\theta)^2\\
-  & = n\log\left(\frac{1}{\sqrt{2\pi}\sigma}\right) - \frac{1}{2\sigma^2}\sum_{i=1}^n y_i^2  + 2\frac{1}{2\sigma^2}\theta\sum_{i=1}^ny_i^2 - n\frac{1}{2\sigma^2} \theta^2\\
+  & = n\log\left(\frac{1}{\sqrt{2\pi}\sigma}\right) - \frac{1}{2\sigma^2}\sum_{i=1}^n y_i^2  + 2\frac{1}{2\sigma^2}\theta\sum_{i=1}^ny_i - n\frac{1}{2\sigma^2} \theta^2\\
   & = n\log\left(\frac{1}{\sqrt{2\pi}\sigma}\right) - \frac{1}{2\sigma^2}\sum_{i=1}^n y_i^2  + 2\frac{n}{2\sigma^2}\theta\bar{y}_{(n)} - \frac{n}{2\sigma^2} \theta^2 \\
   & \phantom{ = }+ \frac{n}{2\sigma^2}\bar{y}_{(n)}^2  - \frac{n}{2\sigma^2}\bar{y}_{(n)}^2\\
   & = n\log\left(\frac{1}{\sqrt{2\pi}\sigma}\right) - \frac{1}{2\sigma^2}\sum_{i=1}^n y_i^2 + \frac{n}{2\sigma^2}\bar{y}_{(n)}^2 - \frac{n}{2\sigma^2}(\bar{y}_{(n)} - \theta)^2

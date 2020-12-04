@@ -38,27 +38,25 @@ et donc <span class="math inline">\(\displaystyle f(x_i|\theta) =\frac{\theta+1}
 </div>
 <p><br></p>
 <ol start="2" style="list-style-type: decimal">
-<li>Montrer que la densité de la loi <em>a posteriori</em> de <span class="math inline">\(\theta | \boldsymbol{x}\)</span> (notée <span class="math inline">\(p(\theta|\boldsymbol{x})\)</span>) est proportionnelle à :
-<span class="math display">\[
-exp(-\theta)\left(\theta+1\right)^{n}\left(\prod_{i=1}^{n}x_i^{-\theta}\right) \qquad ; \quad \theta &gt; 0
-\]</span></li>
+<li>Montrer que la densité de la loi <em>a posteriori</em> de <span class="math inline">\(\theta | \boldsymbol{x}\)</span> — notée <span class="math inline">\(p(\theta|\boldsymbol{x})\)</span> — est proportionnelle à :</li>
 </ol>
+<p><span class="math display">\[e^{-\theta}\left(\theta+1\right)^{n}\prod_{i=1}^{n}x_i^{-\theta} \quad ; \quad \theta &gt; 0\]</span></p>
 <div class="Correction">
-<p>D’après le théorème de Bayes, on peut écrire que le numérateur de la loi <em>a posteriori</em> est proportionnel au produit de la densité de la loi <em>a priori</em> avec et la vraisemblance des données :
-<span class="math display">\[\begin{align*}
+<p>D’après le théorème de Bayes, on peut écrire que le numérateur de la loi <em>a posteriori</em> est proportionnel au produit de la densité de la loi <em>a priori</em> avec et la vraisemblance des données :</p>
+<p><span class="math display">\[\begin{align*}
 p(\theta | \boldsymbol{x}) &amp;\quad \propto  \quad \pi(\theta)f(x_1, ..., x_n | \theta) \\
-                                        &amp;\quad \propto \quad exp(-\theta)\prod_{i=1}^n f_\theta(x_i) \\
-                                        &amp;\quad \propto  \quad exp(-\theta) (\theta+1)^n \prod_{i=1}^n \frac{1}{x_i^{\theta+2}}\\
-                                        &amp;\quad \propto  \quad exp(-\theta) (\theta+1)^n (\prod_{i=1}^n x_i^{-\theta}) (\prod_{i=1}^n x_i^{-2})
-\end{align*}\]</span>
-Or <span class="math inline">\((\prod_{i=1}^n x_i^{-2})\)</span> est indépendant de <span class="math inline">\(\theta\)</span>, donc :
+                                        &amp;\quad \propto \quad e^{-\theta}\prod_{i=1}^n f(x_i| \theta) \\
+                                        &amp;\quad \propto  \quad e^{-\theta} (\theta+1)^n \prod_{i=1}^n \frac{1}{x_i^{\theta+2}}\\
+                                        &amp;\quad \propto  \quad e^{-\theta} (\theta+1)^n \left(\prod_{i=1}^n x_i^{-\theta}\right)  \left(\prod_{i=1}^n x_i^{-2}\right)
+\end{align*}\]</span></p>
+<p>Or <span class="math inline">\((\prod_{i=1}^n x_i^{-2})\)</span> est indépendant de <span class="math inline">\(\theta\)</span>, donc :
 <span class="math display">\[\begin{align*}
-p(\theta | \boldsymbol{x})\quad  \propto  \quad  exp(-\theta) (\theta+1)^n (\prod_{i=1}^n x_i^{-\theta})  \qquad \theta \geq 0
+p(\theta | \boldsymbol{x})\quad  \propto  \quad  e^{-\theta} (\theta+1)^n \prod_{i=1}^n x_i^{-\theta}  \qquad \theta \geq 0
 \end{align*}\]</span></p>
 </div>
 <p><br></p>
 <ol start="3" style="list-style-type: decimal">
-<li>Proposer un algorithme de Metropolis-Hastings indépendant pour estimer la loi <em>a posteriori</em> de <span class="math inline">\(\theta |X_1,...,X_n\)</span>. On prendra comme loi instrumentale la loi <em>a priori</em> de <span class="math inline">\(\theta\)</span>. Expliciter l’estimateur Bayésien de <span class="math inline">\(\theta\)</span> construit pour le coût quadratique. Ne pas oublier de faire apparaître les calculs et la formule de la probabilité d’acceptation.</li>
+<li>Proposer un algorithme de Metropolis-Hastings pour estimer la loi <em>a posteriori</em> de <span class="math inline">\(\theta | X_1,...,X_n\)</span>. On prendra comme loi instrumentale la loi <em>a priori</em> de <span class="math inline">\(\theta\)</span> (il s’agira donc d’un algorithme de Metropolis-Hastings indépendant). Expliciter l’estimateur Bayésien de <span class="math inline">\(\theta\)</span> construit pour le coût quadratique. Ne pas oublier de faire apparaître les calculs et la formule de la probabilité d’acceptation.</li>
 </ol>
 <div class="Correction">
 <div class="Algo">
@@ -66,25 +64,27 @@ p(\theta | \boldsymbol{x})\quad  \propto  \quad  exp(-\theta) (\theta+1)^n (\pro
 <li>Initialiser <span class="math inline">\(\theta^{(0)}\)</span></li>
 <li>Pour <span class="math inline">\(t=1, \dots, n+N\)</span> faire :
 <ol style="list-style-type: lower-alpha">
-<li>Générer <span class="math inline">\(y\sim \mathcal{E}(1)\)</span></li>
+<li>Générer aléatoirement <span class="math inline">\(y^{(t)}\)</span> à partir de la loi <span class="math inline">\(\mathcal{E}(1)\)</span></li>
 <li>Calcul de la probabilité d’acceptation <span class="math inline">\(\alpha^{(t)}\)</span> (voir après)</li>
-<li>Étape d’acceptation-rejet de <span class="math inline">\(y\)</span>
+<li>Étape d’acceptation-rejet de <span class="math inline">\(y^{(t)}\)</span>
 <ul>
-<li>Générer <span class="math inline">\(u_t\sim U[0;1]\)</span></li>
-<li><span class="math inline">\(\theta^{(t)} := \left\{ \begin{array}{l} y \text{ si } u_t \leq \alpha^{(t)} \\ \theta^{(t-1)} \text{ sinon} \end{array} \right.\)</span></li>
+<li>Générer aléatoirement <span class="math inline">\(u^{(t)}\)</span> à partir de la loi <span class="math inline">\(U[0;1]\)</span></li>
+<li><span class="math inline">\(\theta^{(t)} := \left\{ \begin{array}{l} y^{(t)} \text{ si } u_t \leq \alpha^{(t)} \\ \theta^{(t-1)} \text{ sinon} \end{array} \right.\)</span></li>
 </ul></li>
 </ol></li>
 </ol>
 </div>
-<p>On détail maintenant le calcul de la probabilité d’acceptation :
-<span class="math display">\[\begin{align*}
-\alpha_k &amp; \quad = \quad min \left( 1, \frac{p(\theta&#39; | \boldsymbol{x}) \pi(\theta^{(k-1)})} {p(\theta^{(k-1)} | \boldsymbol{x}) \pi(\theta&#39;)} \right) \\
-          &amp; \quad = \quad min \left( 1, \frac{p(\theta&#39; | \boldsymbol{x}) e^{-\theta^{(k-1)}}} {p(\theta^{(k-1)} | \boldsymbol{x})e^{-\theta&#39;}} \right) \\
-          &amp; \quad = \quad min \left( 1, \frac{(\theta&#39; +1)^n(\prod_{i=1}^n x_i^{-\theta&#39;}) e^{-\theta&#39;} e^{-\theta^{(k-1)}}}{(\theta^{(k-1)}  +1)^n(\prod_{k=1}^n x_i^{-\theta^{(k-1)} })e^{-\theta^{(k-1)}}e^{-\theta&#39;}} \right) \\
-          &amp; \quad = \quad min \left( 1, \frac{(\theta&#39; +1)^n(\prod_{i=1}^n x_i^{-\theta&#39;})}{(\theta^{(k-1)}  +1)^n(\prod_{k=1}^n x_i^{-\theta^{(k-1)} })} \right)
+<p>On détaille maintenant le calcul de la probabilité d’acceptation :
+<span class="math display">\[\alpha^{(t)} = min \left( 1, \frac{p(y^{(t)} | \boldsymbol{x})}{p(\theta^{(t-1)} | \boldsymbol{x})}\frac{\pi(\theta^{(t-1)})}{\pi(y)} \right)\]</span></p>
+<p><span class="math display">\[\begin{align*}
+          \dfrac{p(y^{(t)} | \boldsymbol{x})}{p(\theta^{(t-1)} | \boldsymbol{x})}\dfrac{\pi(\theta^{(t-1)})}{\pi(y)} &amp; = \dfrac{p(y | \boldsymbol{x})}{p(\theta^{(t-1)} | \boldsymbol{x})}\dfrac{e^{-\theta^{(t-1)}}}{e^{-y}} \\
+          &amp;  = \dfrac{(y +1)^n(\prod_{i=1}^n x_i^{-y}) e^{-y}}{(\theta^{(t-1)}+1)^n\left(\prod_{k=1}^n x_i^{-\theta^{(t-1)} }\right)e^{-\theta^{(t-1)}}}\dfrac{e^{-\theta^{(t-1)}}}{e^{-y}}
 \end{align*}\]</span></p>
-<p>Cet algorithme échantillonne la loi <em>a posteriori</em> du paramètre <span class="math inline">\(\theta\)</span>. Appliquer la méthode de Monte-Carlo permet d’obtenir un estimateur de la moyenne <em>a posteriori</em> de <span class="math inline">\(\theta\)</span>. Après une phase de chauffe, nous recueillons un n-échantillon de <span class="math inline">\(\theta\)</span> généré par l’algorithme de Metropolis-Hasting <span class="math inline">\((\theta^{(1)}, ... , \theta^{(n)})\)</span>. L’estimateur bayésien pour une fonction de coût quadratique est la moyenne <em>a posteriori</em>, calculée par :
-<span class="math display">\[\hat{E}(\theta|\boldsymbol{x}) = \frac{1}{N} \sum_{k=1}^{n}\theta^{(n + k)}\]</span></p>
+<p>Finalement <span class="math inline">\(\alpha = min \left( 1, \dfrac{(y +1)^n \prod_{i=1}^n x_i^{-y}}{(\theta^{(t-1)} +1)^n \prod_{k=1}^n x_i^{-\theta^{(t-1)} }} \right)\)</span></p>
+<p>Cet algorithme échantillonne alors selon la loi <em>a posteriori</em> du paramètre <span class="math inline">\(\theta\)</span> :</p>
+<p>Après une phase de chauffe de longueure <span class="math inline">\(n\)</span>, nous recueillons un <span class="math inline">\(N\)</span>-échantillon de <span class="math inline">\(\theta\)</span> généré par cet algorithme de Metropolis-Hasting <span class="math inline">\(\left(\theta^{(n+1)}, ... , \theta^{(n+N)}\right)\)</span>. Appliquer la méthode de Monte-Carlo permet d’obtenir un estimateur de la moyenne <em>a posteriori</em> de <span class="math inline">\(\theta\)</span>.</p>
+<p>L’estimateur bayésien pour une fonction de coût quadratique est la moyenne <em>a posteriori</em>, calculée par :
+<span class="math display">\[\widehat{E}(\theta|\boldsymbol{x}) = \frac{1}{N} \sum_{k=1}^{N}\theta^{(n + k)}\]</span></p>
 </div>
 <p><br></p>
 <ol start="4" style="list-style-type: decimal">

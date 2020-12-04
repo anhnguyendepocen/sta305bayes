@@ -48,50 +48,58 @@ $g(\theta) = e^{-\theta}$.  Écrire alors le modèle bayésien associé.
 :::
 <br>
 
- 2. Montrer que la densité de la loi *a posteriori* de $\theta | \boldsymbol{x}$ (notée $p(\theta|\boldsymbol{x})$) est proportionnelle à :
-\[
-exp(-\theta)\left(\theta+1\right)^{n}\left(\prod_{i=1}^{n}x_i^{-\theta}\right) \qquad ; \quad \theta > 0
-\]
+ 2. Montrer que la densité de la loi *a posteriori* de $\theta | \boldsymbol{x}$ --- notée $p(\theta|\boldsymbol{x})$ --- est proportionnelle à :
+ 
+$$e^{-\theta}\left(\theta+1\right)^{n}\prod_{i=1}^{n}x_i^{-\theta} \quad ; \quad \theta > 0$$
+
 
 :::Correction
 D'après le théorème de Bayes, on peut écrire que le numérateur de la loi *a posteriori* est proportionnel au produit de la densité de la loi *a priori* avec et la vraisemblance des données :
+
 \begin{align*}
 p(\theta | \boldsymbol{x}) &\quad \propto  \quad \pi(\theta)f(x_1, ..., x_n | \theta) \\
-                                        &\quad \propto \quad exp(-\theta)\prod_{i=1}^n f_\theta(x_i) \\
-                                        &\quad \propto  \quad exp(-\theta) (\theta+1)^n \prod_{i=1}^n \frac{1}{x_i^{\theta+2}}\\
-                                        &\quad \propto  \quad exp(-\theta) (\theta+1)^n (\prod_{i=1}^n x_i^{-\theta}) (\prod_{i=1}^n x_i^{-2})
+                                        &\quad \propto \quad e^{-\theta}\prod_{i=1}^n f(x_i| \theta) \\
+                                        &\quad \propto  \quad e^{-\theta} (\theta+1)^n \prod_{i=1}^n \frac{1}{x_i^{\theta+2}}\\
+                                        &\quad \propto  \quad e^{-\theta} (\theta+1)^n \left(\prod_{i=1}^n x_i^{-\theta}\right)  \left(\prod_{i=1}^n x_i^{-2}\right)
 \end{align*}
+
 Or $(\prod_{i=1}^n x_i^{-2})$ est indépendant de $\theta$, donc :
 \begin{align*}
-p(\theta | \boldsymbol{x})\quad  \propto  \quad  exp(-\theta) (\theta+1)^n (\prod_{i=1}^n x_i^{-\theta})  \qquad \theta \geq 0
+p(\theta | \boldsymbol{x})\quad  \propto  \quad  e^{-\theta} (\theta+1)^n \prod_{i=1}^n x_i^{-\theta}  \qquad \theta \geq 0
 \end{align*}
 :::
 <br>
 
- 3. Proposer un algorithme de Metropolis-Hastings indépendant pour estimer la loi *a posteriori* de $\theta |X_1,...,X_n$. On  prendra comme loi instrumentale la loi *a priori* de $\theta$. Expliciter l'estimateur Bayésien de $\theta$ construit pour le coût quadratique. Ne pas oublier de faire apparaître les calculs et la formule de la probabilité d'acceptation.
+ 3. Proposer un algorithme de Metropolis-Hastings pour estimer la loi *a posteriori* de $\theta | X_1,...,X_n$. On  prendra comme loi instrumentale la loi *a priori* de $\theta$ (il s'agira donc d'un algorithme de Metropolis-Hastings indépendant). Expliciter l'estimateur Bayésien de $\theta$ construit pour le coût quadratique. Ne pas oublier de faire apparaître les calculs et la formule de la probabilité d'acceptation.
  
 :::Correction
 
 :::Algo
  1. Initialiser $\theta^{(0)}$
  2. Pour $t=1, \dots, n+N$ faire : 
-    a. Générer $y\sim \mathcal{E}(1)$
+    a. Générer aléatoirement $y^{(t)}$ à partir de la loi $\mathcal{E}(1)$
 	  b. Calcul de la probabilité d'acceptation $\alpha^{(t)}$ (voir après)
-	  c. Étape d'acceptation-rejet de $y$
-		    - Générer $u_t\sim U[0;1]$
-	  		- $\theta^{(t)}  :=  \left\{ \begin{array}{l} y \text{ si } u_t \leq \alpha^{(t)} \\ \theta^{(t-1)} \text{ sinon} \end{array} \right.$
+	  c. Étape d'acceptation-rejet de $y^{(t)}$
+		    - Générer aléatoirement $u^{(t)}$ à partir de la loi $U[0;1]$
+	  		- $\theta^{(t)}  :=  \left\{ \begin{array}{l} y^{(t)} \text{ si } u_t \leq \alpha^{(t)} \\ \theta^{(t-1)} \text{ sinon} \end{array} \right.$
 :::
 
-On détail maintenant le calcul de la probabilité d'acceptation :
+On détaille maintenant le calcul de la probabilité d'acceptation : 
+$$\alpha^{(t)} = min \left( 1, \frac{p(y^{(t)} | \boldsymbol{x})}{p(\theta^{(t-1)} | \boldsymbol{x})}\frac{\pi(\theta^{(t-1)})}{\pi(y)} \right)$$
+
 \begin{align*}
-\alpha_k & \quad = \quad min \left( 1, \frac{p(\theta' | \boldsymbol{x}) \pi(\theta^{(k-1)})} {p(\theta^{(k-1)} | \boldsymbol{x}) \pi(\theta')} \right) \\
-		  & \quad = \quad min \left( 1, \frac{p(\theta' | \boldsymbol{x}) e^{-\theta^{(k-1)}}} {p(\theta^{(k-1)} | \boldsymbol{x})e^{-\theta'}} \right) \\
-          & \quad = \quad min \left( 1, \frac{(\theta' +1)^n(\prod_{i=1}^n x_i^{-\theta'}) e^{-\theta'} e^{-\theta^{(k-1)}}}{(\theta^{(k-1)}  +1)^n(\prod_{k=1}^n x_i^{-\theta^{(k-1)} })e^{-\theta^{(k-1)}}e^{-\theta'}} \right) \\
-          & \quad = \quad min \left( 1, \frac{(\theta' +1)^n(\prod_{i=1}^n x_i^{-\theta'})}{(\theta^{(k-1)}  +1)^n(\prod_{k=1}^n x_i^{-\theta^{(k-1)} })} \right)
+		  \dfrac{p(y^{(t)} | \boldsymbol{x})}{p(\theta^{(t-1)} | \boldsymbol{x})}\dfrac{\pi(\theta^{(t-1)})}{\pi(y)} & = \dfrac{p(y | \boldsymbol{x})}{p(\theta^{(t-1)} | \boldsymbol{x})}\dfrac{e^{-\theta^{(t-1)}}}{e^{-y}} \\
+          &  = \dfrac{(y +1)^n(\prod_{i=1}^n x_i^{-y}) e^{-y}}{(\theta^{(t-1)}+1)^n\left(\prod_{k=1}^n x_i^{-\theta^{(t-1)} }\right)e^{-\theta^{(t-1)}}}\dfrac{e^{-\theta^{(t-1)}}}{e^{-y}}
 \end{align*}
 
-Cet algorithme échantillonne la loi *a posteriori* du paramètre $\theta$. Appliquer la méthode de Monte-Carlo permet d'obtenir un estimateur de la moyenne *a posteriori* de $\theta$. Après une phase de chauffe, nous recueillons un n-échantillon de $\theta$ généré par l'algorithme de Metropolis-Hasting $(\theta^{(1)}, ... , \theta^{(n)})$. L'estimateur bayésien pour une fonction de coût quadratique est la moyenne *a posteriori*, calculée par :
-$$\hat{E}(\theta|\boldsymbol{x}) = \frac{1}{N} \sum_{k=1}^{n}\theta^{(n + k)}$$
+Finalement $\alpha = min \left( 1, \dfrac{(y +1)^n \prod_{i=1}^n x_i^{-y}}{(\theta^{(t-1)}  +1)^n \prod_{k=1}^n x_i^{-\theta^{(t-1)} }} \right)$
+
+Cet algorithme échantillonne alors selon la loi *a posteriori* du paramètre $\theta$ :
+
+Après une phase de chauffe de longueure $n$, nous recueillons un $N$-échantillon de $\theta$ généré par cet algorithme de Metropolis-Hasting $\left(\theta^{(n+1)}, ... , \theta^{(n+N)}\right)$. Appliquer la méthode de Monte-Carlo permet d'obtenir un estimateur de la moyenne *a posteriori* de $\theta$.
+
+L'estimateur bayésien pour une fonction de coût quadratique est la moyenne *a posteriori*, calculée par :
+$$\widehat{E}(\theta|\boldsymbol{x}) = \frac{1}{N} \sum_{k=1}^{N}\theta^{(n + k)}$$
 :::
 <br>
 
