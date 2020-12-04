@@ -31,7 +31,7 @@ où <span class="math inline">\(\lambda&gt;0\)</span> est inconnu et on cherche 
 Elle porte ici sur l’estimation de <span class="math inline">\(\lambda\)</span>.</p></li>
 <li><p><strong>Modèle d’échantillonnage</strong>
 <span class="math display">\[X_i\overset{iid}{\sim} \mathcal{E}(\lambda)\]</span>
-et donc <span class="math inline">\(\displaystyle f_{\sigma^2}(x_i|\lambda) = \lambda e^{-\lambda x_i}\)</span></p></li>
+et donc <span class="math inline">\(\displaystyle f(x_i|\lambda) = \lambda e^{-\lambda x_i}\)</span></p></li>
 <li><p><strong>loi(s) <em>a priori</em></strong>
 <span class="math display">\[\lambda\sim\mathcal G(\alpha,\beta)\]</span>
 (<span class="math inline">\(\alpha\)</span> et <span class="math inline">\(\beta\)</span> — les hyperparamètres — sont considérés connus).</p></li>
@@ -44,12 +44,13 @@ et donc <span class="math inline">\(\displaystyle f_{\sigma^2}(x_i|\lambda) = \l
 <div class="Correction">
 <p>D’après le théorème de Bayes, le numérateur de la loi <em>a posteriori</em> s’écrit :
 <span class="math display">\[\begin{align*}
-  p(\lambda | \boldsymbol{x}) &amp;\propto f(x_1, \dots, x_n | \lambda)g(\lambda)\\
-  &amp;\propto \prod_{i=1}^n \lambda e^{-\lambda x_i} \lambda^{\alpha-1} \frac{\beta^\alpha e^{-\beta \lambda}}{\Gamma(\alpha)}\\
+  p(\lambda | \boldsymbol{x}) &amp;\propto f(x_1, \dots, x_n | \lambda) \quad g(\lambda)\\
+  &amp;\propto \left(\prod_{i=1}^n \lambda e^{-\lambda x_i} \right) \quad \lambda^{\alpha-1} \frac{\beta^\alpha e^{-\beta \lambda}}{\Gamma(\alpha)}\\
   &amp;\propto \lambda^n e^{-\lambda \sum_{i=1}^n x_i} \lambda^{\alpha-1} e^{-\beta \lambda}\\
   &amp;\propto \lambda^{\alpha + n -1} e^{-\left(\beta + \sum_{i=1}^n x_i\right)\lambda}\\
 \end{align*}\]</span></p>
-<p>On reconnaît là, à une constante (en <span class="math inline">\(\lambda\)</span>) près la forme de la densité d’une loi Gamma de paramètres <span class="math inline">\(\alpha + n\)</span> et <span class="math inline">\(\beta + \sum_{i=1}^n x_i\)</span> : <span class="math inline">\(\mathcal G(\alpha + n, \beta + \sum_{i=1}^n x_i)\)</span>.<br />
-On remarque que nous sommes dans une situation de conjugaison.</p>
+<p>On reconnaît là, à une constante (en <span class="math inline">\(\lambda\)</span>) près la forme de la densité d’une loi Gamma de paramètres <span class="math inline">\(\alpha + n\)</span> et <span class="math inline">\(\beta + \sum_{i=1}^n x_i\)</span>. On en déduit donc la loi <em>a posteriori</em> de <span class="math inline">\(\lambda\)</span> :
+<span class="math display">\[\lambda | x_1, \dots, x_n \sim \mathcal G\left(\alpha + n, \beta + \sum_{i=1}^n x_i\right)\]</span><br />
+On remarque d’ailleurs que nous sommes dans une situation de conjugaison.</p>
 </div>
 <p><br></p>

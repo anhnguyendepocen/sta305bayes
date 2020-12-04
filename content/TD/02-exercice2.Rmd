@@ -42,7 +42,7 @@ $$ g(\lambda) = \lambda^{\alpha-1} \frac{\beta^\alpha e^{-\beta \lambda}}{\Gamma
  
  2. **Modèle d'échantillonnage**
  $$X_i\overset{iid}{\sim} \mathcal{E}(\lambda)$$
- et donc $\displaystyle f_{\sigma^2}(x_i|\lambda) = \lambda e^{-\lambda x_i}$
+ et donc $\displaystyle f(x_i|\lambda) = \lambda e^{-\lambda x_i}$
  
  3. **loi(s) *a priori***
  $$\lambda\sim\mathcal G(\alpha,\beta)$$
@@ -57,14 +57,15 @@ $$ g(\lambda) = \lambda^{\alpha-1} \frac{\beta^\alpha e^{-\beta \lambda}}{\Gamma
 :::Correction
 D'après le théorème de Bayes, le numérateur de la loi *a posteriori* s'écrit :
 \begin{align*}
-  p(\lambda | \boldsymbol{x}) &\propto f(x_1, \dots, x_n | \lambda)g(\lambda)\\
-  &\propto \prod_{i=1}^n \lambda e^{-\lambda x_i} \lambda^{\alpha-1} \frac{\beta^\alpha e^{-\beta \lambda}}{\Gamma(\alpha)}\\
+  p(\lambda | \boldsymbol{x}) &\propto f(x_1, \dots, x_n | \lambda) \quad g(\lambda)\\
+  &\propto \left(\prod_{i=1}^n \lambda e^{-\lambda x_i} \right) \quad \lambda^{\alpha-1} \frac{\beta^\alpha e^{-\beta \lambda}}{\Gamma(\alpha)}\\
   &\propto \lambda^n e^{-\lambda \sum_{i=1}^n x_i} \lambda^{\alpha-1} e^{-\beta \lambda}\\
   &\propto \lambda^{\alpha + n -1} e^{-\left(\beta + \sum_{i=1}^n x_i\right)\lambda}\\
 \end{align*}
 
-On reconnaît là, à une constante (en $\lambda$) près la forme de la densité d'une loi Gamma de paramètres $\alpha + n$ et $\beta + \sum_{i=1}^n x_i$ : $\mathcal G(\alpha + n, \beta + \sum_{i=1}^n x_i)$.  
-On remarque que nous sommes dans une situation de conjugaison.
+On reconnaît là, à une constante (en $\lambda$) près la forme de la densité d'une loi Gamma de paramètres $\alpha + n$ et $\beta + \sum_{i=1}^n x_i$. On en déduit donc la loi *a posteriori* de $\lambda$ :
+$$\lambda | x_1, \dots, x_n \sim \mathcal G\left(\alpha + n, \beta + \sum_{i=1}^n x_i\right)$$  
+On remarque d'ailleurs que nous sommes dans une situation de conjugaison.
 :::
 <br>
 	
