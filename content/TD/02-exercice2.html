@@ -23,6 +23,32 @@ où <span class="math inline">\(\lambda&gt;0\)</span> est inconnu et on cherche 
 <p>On utilise comme loi <em>a priori</em> sur <span class="math inline">\(\lambda\)</span> la loi Gamma <span class="math inline">\(\mathcal G(\alpha,\beta)\)</span> dont la densité s’écrit :
 <span class="math display">\[ g(\lambda) = \lambda^{\alpha-1} \frac{\beta^\alpha e^{-\beta \lambda}}{\Gamma(\alpha)}\]</span></p>
 <ol style="list-style-type: decimal">
-<li><p>Écrire est le modèle bayésien associé.</p></li>
-<li><p>Pouvez-vous identifiez la loi <em>a posteriori</em> correspondante ?</p></li>
+<li>Écrire est le modèle bayésien associé.</li>
 </ol>
+<div class="Correction">
+<ol style="list-style-type: decimal">
+<li><p><strong>Question d’intérêt</strong><br />
+Elle porte ici sur l’estimation de <span class="math inline">\(\lambda\)</span>.</p></li>
+<li><p><strong>Modèle d’échantillonnage</strong>
+<span class="math display">\[X_i\overset{iid}{\sim} \mathcal{E}(\lambda)\]</span>
+et donc <span class="math inline">\(\displaystyle f_{\sigma^2}(x_i|\lambda) = \lambda e^{-\lambda x_i}\)</span></p></li>
+<li><p><strong>loi(s) <em>a priori</em></strong>
+<span class="math display">\[\lambda\sim\mathcal G(\alpha,\beta)\]</span>
+(<span class="math inline">\(\alpha\)</span> et <span class="math inline">\(\beta\)</span> — les hyperparamètres — sont considérés connus).</p></li>
+</ol>
+</div>
+<p><br></p>
+<ol start="2" style="list-style-type: decimal">
+<li>Pouvez-vous identifiez la loi <em>a posteriori</em> correspondante ?</li>
+</ol>
+<div class="Correction">
+<p>D’après le théorème de Bayes, le numérateur de la loi <em>a posteriori</em> s’écrit :
+<span class="math display">\[\begin{align*}
+  p(\lambda | \boldsymbol{x}) &amp;\propto f(x_1, \dots, x_n | \lambda)g(\lambda)\\
+  &amp;\propto \prod_{i=1}^n \lambda e^{-\lambda x_i} \lambda^{\alpha-1} \frac{\beta^\alpha e^{-\beta \lambda}}{\Gamma(\alpha)}\\
+  &amp;\propto \lambda^n e^{-\lambda \sum_{i=1}^n x_i} \lambda^{\alpha-1} e^{-\beta \lambda}\\
+  &amp;\propto \lambda^{\alpha + n -1} e^{-\left(\beta + \sum_{i=1}^n x_i\right)\lambda}\\
+\end{align*}\]</span></p>
+<p>On reconnait, à une constante (en <span class="math inline">\(\lambda\)</span>) près la forme de la densité d’une loi Gamma de paramètres <span class="math inline">\(\alpha + n\)</span> et <span class="math inline">\(\beta + \sum_{i=1}^n x_i\)</span> : <span class="math inline">\(\mathcal G(\alpha + n, \beta + \sum_{i=1}^n x_i)\)</span>. On remarque que nous sommes dans une situation de conjugaison.</p>
+</div>
+<p><br></p>

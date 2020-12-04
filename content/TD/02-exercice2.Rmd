@@ -35,6 +35,35 @@ On utilise comme loi *a priori* sur $\lambda$ la loi Gamma $\mathcal G(\alpha,\b
 $$ g(\lambda) = \lambda^{\alpha-1} \frac{\beta^\alpha e^{-\beta \lambda}}{\Gamma(\alpha)}$$
 
  1. Écrire est le modèle bayésien associé.
+ 
+:::Correction
+  1. **Question d'intérêt**  
+ Elle porte ici sur l'estimation de $\lambda$.
+ 
+ 2. **Modèle d'échantillonnage**
+ $$X_i\overset{iid}{\sim} \mathcal{E}(\lambda)$$
+ et donc $\displaystyle f_{\sigma^2}(x_i|\lambda) = \lambda e^{-\lambda x_i}$
+ 
+ 3. **loi(s) *a priori***
+ $$\lambda\sim\mathcal G(\alpha,\beta)$$
+ ($\alpha$ et $\beta$ --- les hyperparamètres --- sont considérés connus).
+:::
+<br>
+
+ 
 	
  2. Pouvez-vous identifiez la loi *a posteriori* correspondante ?
+ 
+:::Correction
+D'après le théorème de Bayes, le numérateur de la loi *a posteriori* s'écrit :
+\begin{align*}
+  p(\lambda | \boldsymbol{x}) &\propto f(x_1, \dots, x_n | \lambda)g(\lambda)\\
+  &\propto \prod_{i=1}^n \lambda e^{-\lambda x_i} \lambda^{\alpha-1} \frac{\beta^\alpha e^{-\beta \lambda}}{\Gamma(\alpha)}\\
+  &\propto \lambda^n e^{-\lambda \sum_{i=1}^n x_i} \lambda^{\alpha-1} e^{-\beta \lambda}\\
+  &\propto \lambda^{\alpha + n -1} e^{-\left(\beta + \sum_{i=1}^n x_i\right)\lambda}\\
+\end{align*}
+
+On reconnait, à une constante (en $\lambda$) près la forme de la densité d'une loi Gamma de paramètres $\alpha + n$ et $\beta + \sum_{i=1}^n x_i$ : $\mathcal G(\alpha + n, \beta + \sum_{i=1}^n x_i)$. On remarque que nous sommes dans une situation de conjugaison.
+:::
+<br>
 	
