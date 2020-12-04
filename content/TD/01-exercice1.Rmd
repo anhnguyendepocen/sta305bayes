@@ -81,7 +81,7 @@ où $h(\boldsymbol{y},\sigma)$ ne dépend pas de $\theta$.
  3. Écrire la dérivée première et seconde de la log-vraisembance par rapport à $\theta$ et l'information de Fisher pour $\theta$.
 
 :::Correction
-La dérivée seconde de \log f(\boldsymbol{y}|\theta) par rapport à $\theta$ est: $-n/\sigma^2$.
+La dérivée seconde de $\log f(\boldsymbol{y}|\theta)$ par rapport à $\theta$ est: $-n/\sigma^2$.
 
 Cette quantité ne dépend pas de $\boldsymbol{y} =\{y_1,\dots,y_n\}$, on obtient donc directement : $I(\theta)=n/\sigma^2$.
 :::
