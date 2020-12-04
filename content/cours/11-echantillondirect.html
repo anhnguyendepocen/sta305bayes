@@ -102,14 +102,43 @@ sinon on le <strong>rejette</strong> et on retourne en 1.</p></li>
 <p>👉  <em>Exercice</em> <em>1</em> : Construire un pseudo-échantillon de taille <span class="math inline">\(n\)</span> selon la loi discrète suivante (multinomiale à <span class="math inline">\(m\)</span> éléments <span class="math inline">\(\{x_1, \dots, x_m\}\)</span>) :
 <span class="math display">\[P(X=x) = p_1\delta_{x_1}(x) + p_2\delta_{x_2}(x) + \dots p_m\delta_{x_m}(x) \quad \text{ avec }\sum_{i=1}^m p_i = 1  \text{ et } \delta_{a}(x) = \mathbb{1}_{\{x=a\}}\]</span></p>
 </div>
+<div class="Correction">
+<div class="Algo">
+<p>Pour <span class="math inline">\(i = 1, \dots, n\)</span> :</p>
+<ol style="list-style-type: decimal">
+<li>échantillonner selon la loi uniforme : <span class="math inline">\(u_i \sim U_{[0,1]}\)</span></li>
+<li><span class="math inline">\(y_i := x_{\min\left\{j ; u_i \in [0 ; \sum_{l=1}^j p_l]\right\}}\)</span></li>
+</ol>
+<p><span class="math inline">\((y_1,\dots, y_n\)</span>) est alors un pseudo-échantillon de taille <span class="math inline">\(n\)</span> de la loi <span class="math inline">\(Mult(p_1, \dots, p_m)\)</span></p>
+</div>
+</div>
 <p><br></p>
 <div class="Exercise">
 <p>👉  <em>Exercice</em> <em>2</em> : Grâce à la méthode par inversion, générer un pseudo-échantillon de taille suivant une loi de Cauchy (dont la densité est <span class="math inline">\(f(x)=\frac{1}{\pi(1+x^2)}\)</span>), sachant que <span class="math inline">\(\arctan&#39;(x)=\frac{1}{(1+x^2)}\)</span> et que <span class="math inline">\(\underset{x\rightarrow-\infty}{\lim} arctan(x) = -\frac{\pi}{2}\)</span>.</p>
+</div>
+<div class="Correction">
+<p><span class="math inline">\(F(y) = \int_{-\infty}^y f(x)\text{d}x\)</span></p>
+<p>Alors <span class="math inline">\(F(x) = \dfrac{\arctan(x)}{\pi +1/2}\)</span>, et il suit que <span class="math inline">\(F^{-1}(x) = \tan\left(\pi(x-1/2)\right)\)</span>.</p>
+<p>Donc <span class="math inline">\(Y = \tan\left(\pi(U-1/2)\right) \sim \text{Cauchy}\)</span> (avec <span class="math inline">\(U \sim U_{[0,1]}\)</span>), et on en déduit l’algorithme suivant :</p>
+<div class="Algo">
+<p>Pour <span class="math inline">\(i = 1, \dots, n\)</span> :</p>
+<ol style="list-style-type: decimal">
+<li>échantillonner selon la loi uniforme : <span class="math inline">\(u_i \sim U_{[0,1]}\)</span></li>
+<li><span class="math inline">\(y_i := \tan\left(\pi(u_i-1/2)\right)\)</span></li>
+</ol>
+<p><span class="math inline">\((y_1,\dots, y_n\)</span>) est alors un pseudo-échantillon de taille <span class="math inline">\(n\)</span> de la loi de Cauchy</p>
+</div>
 </div>
 <p><br></p>
 <div class="Exercise">
 <p>👉  <em>Exercice</em> <em>3</em> : Écrire un algorithme d’acceptation-rejet pour simuler la réalisation d’un pseudo-échantillon de taille <span class="math inline">\(n\)</span> d’une loi normale <span class="math inline">\(N(0,1)\)</span> en utilisant une loi de Cauchy comme proposition. Trouvez la valeur de <span class="math inline">\(M\)</span> optimale.</p>
 </div>
-<p><br></p>
+<div class="Correction">
+<p><span class="math inline">\(f(x) = \dfrac{\exp(-x^2/2)}{\sqrt{2\pi}}\)</span> et <span class="math inline">\(g(x) = \dfrac{1}{\pi(1+x^2)}\)</span></p>
+<p>On cherche <span class="math inline">\(M\)</span> le plus petit possible tel que <span class="math inline">\(M \geq \dfrac{f(x)}{g(x)} \,\forall\, x\)</span>.</p>
+<p>En dérivant <span class="math inline">\(\dfrac{f(x)}{g(x)}\)</span>, on trouve <span class="math inline">\(\max\left(\dfrac{f(x)}{g(x)}\right)\)</span> pour <span class="math inline">\(x=-1\)</span> ou <span class="math inline">\(x=1\)</span> (la dérivée s’annule en -1,0, et 1). Donc <span class="math inline">\(\dfrac{f(x)}{g(x)}\leq \sqrt{\dfrac{2\pi}{e}}\)</span></p>
+<p>On va donc utiliser : <span class="math inline">\(M = \sqrt{\dfrac{2\pi}{e}}\)</span></p>
+<p><img src="/cours/11-echantillondirect_files/figure-html/unnamed-chunk-1-1.png" width="672" /></p>
+</div>
 </div>
 </div>
