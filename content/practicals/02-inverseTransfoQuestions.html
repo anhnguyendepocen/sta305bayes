@@ -17,7 +17,7 @@ bibliography: "../../static/bib/references.bib"
 
 
 
-<p>Programmer un algorithme d’échantillonnage selon la loi Exponentielle de paramètre <span class="math inline">\(\lambda\)</span> grâce à la méthode de la fonction inverse et la fonction <code>R</code> <code>runif()</code>. Comparer la distribution de l’échantillon obtenu la densité de probabilité de l’échantillon obtenu avec cet algorithme avec la distribution théorique <code>R</code> <code>dexp()</code>.<br />
+<p>Programmer un algorithme d’échantillonnage selon la loi Exponentielle de paramètre <span class="math inline">\(\lambda\)</span> grâce à la méthode de la fonction inverse et la fonction <code>R</code> <code>runif()</code>. Comparer la distribution de l’échantillon obtenu avec cet algorithme et la distribution théorique cible (grâce à la fonction <code>R</code> <code>dexp()</code>).<br />
 Explorer différentes valeurs pour le paramètre <span class="math inline">\(\lambda\)</span> (par exemple <code>1</code>, <code>10</code>, <code>0.78</code>, …) pour vérifier le bon comportement de l’algorithme.</p>
 <pre class="r"><code>generer_exp &lt;- function(n, lambda) {
     u &lt;- runif(n)
