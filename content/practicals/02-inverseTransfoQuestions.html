@@ -17,12 +17,18 @@ bibliography: "../../static/bib/references.bib"
 
 
 
-<p>Programmer un algorithme d’échantillonnage selon la loi Exponentielle de paramètre <span class="math inline">\(\lambda\)</span> grâce à la méthode de la fonction inverse et la fonction <code>R</code> <code>runif</code>. Comparer la densité de probabilité de l’échantillon obtenu avec cet algorithme par rapport à celle obtenue en utilisant la fonction <code>R</code> <code>rexp</code>.<br />
-Explorer différentes valeurs pour le paramètre <span class="math inline">\(\lambda\)</span> (par exemple <code>1</code>, <code>10</code>, <code>0.78</code>, …).</p>
+<p>Programmer un algorithme d’échantillonnage selon la loi Exponentielle de paramètre <span class="math inline">\(\lambda\)</span> grâce à la méthode de la fonction inverse et la fonction <code>R</code> <code>runif()</code>. Comparer la distribution de l’échantillon obtenu la densité de probabilité de l’échantillon obtenu avec cet algorithme avec la distribution théorique <code>R</code> <code>dexp()</code>.<br />
+Explorer différentes valeurs pour le paramètre <span class="math inline">\(\lambda\)</span> (par exemple <code>1</code>, <code>10</code>, <code>0.78</code>, …) pour vérifier le bon comportement de l’algorithme.</p>
 <pre class="r"><code>generer_exp &lt;- function(n, lambda) {
-    ...
-    return(e)
+    u &lt;- runif(n)
+    x &lt;- -1/lambda * log(1 - u)
+    return(x)
 }
 
-...
-plot(...)</code></pre>
+n_ech &lt;- 1000
+mon_ech &lt;- generer_exp(n = n_ech, lambda = 10)
+hist(mon_ech, probability = TRUE, n = 25)
+curve(dexp(x, rate = 10), from = 0, to = max(mon_ech), col = &quot;red&quot;, lty = 2, add = TRUE)
+legend(&quot;topright&quot;, c(&quot;Fonction inverse&quot;, &quot;R dexp()&quot;), lty = c(1, 2), col = c(&quot;black&quot;, 
+    &quot;red&quot;))</code></pre>
+<p><img src="/practicals/02-inverseTransfoQuestions_files/figure-html/Exp-1.png" width="67%" style="display: block; margin: auto;" /></p>

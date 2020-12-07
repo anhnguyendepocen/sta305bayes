@@ -34,14 +34,14 @@ sdMC &lt;- numeric(nMC)
 for (i in 1:nMC) {
     sdMC[i] &lt;- mon_et(n = 10)
 }
-nMC &lt;- 1000
 mean(sdMC)</code></pre>
-<pre><code>## [1] 2.798671</code></pre>
-<pre class="r"><code>for (i in 1:nMC) {
+<pre><code>## [1] 2.623197</code></pre>
+<pre class="r"><code>nMC &lt;- 1000
+for (i in 1:nMC) {
     sdMC[i] &lt;- mon_et(n = 10)
 }
 mean(sdMC)</code></pre>
-<pre><code>## [1] 2.906784</code></pre>
+<pre><code>## [1] 2.934205</code></pre>
 <p><em>Lorsque la taille de l’échantillon augmente, la précision des l’estimateurs de Monte-Carlo s’améliore également. On illustre ici la convergence de la Loi des Grands Nombres.</em></p></li>
 <li><p>En reprenant l’exemple du cours, programmer un estimation de Monte Carlo du nombre <span class="math inline">\(\pi\approx 3,1416\)</span></p>
 <ol style="list-style-type: lower-alpha">
@@ -104,6 +104,6 @@ lines(x.cercle, y = -y.cercle + ncases/2, col = &quot;red&quot;)
 lines(x = pp[in_disk, 1], y = pp[in_disk, 2], xlim = c(0, ncases), ylim = c(0, ncases), 
     xlab = &quot;x&quot;, ylab = &quot;y&quot;, type = &quot;p&quot;, pch = 16, col = &quot;red&quot;, cex = 0.7)</code></pre>
 <p><img src="/practicals/01-piMCestimateQuestions_files/figure-html/MC2-plot-1.png" width="576" />
-[1] “<em>Lorsque la taille de l’échantillon augmente, l’estimateur de Monte Carlo devient plus précis (LGN). Cependant, si la grille est trop grossière, $ \widehat{\pi} $ est sous-estimé (sous-estimation de la surface du disque en omettant les parties prroche du bord). Par conséquent, l’augmentation de la résolution de la grille améliore également la précision de l’estimateur de Monte Carlo.</em>”</p></li>
+<em>Lorsque la taille de l’échantillon augmente, l’estimateur de Monte Carlo devient plus précis (LGN). Cependant, si la grille est trop grossière, $ \widehat{} $ est sous-estimé (sous-estimation de la surface du disque en omettant les parties prroche du bord). Par conséquent, l’augmentation de la résolution de la grille améliore également la précision de l’estimateur de Monte Carlo.</em></p></li>
 </ol></li>
 </ol>
