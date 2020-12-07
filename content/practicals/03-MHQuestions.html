@@ -33,15 +33,32 @@ bibliography: "../../static/bib/references.bib"
     }
     return(num)
 }</code></pre>
-<pre class="r"><code>post_num_hist(0.2, log = FALSE)
-post_num_hist(0.6, log = FALSE)
-post_num_hist(0.2, log = TRUE)
-post_num_hist(0.6, log = TRUE)</code></pre></li>
+<pre class="r"><code>post_num_hist &lt;- function(theta, log = FALSE) {
+
+    # data
+    n &lt;- 493472
+    S &lt;- 241945
+
+    if (log) {
+        num &lt;- S * log(theta) + (n - S) * log(1 - theta)
+    } else {
+        num &lt;- theta^S * (1 - theta)^(n - S)
+    }
+    return(num)
+}</code></pre>
+<pre class="r"><code>post_num_hist(0.2, log = FALSE)</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>post_num_hist(0.6, log = FALSE)</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>post_num_hist(0.2, log = TRUE)</code></pre>
+<pre><code>## [1] -445522.1</code></pre>
+<pre class="r"><code>post_num_hist(0.6, log = TRUE)</code></pre>
+<pre><code>## [1] -354063.6</code></pre></li>
 <li><p>Programmer l’algorithme de Metropolis-Hastings correspondant qui renvoie un vecteur de taille <span class="math inline">\(n\)</span> échantillonné selon la loi <em>a posteriori</em> (on utilisera l’a priori - la loi Uniforme - comme loi instrumentale). On prendra soin également de renvoyer le vecteur des probabilités d’acceptation. Que se passe-t-il si l’on ne calcule <strong>PAS</strong> cette probabilité d’acceptation dans l’échelle <em>log</em> ?</p>
 <pre class="r"><code>monMH &lt;- function(niter, post_num) {
 
-    x_save &lt;- numeric(length = niter)  # store the sampled values
-    alpha &lt;- numeric(length = niter)  # to store the acceptance probabilities
+    x_save &lt;- numeric(length = niter)  # sauver les valeurs échantillonées
+    alpha &lt;- numeric(length = niter)  # sauver les probabilités d&#39;acceptation
 
     # initialisation de x0
     x &lt;- ...
