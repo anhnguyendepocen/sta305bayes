@@ -126,14 +126,79 @@ Pour $i=1, \dots, n$ :
 `r if(knitr::is_html_output()){emo::ji("point_right")}` \textcolor{gold}{\faHandORight~} *Exercice* *1* : Construire un pseudo-échantillon de taille $n$ selon la loi discrète suivante (multinomiale à $m$ éléments $\{x_1, \dots, x_m\}$) :
 $$P(X=x) = p_1\delta_{x_1}(x) + p_2\delta_{x_2}(x) + \dots p_m\delta_{x_m}(x) \quad \text{ avec }\sum_{i=1}^m p_i = 1  \text{ et } \delta_{a}(x) = \mathbb{1}_{\{x=a\}}$$
 :::
+
+:::Correction
+:::Algo
+Pour $i = 1, \dots, n$ :
+
+  1. échantillonner selon la loi uniforme : $u_i \sim U_{[0,1]}$
+  2. $y_i := x_{\min\left\{j ; u_i \in [0 ; \sum_{l=1}^j p_l]\right\}}$
+  
+$(y_1,\dots, y_n$) est alors un pseudo-échantillon de taille $n$ de la loi $Mult(p_1, \dots, p_m)$
+:::
+:::
+
+
+
 <br>
+
+
+
 
 :::{.Exercise data-latex=""}
 `r if(knitr::is_html_output()){emo::ji("point_right")}` \textcolor{gold}{\faHandORight~} *Exercice* *2* : Grâce à la méthode par inversion, générer un pseudo-échantillon de taille suivant une loi de Cauchy (dont la densité est $f(x)=\frac{1}{\pi(1+x^2)}$), sachant que $\arctan'(x)=\frac{1}{(1+x^2)}$ et que $\underset{x\rightarrow-\infty}{\lim} arctan(x) = -\frac{\pi}{2}$.\medskip
 :::
+
+:::Correction
+$F(y) = \int_{-\infty}^y f(x)\text{d}x$
+
+Alors $F(x) = \dfrac{\arctan(x)}{\pi +1/2}$, et il suit que $F^{-1}(x) = \tan\left(\pi(x-1/2)\right)$.
+
+Donc $Y = \tan\left(\pi(U-1/2)\right) \sim \text{Cauchy}$ (avec $U \sim U_{[0,1]}$), et on en déduit l'algorithme suivant :
+
+:::Algo
+Pour $i = 1, \dots, n$ :
+
+  1. échantillonner selon la loi uniforme : $u_i \sim U_{[0,1]}$
+  2. $y_i := \tan\left(\pi(u_i-1/2)\right)$
+  
+$(y_1,\dots, y_n$) est alors un pseudo-échantillon de taille $n$ de la loi de Cauchy
+:::
+:::
+
+
+
+
 <br>
+
+
+
 
 :::{.Exercise data-latex=""}
 `r if(knitr::is_html_output()){emo::ji("point_right")}` \textcolor{gold}{\faHandORight~} *Exercice* *3* : Écrire un algorithme d'acceptation-rejet pour simuler la réalisation d'un pseudo-échantillon de taille $n$ d'une loi normale $N(0,1)$ en utilisant une loi de Cauchy comme proposition. Trouvez la valeur de $M$ optimale.\medskip
 :::
-<br>
+
+:::Correction
+$f(x) = \dfrac{\exp(-x^2/2)}{\sqrt{2\pi}}$ et $g(x) = \dfrac{1}{\pi(1+x^2)}$
+
+On cherche $M$ le plus petit possible tel que $M \geq \dfrac{f(x)}{g(x)} \,\forall\, x$.
+
+En dérivant $\dfrac{f(x)}{g(x)}$, on trouve $\max\left(\dfrac{f(x)}{g(x)}\right)$ pour $x=-1$ ou $x=1$ (la dérivée s’annule en -1,0, et 1). Donc $\dfrac{f(x)}{g(x)}\leq \sqrt{\dfrac{2\pi}{e}}$
+
+On va donc utiliser : $M = \sqrt{\dfrac{2\pi}{e}}$
+
+```{r, echo=TRUE, eval=TRUE}
+f <- function(x){
+  exp(-x^2/2)/sqrt(2*pi)
+}
+g <- function(x){
+  1/(pi*(1+x^2))
+}
+x <- seq(from = -10, to = 10, by = 0.01)
+plot(x=x, y=f(x)/g(x), type='l', lwd = 2, ylab="Densité de probabilité")
+lines(x = x, y=f(x), type = "l", lwd = 2, col="red")
+lines(x = x, y=g(x), type = "l", lwd = 2, col="blue")
+lines(x = x, y=g(x)*sqrt(2*pi/exp(1)), type = "l", lwd = 1.5, lty=3, col="purple")
+legend("topleft", legend = c("f(x)", "g(x)", "f(x)/g(x)", "M*g(x)"), col=c("red", "blue", "black", "purple"), lwd=c(2, 2, 2, 1.5), lty=c(1, 1, 1, 3))
+```
+:::

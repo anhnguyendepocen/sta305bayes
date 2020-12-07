@@ -1,0 +1,73 @@
+---
+title: "Exercice 4 : Prise en main de BUGS & JAGS"
+linktitle: "Exercice 4 : BUGS & JAGS"
+date: "2020-11-30"
+exo_date: "2020-12-08"
+menu:
+  practicals:
+    parent: "TP"
+    weight: 4
+type: docs
+output:
+  blogdown::html_page:
+    toc: false
+    number_sections: false
+bibliography: "../../static/bib/references.bib"
+---
+
+
+
+<div class="Info">
+<p>Le <a href="https://www.mrc-bsu.cam.ac.uk/software/bugs/">projet BUGS</a> (<em>Bayesian inference Using Gibbs Sampling</em>) a été initié en 1989 par l’unité de Biostatistique du MRC (<em>Medical Research Council</em>) de l’Université de Cambridge (au Royaume-Uni) afin de proposer un logiciel flexible pour l’analyse bayésienne de modèles statistiques complexes à l’aide d’algorithmes MCMC. Son implémentation la plus connue est <code>WinBUGS</code>, un logiciel clic-bouton disponible sous le système d’exploitation <em>Windows</em>. <code>OpenBUGS</code> est une implémentation fonctionnant sous <em>Windows</em>, <em>Mac OS</em> ou <em>Linux</em>. <a href="http://mcmc-jags.sourceforge.net/"><code>JAGS</code></a> (<em>Just another Gibbs Sampler</em>) est une autre implémentation plus récente qui s’appuie également sur le langage <code>BUGS</code>. Enfin, il faut également noter le logiciel <a href="http://mc-stan.org/"><code>STAN</code></a>, récemment développé à l’Université de Columbia qui n’est similaire à <code>BUGS</code> que dans son interface, s’appuyant sur des algorithmes MCMC innovants, comme par exemple les approches de Monte-Carlo Hamiltonien ou l’approche variationnelle. Une ressource très utile est le <a href="http://sourceforge.net/projects/mcmc-jags/files/Manuals/3.x/jags_user_manual.pdf">manuel de l’utilisateur de JAGS</a>.</p>
+</div>
+<p>Afin de se familiariser avec le logiciel <code>JAGS</code> (et son interface depuis <code>R</code> via le package <code>rjags</code>), nous nous intéressons ici à l’estimation a posteriori de la moyenne et de la variance d’un échantillon que l’on va modéliser avec une loi normale.</p>
+<ol start="0" style="list-style-type: decimal">
+<li>Charger le package <code>rjags</code>.</li>
+</ol>
+<div class="Info">
+<p>Un modèle <code>JAGS</code> a 3 éléments :</p>
+<ul>
+<li><em>le modèle</em> : spécifié dans un fichier externe (<code>.txt</code>) selon la syntaxe propre à <code>BUGS</code></li>
+<li><em>les données</em> : une liste contenant chaque données sous un nom correspondant à celui utilisé dans le modèle</li>
+<li><em>les valeurs initiales</em> : (optionnel) une liste contenant les valeurs initiales pour les différents paramètres à estimer</li>
+</ul>
+</div>
+<ol style="list-style-type: decimal">
+<li><p>Génerer <span class="math inline">\(N=50\)</span> observations selon une loi normale de moyenne <span class="math inline">\(m=2\)</span> et d’écart-type <span class="math inline">\(s=3\)</span>.</p></li>
+<li><p>Enregistrer dans un fichier <code>.txt</code> le modèle en <code>BUGS</code> défini à l’aide du code suivant :</p>
+<pre class="bugs"><code># Modèle
+model{
+
+  # Vraisemblance
+  for (i in 1:N){ 
+    obs[i]~dnorm(mu,tau)
+  }
+
+  # A priori
+  mu~dnorm(0,0.0001) # propre mais très plat (faiblement informatif)
+  tau~dgamma(0.0001,0.0001) # propre mais très plat (faiblement informatif)
+
+  # Variables d&#39;interet
+  sigma &lt;- pow(tau, -0.5)
+}</code></pre>
+<div class="Info">
+<ul>
+<li>Chaque fichier de spécification de modèle doit commencer par l’instruction <code>model{</code> qui indique à <code>JAGS</code> qu’il s’apprête à recevoir la spécification d’un modèle.</li>
+<li>Ensuite il faut mettre en place le modèle en bouclant (boucle <em>for</em>) sur l’ensemble des données. Ici, nous voulons déclarer que qu’il y a <code>N</code> données, et que pour chacune d’entre elle <code>obs[i]</code> suit une loi normal (caractérisée avec la commande <code>dnorm</code>) de moyenne <code>mu</code> et de précision <code>tau</code>.<br />
+⚠️ <em>Attention</em> : dans <code>BUGS</code> la distribution Normale est paramétrée par sa précision, qui est l’inverse de sa variance (<span class="math inline">\(\tau = 1/\sigma^2\)</span>).</li>
+<li>Ensuite, il s’agit de définir les lois <em>a priori</em> pour nos deux paramètres <code>mu</code> et <code>tau</code>, qui sont identiques pour chaque données. Pour <code>mu</code>, nous prenons un <em>a priori</em> selon la loi Normale de moyenne <span class="math inline">\(0\)</span> et de précision <span class="math inline">\(10^{-4}\)</span> (donc de variance <span class="math inline">\(10\,000\)</span> : cela correspond à un <em>a priori</em> faiblement informatif et relativement étalé au vu de l’échelle de nos données. Pour <code>tau</code> nous prenons la loi <em>a priori</em> conjuquée dans un modèle Gaussien, c’est-à-dire la loi Gamma (avec des paramètres très faibles, là encore pour rester le moins informatif possible).</li>
+<li>Enfin, nous donnons une définition déterministe de paramètre d’intérêt supplémentaire, ici l’écart-type <code>sigma</code>.<br />
+<strong>NB</strong>: <code>~</code> indique une définition probabiliste d’une variable aléatoire, tandis que <code>&lt;-</code> indique une définition par une formule déterministe.</li>
+</ul>
+</div></li>
+<li><p>À l’aide de la fonction <code>jags.model()</code>, créer un objet <code>jags</code> dans <code>R</code>.</p></li>
+<li><p>À l’aide de la fonction <code>coda.samples()</code>, obtenir un échantillon de taille <span class="math inline">\(2\,000\)</span> des distibutions <em>a posteriori</em> des paramètres de moyenne et d’écart-type.**</p></li>
+<li><p>En étudiant le résultat renvoyé par la fonction <code>coda.samples</code>, calculer les estimateurs de la moyenne <em>a posteriori</em> et de la médiane <em>a posteriori</em> pour <code>mu</code> et <code>sigma</code> et donner un intervalles de crédibilité à 95% pour chacun.</p></li>
+<li><p>Charger le package <code>coda</code>. Il s’agit d’un package contenant un certain nombre de fonctions pour le diagnostic de convergence des algorithmes MCMC et le traitement des résultats.</p></li>
+<li><p>Afin de pouvoir diagnostiquer la convergence d’un algorithme MCMC, il est nécessaire de générer plusieurs chaînes de Markov différentes, partant de valeurs initiales différentes. Recréer un objet <code>jags</code> en spécifiant l’utilisation de 3 chaines de Markov parallèles et en initialisant <code>mu</code> et <code>tau</code> à <span class="math inline">\((0; -10; 100)\)</span> et <span class="math inline">\((1; 0,01; 0.1)\)</span> respectivement (<strong>ProTip:</strong> utiliser une <code>list</code> de <code>list</code> — une pour chaque chaine). Commenter.</p></li>
+<li><p>À l’aide de la fonction <code>gelman.plot()</code>, tracer la statistique de Gelman-Rubin.</p></li>
+<li><p>À l’aide des fonctions <code>autocorr.plot()</code> et <code>acfplot()</code> évaluer l’autocorrélation des paramètres étudiés.</p></li>
+<li><p>À l’aide de la fonction <code>cumuplot()</code> évaluer les quantiles cumulés des paramètres étudiés. Comment les interpréter ?</p></li>
+<li><p>À l’aide de la fonction <code>crosscorr.plot()</code> évaluer les corrélations entre les paramètres étudiés. Comment les interpréter ?</p></li>
+<li><p>À l’aide de la fonction <code>hdi</code> du package <code>R</code> <code>HDInterval</code> donner les intervalles de crédibilités de plus haute densité <em>a posteriori</em> à 95%, et les comparer à ceux obtenu à partir des quantiles <span class="math inline">\(2,5\)</span>% et <span class="math inline">\(97,5\)</span>%.</p></li>
+</ol>

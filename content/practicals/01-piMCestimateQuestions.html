@@ -18,23 +18,47 @@ bibliography: "../../static/bib/references.bib"
 
 
 <ol style="list-style-type: decimal">
-<li><p>Générer un échantillon de taille <span class="math inline">\(10\)</span> pour une loi normale de moyenne <span class="math inline">\(m=2\)</span> et d’écart-type <span class="math inline">\(s=3\)</span>. Utiliser la méthode de Monte-Carlo pour estimer la moyenne et de l’écart-type à partir de multiples réalisation d’un tel <span class="math inline">\(10\)</span>-échantillon. Reproduire ensuite cette procédure pour un échantillon de taille <span class="math inline">\(20\,000\)</span>. Que remarque-t-on ? Quel fameux résultat théorique illustre-t-on ici ?</p></li>
+<li><p>On va d’abord illustrer la méthode de Monte-Carlo sur un exemple très simple.</p>
+<ol style="list-style-type: lower-alpha">
+<li>Implémenter une fonction qui génère un échantillon de taille <span class="math inline">\(10\)</span>, <span class="math inline">\(iid\)</span> selon une loi normale de moyenne <span class="math inline">\(m=2\)</span> et d’écart-type <span class="math inline">\(s=3\)</span> et renvoie l’estimation de l’écart-type de cet échantillon.</li>
+<li>Utiliser la méthode de Monte-Carlo pour estimer l’écart-type de la loi à l’origine de cet échantillon, à partir de multiples réalisations (par exemple 5) de l’estimateur de l’écart-type implémenté ci-dessus. Recommencer avec <span class="math inline">\(1\,000\)</span> réalisations ? Quel fameux résultat théorique illustre-t-on ici ?</li>
+</ol>
+<pre class="r"><code>mon_et &lt;- function(n = 10) {
+    ech &lt;- rnorm(n, mean = 2, sd = 3)
+    return(sd(ech))
+}
+
+# Estimateurs de Monte Carlo
+nMC &lt;- 5
+sdMC &lt;- numeric(nMC)
+for (i in 1:nMC) {
+    sdMC[i] &lt;- mon_et(n = 10)
+}
+nMC &lt;- 1000
+mean(sdMC)</code></pre>
+<pre><code>## [1] 2.798671</code></pre>
+<pre class="r"><code>for (i in 1:nMC) {
+    sdMC[i] &lt;- mon_et(n = 10)
+}
+mean(sdMC)</code></pre>
+<pre><code>## [1] 2.906784</code></pre>
+<p><em>Lorsque la taille de l’échantillon augmente, la précision des l’estimateurs de Monte-Carlo s’améliore également. On illustre ici la convergence de la Loi des Grands Nombres.</em></p></li>
 <li><p>En reprenant l’exemple du cours, programmer un estimation de Monte Carlo du nombre <span class="math inline">\(\pi\approx 3,1416\)</span></p>
 <ol style="list-style-type: lower-alpha">
-<li><p>Programmer une fonction <code>roulette_coord</code> qui prend un seul argument <code>ncases</code> (représentant le nombre de valeurs possible sur la roulette utilisée) valant <code>35</code> par défaut, permettant de générer les coordonnées d’un point (entre <span class="math inline">\(0\)</span> et <span class="math inline">\(35\)</span>). On utilisera la fonction <code>R</code> <code>sample</code>(dont on pourra consulter l’aide grâce à la commande <code>?sample</code>). La fonction renvera le vecteur des 2 coordonnées <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> ainsi générées.</p>
+<li><p>Programmer une fonction <code>roulette_coord()</code> qui prend un seul argument <code>ncases</code> (représentant le nombre de valeurs possible sur la roulette utilisée) valant <code>35</code> par défaut, permettant de générer les coordonnées d’un point (entre <span class="math inline">\(0\)</span> et <span class="math inline">\(35\)</span>). On utilisera la fonction <code>R</code> <code>sample()</code> (dont on pourra consulter l’aide grâce à la commande <code>?sample</code>). La fonction renvera le vecteur des 2 coordonnées <span class="math inline">\(x\)</span> et <span class="math inline">\(y\)</span> ainsi générées.</p>
 <pre class="r"><code>roulette_coord &lt;- function(ncases = 35) {
-    x &lt;- ...
-    y &lt;- ...
+    x &lt;- sample(x = 0:ncases, size = 1)
+    y &lt;- sample(x = 0:ncases, size = 1)
     return(c(x, y))
 }</code></pre></li>
 <li><p>En utilsant la formule de la distance entre 2 points, programmer une fonction calculant la distance à l’origine (qui a ici pour coordonnées <span class="math inline">\((\frac{ncases}{2}, \frac{ncases}{2})\)</span>) : <span class="math inline">\(d = \sqrt{(x_1 - x_2)^2 + (y_1 - y_2)^2}\)</span> et vérifiant si celle-ci est inférieure ou égale au rayon du cercle unité (<span class="math inline">\(R = \frac{ncases}{2}\)</span>). Cette fonction, qu’on appellera par exemple <code>inside_disk()</code> prendra deux arguments : d’une part le vecteur <code>p</code> des deux coordonnées du point évalué, d’autre part <code>ncases</code>. Cela renverra une valeure booléenne (<code>TRUE</code> ou <code>FALSE</code>) indiquant si le point est effectivement à l’intérieur du disque.</p>
 <pre class="r"><code>inside_disk &lt;- function(p, ncases = 35) {
-    d &lt;- ...
-    return(d &lt;= ...)
+    d &lt;- sqrt((p[1] - ncases/2)^2 + (p[2] - ncases/2)^2)
+    return(d &lt;= ncases/2)
 }</code></pre></li>
 <li><p>Comme le ratio entre la surface du disque de rayon <span class="math inline">\(\frac{ncases}{2}\)</span> et celle du carré de coté <span class="math inline">\(ncases\)</span> est égal à <span class="math inline">\(\frac{\pi}{4}\)</span>, la probabilité d’échantillonner un point à l’intérieur du disque (sachant qu’il est dans le carré) est de <span class="math inline">\(\frac{\pi}{4}\)</span>. Appuyez-vous sur ce résultat pour programmer une fonction calculant l’estimation de Monte-Carlo de <span class="math inline">\(\pi\)</span> à partir d’un vecteur booléen de taille <span class="math inline">\(n\)</span> (le nombre de points échantillonnés) dont chaque élément vaut <code>TRUE</code> si le point correspondant se trouve effectivement à l’intérieur du cercle, et <code>FALSE</code> sinon.</p>
 <pre class="r"><code>piMC &lt;- function(in_circle) {
-    return(...)
+    return(mean(4 * in_circle))
 }</code></pre></li>
 <li><p>À l’aide du code ci-dessous, représenter les données générées puis afficher l’estimation de Monte-Carlo de <span class="math inline">\(\pi\)</span> correspondante. Faire varier <code>npoints</code> et commenter. (<em>ProTip</em>: essayer <code>ngrid &lt;- 1000</code> et <code>npoints &lt;- 5000</code>)</p>
 <pre class="r"><code># Taille de la grille (résolution)
@@ -51,9 +75,9 @@ for (i in 1:nrow(pp)) {
 
 # Estimateur de Monte-Carlo de Pi
 in_disk &lt;- apply(X = pp, MARGIN = 1, FUN = inside_disk, ncases = ncases)
-piMC(in_disk)
-
-# Dessin on commence par initialiser un plot vide, de la bonne taille avec
+piMC(in_disk)</code></pre>
+<pre><code>## [1] 2.9</code></pre>
+<pre class="r"><code># Dessin on commence par initialiser un plot vide, de la bonne taille avec
 # l&#39;argument `type = &#39;n&#39;`
 plot(x = pp[, 1], y = pp[, 2], xlim = c(0, ncases), ylim = c(0, ncases), axes = 0, 
     xlab = &quot;x&quot;, ylab = &quot;y&quot;, type = &quot;n&quot;)
@@ -78,6 +102,8 @@ lines(x.cercle, y = y.cercle + ncases/2, col = &quot;red&quot;)
 lines(x.cercle, y = -y.cercle + ncases/2, col = &quot;red&quot;)
 ## enfin on colorie en rouge les points échantillonnés à l&#39;intérieur du cercle
 lines(x = pp[in_disk, 1], y = pp[in_disk, 2], xlim = c(0, ncases), ylim = c(0, ncases), 
-    xlab = &quot;x&quot;, ylab = &quot;y&quot;, type = &quot;p&quot;, pch = 16, col = &quot;red&quot;, cex = 0.7)</code></pre></li>
+    xlab = &quot;x&quot;, ylab = &quot;y&quot;, type = &quot;p&quot;, pch = 16, col = &quot;red&quot;, cex = 0.7)</code></pre>
+<p><img src="/practicals/01-piMCestimateQuestions_files/figure-html/MC2-plot-1.png" width="576" />
+[1] “<em>Lorsque la taille de l’échantillon augmente, l’estimateur de Monte Carlo devient plus précis (LGN). Cependant, si la grille est trop grossière, $ \widehat{\pi} $ est sous-estimé (sous-estimation de la surface du disque en omettant les parties prroche du bord). Par conséquent, l’augmentation de la résolution de la grille améliore également la précision de l’estimateur de Monte Carlo.</em>”</p></li>
 </ol></li>
 </ol>
