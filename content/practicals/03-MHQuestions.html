@@ -92,9 +92,9 @@ plot(sampleMH$alpha, type = &quot;h&quot;, xlab = &quot;Itération&quot;, ylab =
 plot(sampleMH$theta, type = &quot;l&quot;, xlab = &quot;Itération&quot;, ylab = expression(paste(&quot;Valeur échantillonnée pour &quot;, 
     theta)), ylim = c(0, 1))</code></pre>
 <p><img src="/practicals/03-MHQuestions_files/figure-html/MHcomp-1.png" width="768" /></p></li>
-<li><p>Afin de mieux illustrer le fonctionnement de l’algorithme de Metropolis-Hastings, nous allons modifier la loi stationnaire cible de la chaîne de Markov en ne considérant que <span class="math inline">\(100\)</span> observations, parmi lequelles <span class="math inline">\(49\)</span> naissances sont des filles, et en changeant l’<em>a priori</em> pour une loi <span class="math inline">\(\text{Beta}(\alpha = 3, \beta=3)\)</span>.
+<li><p>Afin de mieux illustrer le fonctionnement de l’algorithme de Metropolis-Hastings, nous allons modifier la loi stationnaire cible de la chaîne de Markov en ne considérant que <span class="math inline">\(100\)</span> observations, parmi lequelles <span class="math inline">\(49\)</span> naissances sont des filles, et en changeant l’<em>a priori</em> pour une loi <span class="math inline">\(\text{Beta}(\alpha = 3, \beta=3)\)</span>.<br />
 Reprogrammer une fonction <code>post_num_beta()</code> calculant le numérateur de la loi <em>a posteriori</em> correspondante (d’après la formule vue dans le cours), puis faites tourner l’algorithme <code>monMH()</code> avec <span class="math inline">\(10\,000\)</span> itérations.<br />
-NB : On conserve donc une loi instrumentale uniforme (celle-ci n’est obligatoirement égale à l’<em>a priori</em>). Si le temps le permet, utiliser également l’<em>a priori</em> <span class="math inline">\(\text{Beta}\)</span> pour la loi instrumentale.</p>
+<strong>NB</strong> : On conserve donc une loi instrumentale uniforme (celle-ci n’est obligatoirement égale à l’<em>a priori</em>) — on reste donc dans le cas d’un algorithme de Metropolis-Hastings <strong>indépendant</strong>. Si le temps le permet, utiliser également l’<em>a priori</em> <span class="math inline">\(\text{Beta}\)</span> pour la loi instrumentale (ce qui nécessite de modifier le calcul de la probabilité <span class="math inline">\(\alpha_t\)</span>.</p>
 <pre class="r"><code>post_num_beta &lt;- function(theta, log = TRUE, a = 3, b = 3) {
 
     n &lt;- 100  # nombre d&#39;essais (naissances)
@@ -126,31 +126,32 @@ plot(sampleMH$theta, type = &quot;l&quot;, xlab = &quot;Itération&quot;, ylab =
 Programmer un algorithme de Metropolis-Hastings à marche aléatoire (on pourra commencer par prendre un pas aléatoire uniforme d’amplitude <span class="math inline">\(0,02\)</span>, puis (si le temps le permet) un pas gaussien d’écart-type <span class="math inline">\(0,02\)</span>). Étudier à nouveau les résultats ainsi obtenus (on pourra faire varier la taille du pas aléatoire).</p>
 <pre class="r"><code>monMH_marchalea &lt;- function(niter, post_num, a=3, b=3){
 
-  theta_save &lt;- numeric(length = niter)
-  alpha &lt;- numeric(length = niter)
+  x_save &lt;- numeric(length = niter) # sauver les valeurs échantillonées - initialisation d&#39;un vecteur de 0s de taille niter
+  alpha &lt;- numeric(length = niter) # sauver les probabilités d&#39;acceptation - initialisation d&#39;un vecteur de 0s de taille niter
 
-  #initialisation de theta
-  theta &lt;- runif(n = 1, min = 0, max = 1)
+  #initialisation de x0
+  x &lt;- runif(n = 1, min = 0, max = 1)
 
   for(t in 1:niter){
     #proposer une valeur à partir de la loi instrumentale (marche aléatoire)
-    theta_prop &lt;- theta + runif(1, -0.01, 0.01) #rnorm(1, mean = 0, sd = 0.02)
+    y &lt;- x + runif(1, -0.01, 0.01) #rnorm(1, mean = 0, sd = 0.02)
 
     #calculer la probabilité d&#39;acceptation-rejet
-    alpha[t] &lt;- min(1, exp(post_num(theta_prop, log=TRUE) - 
-                           post_num(theta, log=TRUE)))
+    alpha[t] &lt;- min(1, exp(post_num(y, log=TRUE) - post_num(x, log=TRUE)))
 
-    #étape d&#39;acceptation-rejet
+    # étape d&#39;acceptation-rejet
     u &lt;- runif(1)
     if(u &lt;= alpha[t]){
-      theta &lt;- theta_prop # accept theta_prop and update current value
+      x_save[t] &lt;- y # accept theta_prop and update current value
+    }else{
+      x_save[t] &lt;- x
     }
 
-    #sauvegrade de la valeur courante de theta
-    theta_save[t] &lt;- theta
+    # mise-à-jour de la valeur courante x
+    x &lt;- x_save[t]
   }
 
-  return(list(&quot;theta&quot; = theta_save, &quot;alpha&quot; = alpha))
+  return(list(&quot;theta&quot; = x_save, &quot;alpha&quot; = alpha))
 }
 
 sampleMH &lt;- monMH_marchalea(20000, post_num = post_num_hist)
