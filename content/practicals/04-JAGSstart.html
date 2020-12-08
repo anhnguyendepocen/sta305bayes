@@ -75,7 +75,7 @@ model{
 ##    Total graph size: 58
 ## 
 ## Initializing model</code></pre></li>
-<li><p>À l’aide de la fonction <code>coda.samples()</code>, obtenir un échantillon de taille <span class="math inline">\(2\,000\)</span> des distibutions <em>a posteriori</em> des paramètres de moyenne et d’écart-type.**</p>
+<li><p>À l’aide de la fonction <code>coda.samples()</code>, obtenir un échantillon de taille <span class="math inline">\(2\,000\)</span> des distributions <em>a posteriori</em> des paramètres de moyenne et d’écart-type.</p>
 <pre class="r"><code>res &lt;- coda.samples(model = monpermierjags, variable.names = c(&quot;mu&quot;, &quot;sigma&quot;), n.iter = 2000)</code></pre></li>
 <li><p>En étudiant le résultat renvoyé par la fonction <code>coda.samples</code>, calculer les estimateurs de la moyenne <em>a posteriori</em> et de la médiane <em>a posteriori</em> pour <code>mu</code> et <code>sigma</code> et donner un intervalles de crédibilité à 95% pour chacun.</p>
 <pre class="r"><code>plot(res)</code></pre>
@@ -92,28 +92,28 @@ resum</code></pre>
 ##    plus standard error of the mean:
 ## 
 ##        Mean     SD Naive SE Time-series SE
-## mu    1.781 0.4600 0.010287       0.010109
-## sigma 3.215 0.3399 0.007601       0.007601
+## mu    2.592 0.4729 0.010575        0.01057
+## sigma 3.280 0.3332 0.007451        0.00830
 ## 
 ## 2. Quantiles for each variable:
 ## 
-##         2.5%   25%   50%   75% 97.5%
-## mu    0.8913 1.483 1.782 2.085 2.729
-## sigma 2.6361 2.971 3.184 3.426 3.986</code></pre>
+##        2.5%   25%   50%   75% 97.5%
+## mu    1.666 2.276 2.590 2.902 3.547
+## sigma 2.684 3.042 3.262 3.485 4.004</code></pre>
 <pre class="r"><code>resum$statistics[&quot;mu&quot;, &quot;Mean&quot;]</code></pre>
-<pre><code>## [1] 1.780934</code></pre>
+<pre><code>## [1] 2.591698</code></pre>
 <pre class="r"><code>resum$statistics[&quot;sigma&quot;, &quot;Mean&quot;]</code></pre>
-<pre><code>## [1] 3.215052</code></pre>
+<pre><code>## [1] 3.280049</code></pre>
 <pre class="r"><code>resum$quantiles[&quot;mu&quot;, &quot;50%&quot;]</code></pre>
-<pre><code>## [1] 1.782218</code></pre>
+<pre><code>## [1] 2.590401</code></pre>
 <pre class="r"><code>resum$quantiles[&quot;sigma&quot;, &quot;50%&quot;]</code></pre>
-<pre><code>## [1] 3.184462</code></pre>
+<pre><code>## [1] 3.2623</code></pre>
 <pre class="r"><code>resum$quantiles[&quot;mu&quot;, c(1, 5)]</code></pre>
-<pre><code>##      2.5%     97.5% 
-## 0.8913256 2.7285255</code></pre>
+<pre><code>##     2.5%    97.5% 
+## 1.665748 3.546797</code></pre>
 <pre class="r"><code>resum$quantiles[&quot;sigma&quot;, c(1, 5)]</code></pre>
-<pre><code>##    2.5%   97.5% 
-## 2.63611 3.98590</code></pre></li>
+<pre><code>##     2.5%    97.5% 
+## 2.684201 4.004152</code></pre></li>
 <li><p>Charger le package <code>coda</code>. Il s’agit d’un package contenant un certain nombre de fonctions pour le diagnostic de convergence des algorithmes MCMC et le traitement des résultats.</p>
 <pre class="r"><code>library(coda)</code></pre></li>
 <li><p>Afin de pouvoir diagnostiquer la convergence d’un algorithme MCMC, il est nécessaire de générer plusieurs chaînes de Markov différentes, partant de valeurs initiales différentes. Recréer un objet <code>jags</code> en spécifiant l’utilisation de 3 chaines de Markov parallèles et en initialisant <code>mu</code> et <code>tau</code> à <span class="math inline">\((0; -10; 100)\)</span> et <span class="math inline">\((1; 0,01; 0.1)\)</span> respectivement (<strong>ProTip:</strong> utiliser une <code>list</code> de <code>list</code> — une pour chaque chaine). Commenter.</p>
@@ -151,20 +151,20 @@ cumuplot(res2, ask = FALSE, auto.layout = FALSE)</code></pre>
 <li><p>À l’aide de la fonction <code>hdi</code> du package <code>R</code> <code>HDInterval</code> donner les intervalles de crédibilités de plus haute densité <em>a posteriori</em> à 95%, et les comparer à ceux obtenu à partir des quantiles <span class="math inline">\(2,5\)</span>% et <span class="math inline">\(97,5\)</span>%.</p>
 <pre class="r"><code>hdCI &lt;- HDInterval::hdi(res2)
 hdCI</code></pre>
-<pre><code>##              mu    sigma
-## lower 0.7964511 2.627398
-## upper 2.6039003 3.883594
+<pre><code>##             mu    sigma
+## lower 1.651749 2.685474
+## upper 3.481203 3.988681
 ## attr(,&quot;credMass&quot;)
 ## [1] 0.95</code></pre>
 <pre class="r"><code>symCI &lt;- summary(res2)$quantiles[, c(1, 5)]
 symCI</code></pre>
-<pre><code>##            2.5%    97.5%
-## mu    0.8284272 2.651726
-## sigma 2.6413978 3.909651</code></pre>
+<pre><code>##           2.5%    97.5%
+## mu    1.654977 3.486186
+## sigma 2.701669 4.023435</code></pre>
 <pre class="r"><code>symCI[, 2] - symCI[, 1]</code></pre>
 <pre><code>##       mu    sigma 
-## 1.823299 1.268253</code></pre>
+## 1.831209 1.321766</code></pre>
 <pre class="r"><code>hdCI[2, ] - hdCI[1, ]</code></pre>
 <pre><code>##       mu    sigma 
-## 1.807449 1.256196</code></pre></li>
+## 1.829454 1.303206</code></pre></li>
 </ol>
