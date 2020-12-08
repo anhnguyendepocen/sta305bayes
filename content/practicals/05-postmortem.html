@@ -1,0 +1,54 @@
+---
+title: "Exercice 5: Ré-analyse bayésienne post-mortem d’un essai clinique randomisé sous-dimensionné"
+linktitle: "Exercice 5: Réanalyse bayésienne post-mortem"
+date: "2020-11-30"
+read_date: "2020-12-08"
+menu:
+  practicals:
+    parent: "TP"
+    weight: 5
+type: docs
+output:
+  blogdown::html_page:
+    toc: false
+    number_sections: false
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/chicago-syllabus-no-bib.csl"
+---
+
+
+
+<p>L’essai clinique randomisé <em>EOLIA</em> <span class="citation">Alain Combes et al., “Extracorporeal Membrane Oxygenation for Severe Acute Respiratory Distress Syndrome,” <em>New England Journal of Medicine</em> 378, no. 21 (2018): 1965–1975, doi:<a href="https://doi.org/10.1056/NEJMoa1800385" role="doc-biblioref">10.1056/NEJMoa1800385</a>.</span> a évalué un nouveau traitement du syndrome respiratoire aigu sévère (SDRA) en comparant le taux de mortalité après 60 jours chez 249 patients répartis de manière aléatoire parmi un groupe contrôle (traité de manière traditionnelle, c’est-à-dire par ventilation mécanique) et un groupe traitement recevant une oxygénation extracorporelle par membrane (ECMO), le nouveau traitement étudié. Une analyse fréquentiste des données a conclu à un Risque Relatif de décès de <span class="math inline">\(0,76\)</span> dans le groupe ECMO par rapport au groupe témoin (en intention de traiter), avec <span class="math inline">\(IC_{95\%} =[0,55 ; 1,04]\)</span> et la p-valeur associée de <span class="math inline">\(0,09\)</span>.</p>
+<p><span class="citation">Ewan C. Goligher et al., “Extracorporeal Membrane Oxygenation for Severe Acute Respiratory Distress Syndrome and Posterior Probability of Mortality Benefit in a Post Hoc Bayesian Analysis of a Randomized Clinical Trial,” <em>JAMA</em> 320, no. 21 (2018): 2251, doi:<a href="https://doi.org/10.1001/jama.2018.14276" role="doc-biblioref">10.1001/jama.2018.14276</a>.</span> ont ré-analysé ces données avec une approche bayésienne, explorant différentes façon de quantifier et de résumer les résultats apportés par cette études.</p>
+<ol style="list-style-type: decimal">
+<li><p>Écrire le modèle Bayésien utilisé par <span class="citation">Goligher et al., “Extracorporeal Membrane Oxygenation for Severe Acute Respiratory Distress Syndrome and Posterior Probability of Mortality Benefit in a Post Hoc Bayesian Analysis of a Randomized Clinical Trial.”</span>.</p></li>
+<li><p>Ecrire le modèle BUGS correspondant.</p></li>
+</ol>
+<table>
+<caption>Données observés dans l’essai <em>EOLIA</em></caption>
+<thead>
+<tr class="header">
+<th></th>
+<th>Contrôle</th>
+<th>ECMO</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td><strong><span class="math inline">\(n\)</span> observé</strong></td>
+<td>125</td>
+<td>124</td>
+</tr>
+<tr class="even">
+<td><strong>nombre de décédés à 60 jours</strong></td>
+<td>57</td>
+<td>44</td>
+</tr>
+</tbody>
+</table>
+<ol start="3" style="list-style-type: decimal">
+<li><p>Commencer par créer 2 vecteurs de données binaires (<code>1</code> ou <code>0</code>) <code>ycontrol</code> et <code>yecmo</code> encodant les observations individuelles résumées dans la table ci-dessus. Utiliser ensuite les fonctions <code>jags.model()</code> et <code>coda.samples()</code> pour reproduire les estimations de <span class="citation">Goligher et al., “Extracorporeal Membrane Oxygenation for Severe Acute Respiratory Distress Syndrome and Posterior Probability of Mortality Benefit in a Post Hoc Bayesian Analysis of a Randomized Clinical Trial.”</span> (<strong>ProTip:</strong> utiliser la fonction <code>window()</code> afin de retirer les observations correspondant à la phase de chauffe de <code>coda.samples</code> fonction).</p></li>
+<li><p>Évaluer la convergence, puis commenter les résultats et les estimations (<strong>ProTip:</strong> la fonction <code>R</code> <code>effectiveSize()</code> du package <code>coda</code> permet de calculer la taille d’échantillon effective).</p></li>
+<li><p>Changer pour une loi <em>a priori</em> plus informative en utilisant une distribution
+Gaussienne pour le <span class="math inline">\(log(RR)\)</span>, centrée en <code>log(0.78)</code> et avec un écart-type de <code>0.15</code> (dans l’échelle du log(RR), ce qui correspond à une précision <span class="math inline">\(\approx 45\)</span>). Commenter les resultats. Essayer d’autres distributions <em>a priori</em>.</p></li>
+</ol>
