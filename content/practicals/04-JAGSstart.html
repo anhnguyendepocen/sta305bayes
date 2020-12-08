@@ -22,7 +22,8 @@ bibliography: "../../static/bib/references.bib"
 </div>
 <p>Afin de se familiariser avec le logiciel <code>JAGS</code> (et son interface depuis <code>R</code> via le package <code>rjags</code>), nous nous intéressons ici à l’estimation a posteriori de la moyenne et de la variance d’un échantillon que l’on va modéliser avec une loi normale.</p>
 <ol start="0" style="list-style-type: decimal">
-<li>Charger le package <code>rjags</code>.</li>
+<li><p>Charger le package <code>rjags</code>.</p>
+<pre class="r"><code>library(rjags)</code></pre></li>
 </ol>
 <div class="Info">
 <p>Un modèle <code>JAGS</code> a 3 éléments :</p>
@@ -33,7 +34,9 @@ bibliography: "../../static/bib/references.bib"
 </ul>
 </div>
 <ol style="list-style-type: decimal">
-<li><p>Génerer <span class="math inline">\(N=50\)</span> observations selon une loi normale de moyenne <span class="math inline">\(m=2\)</span> et d’écart-type <span class="math inline">\(s=3\)</span>.</p></li>
+<li><p>Génerer <span class="math inline">\(N=50\)</span> observations selon une loi normale de moyenne <span class="math inline">\(m=2\)</span> et d’écart-type <span class="math inline">\(s=3\)</span>.</p>
+<pre class="r"><code>N &lt;- 50  # le nombre d&#39;observations
+obs &lt;- rnorm(n = N, mean = 2, sd = 3)  # les observations (simulée)</code></pre></li>
 <li><p>Enregistrer dans un fichier <code>.txt</code> le modèle en <code>BUGS</code> défini à l’aide du code suivant :</p>
 <pre class="bugs"><code># Modèle
 model{
@@ -60,14 +63,108 @@ model{
 <strong>NB</strong>: <code>~</code> indique une définition probabiliste d’une variable aléatoire, tandis que <code>&lt;-</code> indique une définition par une formule déterministe.</li>
 </ul>
 </div></li>
-<li><p>À l’aide de la fonction <code>jags.model()</code>, créer un objet <code>jags</code> dans <code>R</code>.</p></li>
-<li><p>À l’aide de la fonction <code>coda.samples()</code>, obtenir un échantillon de taille <span class="math inline">\(2\,000\)</span> des distibutions <em>a posteriori</em> des paramètres de moyenne et d’écart-type.**</p></li>
-<li><p>En étudiant le résultat renvoyé par la fonction <code>coda.samples</code>, calculer les estimateurs de la moyenne <em>a posteriori</em> et de la médiane <em>a posteriori</em> pour <code>mu</code> et <code>sigma</code> et donner un intervalles de crédibilité à 95% pour chacun.</p></li>
-<li><p>Charger le package <code>coda</code>. Il s’agit d’un package contenant un certain nombre de fonctions pour le diagnostic de convergence des algorithmes MCMC et le traitement des résultats.</p></li>
-<li><p>Afin de pouvoir diagnostiquer la convergence d’un algorithme MCMC, il est nécessaire de générer plusieurs chaînes de Markov différentes, partant de valeurs initiales différentes. Recréer un objet <code>jags</code> en spécifiant l’utilisation de 3 chaines de Markov parallèles et en initialisant <code>mu</code> et <code>tau</code> à <span class="math inline">\((0; -10; 100)\)</span> et <span class="math inline">\((1; 0,01; 0.1)\)</span> respectivement (<strong>ProTip:</strong> utiliser une <code>list</code> de <code>list</code> — une pour chaque chaine). Commenter.</p></li>
-<li><p>À l’aide de la fonction <code>gelman.plot()</code>, tracer la statistique de Gelman-Rubin.</p></li>
-<li><p>À l’aide des fonctions <code>autocorr.plot()</code> et <code>acfplot()</code> évaluer l’autocorrélation des paramètres étudiés.</p></li>
-<li><p>À l’aide de la fonction <code>cumuplot()</code> évaluer les quantiles cumulés des paramètres étudiés. Comment les interpréter ?</p></li>
-<li><p>À l’aide de la fonction <code>crosscorr.plot()</code> évaluer les corrélations entre les paramètres étudiés. Comment les interpréter ?</p></li>
-<li><p>À l’aide de la fonction <code>hdi</code> du package <code>R</code> <code>HDInterval</code> donner les intervalles de crédibilités de plus haute densité <em>a posteriori</em> à 95%, et les comparer à ceux obtenu à partir des quantiles <span class="math inline">\(2,5\)</span>% et <span class="math inline">\(97,5\)</span>%.</p></li>
+<li><p>À l’aide de la fonction <code>jags.model()</code>, créer un objet <code>jags</code> dans <code>R</code>.</p>
+<pre class="r"><code>monpermierjags &lt;- jags.model(&quot;normalBUGSmodel.txt&quot;, data = list(&quot;obs&quot; = obs, 
+                                                                &quot;N&quot; = length(obs)))</code></pre>
+<pre><code>## Compiling model graph
+##    Resolving undeclared variables
+##    Allocating nodes
+## Graph information:
+##    Observed stochastic nodes: 50
+##    Unobserved stochastic nodes: 2
+##    Total graph size: 58
+## 
+## Initializing model</code></pre></li>
+<li><p>À l’aide de la fonction <code>coda.samples()</code>, obtenir un échantillon de taille <span class="math inline">\(2\,000\)</span> des distibutions <em>a posteriori</em> des paramètres de moyenne et d’écart-type.**</p>
+<pre class="r"><code>res &lt;- coda.samples(model = monpermierjags, variable.names = c(&quot;mu&quot;, &quot;sigma&quot;), n.iter = 2000)</code></pre></li>
+<li><p>En étudiant le résultat renvoyé par la fonction <code>coda.samples</code>, calculer les estimateurs de la moyenne <em>a posteriori</em> et de la médiane <em>a posteriori</em> pour <code>mu</code> et <code>sigma</code> et donner un intervalles de crédibilité à 95% pour chacun.</p>
+<pre class="r"><code>plot(res)</code></pre>
+<p><img src="/practicals/04-JAGSstart_files/figure-html/codasamples-1.png" width="67%" /></p>
+<pre class="r"><code>resum &lt;- summary(res)
+resum</code></pre>
+<pre><code>## 
+## Iterations = 1:2000
+## Thinning interval = 1 
+## Number of chains = 1 
+## Sample size per chain = 2000 
+## 
+## 1. Empirical mean and standard deviation for each variable,
+##    plus standard error of the mean:
+## 
+##        Mean     SD Naive SE Time-series SE
+## mu    1.781 0.4600 0.010287       0.010109
+## sigma 3.215 0.3399 0.007601       0.007601
+## 
+## 2. Quantiles for each variable:
+## 
+##         2.5%   25%   50%   75% 97.5%
+## mu    0.8913 1.483 1.782 2.085 2.729
+## sigma 2.6361 2.971 3.184 3.426 3.986</code></pre>
+<pre class="r"><code>resum$statistics[&quot;mu&quot;, &quot;Mean&quot;]</code></pre>
+<pre><code>## [1] 1.780934</code></pre>
+<pre class="r"><code>resum$statistics[&quot;sigma&quot;, &quot;Mean&quot;]</code></pre>
+<pre><code>## [1] 3.215052</code></pre>
+<pre class="r"><code>resum$quantiles[&quot;mu&quot;, &quot;50%&quot;]</code></pre>
+<pre><code>## [1] 1.782218</code></pre>
+<pre class="r"><code>resum$quantiles[&quot;sigma&quot;, &quot;50%&quot;]</code></pre>
+<pre><code>## [1] 3.184462</code></pre>
+<pre class="r"><code>resum$quantiles[&quot;mu&quot;, c(1, 5)]</code></pre>
+<pre><code>##      2.5%     97.5% 
+## 0.8913256 2.7285255</code></pre>
+<pre class="r"><code>resum$quantiles[&quot;sigma&quot;, c(1, 5)]</code></pre>
+<pre><code>##    2.5%   97.5% 
+## 2.63611 3.98590</code></pre></li>
+<li><p>Charger le package <code>coda</code>. Il s’agit d’un package contenant un certain nombre de fonctions pour le diagnostic de convergence des algorithmes MCMC et le traitement des résultats.</p>
+<pre class="r"><code>library(coda)</code></pre></li>
+<li><p>Afin de pouvoir diagnostiquer la convergence d’un algorithme MCMC, il est nécessaire de générer plusieurs chaînes de Markov différentes, partant de valeurs initiales différentes. Recréer un objet <code>jags</code> en spécifiant l’utilisation de 3 chaines de Markov parallèles et en initialisant <code>mu</code> et <code>tau</code> à <span class="math inline">\((0; -10; 100)\)</span> et <span class="math inline">\((1; 0,01; 0.1)\)</span> respectivement (<strong>ProTip:</strong> utiliser une <code>list</code> de <code>list</code> — une pour chaque chaine). Commenter.</p>
+<pre class="r"><code>monjags2 &lt;- jags.model(&quot;normalBUGSmodel.txt&quot;, data = list(obs = obs, N = N), n.chains = 3, 
+    inits = list(list(mu = 0, tau = 1), list(mu = -10, tau = 1/100), list(mu = 100, 
+        tau = 1/10)))</code></pre>
+<pre><code>## Compiling model graph
+##    Resolving undeclared variables
+##    Allocating nodes
+## Graph information:
+##    Observed stochastic nodes: 50
+##    Unobserved stochastic nodes: 2
+##    Total graph size: 58
+## 
+## Initializing model</code></pre>
+<pre class="r"><code>res2 &lt;- coda.samples(model = monjags2, variable.names = c(&quot;mu&quot;, &quot;sigma&quot;), n.iter = 1000)
+plot(res2)</code></pre>
+<p><img src="/practicals/04-JAGSstart_files/figure-html/2e-jags-1.png" width="95%" /></p></li>
+<li><p>À l’aide de la fonction <code>gelman.plot()</code>, tracer la statistique de Gelman-Rubin.</p>
+<pre class="r"><code>gelman.plot(res2)</code></pre>
+<p><img src="/practicals/04-JAGSstart_files/figure-html/gelman-1.png" width="95%" /></p></li>
+<li><p>À l’aide des fonctions <code>autocorr.plot()</code> et <code>acfplot()</code> évaluer l’autocorrélation des paramètres étudiés.</p>
+<pre class="r"><code>acfplot(res2)</code></pre>
+<p><img src="/practicals/04-JAGSstart_files/figure-html/acf-1.png" width="672" height="20%" /></p>
+<pre class="r"><code>par(mfrow = c(3, 2))
+autocorr.plot(res2, ask = FALSE, auto.layout = FALSE)</code></pre>
+<p><img src="/practicals/04-JAGSstart_files/figure-html/autocorr-1.png" width="672" /></p></li>
+<li><p>À l’aide de la fonction <code>cumuplot()</code> évaluer les quantiles cumulés des paramètres étudiés. Comment les interpréter ?</p>
+<pre class="r"><code>par(mfrow = c(3, 2))
+cumuplot(res2, ask = FALSE, auto.layout = FALSE)</code></pre>
+<p><img src="/practicals/04-JAGSstart_files/figure-html/cumuplot-1.png" width="672" /></p></li>
+<li><p>À l’aide de la fonction <code>crosscorr.plot()</code> évaluer les corrélations entre les paramètres étudiés. Comment les interpréter ?</p>
+<pre class="r"><code>crosscorr.plot(res2)</code></pre>
+<p><img src="/practicals/04-JAGSstart_files/figure-html/cumplot-1.png" width="672" /></p></li>
+<li><p>À l’aide de la fonction <code>hdi</code> du package <code>R</code> <code>HDInterval</code> donner les intervalles de crédibilités de plus haute densité <em>a posteriori</em> à 95%, et les comparer à ceux obtenu à partir des quantiles <span class="math inline">\(2,5\)</span>% et <span class="math inline">\(97,5\)</span>%.</p>
+<pre class="r"><code>hdCI &lt;- HDInterval::hdi(res2)
+hdCI</code></pre>
+<pre><code>##              mu    sigma
+## lower 0.7964511 2.627398
+## upper 2.6039003 3.883594
+## attr(,&quot;credMass&quot;)
+## [1] 0.95</code></pre>
+<pre class="r"><code>symCI &lt;- summary(res2)$quantiles[, c(1, 5)]
+symCI</code></pre>
+<pre><code>##            2.5%    97.5%
+## mu    0.8284272 2.651726
+## sigma 2.6413978 3.909651</code></pre>
+<pre class="r"><code>symCI[, 2] - symCI[, 1]</code></pre>
+<pre><code>##       mu    sigma 
+## 1.823299 1.268253</code></pre>
+<pre class="r"><code>hdCI[2, ] - hdCI[1, ]</code></pre>
+<pre><code>##       mu    sigma 
+## 1.807449 1.256196</code></pre></li>
 </ol>
