@@ -39,6 +39,6 @@ Dû au format distanciel actuel, nous allons adopter une organisation de "classe
 |                | 14h-16h  | `r emo::ji("clapper_board")` `r emo::ji("popcorn")` `r emo::ji("open_book")` Lectures en autonomie  | [Chapitre IV](/cours/10-diffposterior/15-ecmo/) & [Lectures](/readings/) |
 |                | 16h15-17h | `r emo::ji("video_camera")` `r emo::ji("man_technologist")` `r emo::ji("question")` Zoom questions-réponses | [Chapitre IV](/cours/10-diffposterior/15-ecmo/) & [Lectures](/readings/) |
 | **Mercredi 9 décembre** | 9h-12h    | `r emo::ji("computer")` `r emo::ji("video_camera")` `r emo::ji("speaking_head")` `r emo::ji("busts_in_silhouette")` Travaux pratiques en *break-out rooms* sur zoom |  • [Exercice 5: "Post-mortem Bayes"](/practicals/05-postmortem/) <br> • [Exercice 6: "Méta-analyse bayésienne"](/practicals/06-bayesmetaCrins/) <br> • [Exercice 7: "How not to report a CRM"](/practicals/07-CRM/) <br>|
-| **Jeudi 10 décembre** | 14h-17h | `r emo::ji("video_camera")` `r emo::ji("man_technologist")` `r emo::ji("question")` Suivi de Projet | [Évaluation](/projet/) |
+| **Jeudi 10 décembre** | 9h-12h | `r emo::ji("video_camera")` `r emo::ji("man_technologist")` `r emo::ji("question")` Suivi de Projet | [Évaluation](/projet/) |
 | **Mardi 15 décembre** | 9h-12h | `r emo::ji("video_camera")` `r emo::ji("man_technologist")` `r emo::ji("question")` Suivi de Projet | [Évaluation](/projet/) |
 ***
