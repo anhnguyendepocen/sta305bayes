@@ -19,17 +19,52 @@ csl: "../../static/bib/chicago-syllabus-no-bib.csl"
 
 
 <p>L’essai clinique randomisé <em>EOLIA</em> <span class="citation">Alain Combes et al., “Extracorporeal Membrane Oxygenation for Severe Acute Respiratory Distress Syndrome,” <em>New England Journal of Medicine</em> 378, no. 21 (2018): 1965–1975, doi:<a href="https://doi.org/10.1056/NEJMoa1800385" role="doc-biblioref">10.1056/NEJMoa1800385</a>.</span> a évalué un nouveau traitement du syndrome respiratoire aigu sévère (SDRA) en comparant le taux de mortalité après 60 jours chez 249 patients répartis de manière aléatoire parmi un groupe contrôle (traité de manière traditionnelle, c’est-à-dire par ventilation mécanique) et un groupe traitement recevant une oxygénation extracorporelle par membrane (ECMO), le nouveau traitement étudié. Une analyse fréquentiste des données a conclu à un Risque Relatif de décès de <span class="math inline">\(0,76\)</span> dans le groupe ECMO par rapport au groupe témoin (en intention de traiter), avec <span class="math inline">\(IC_{95\%} =[0,55 ; 1,04]\)</span> et la p-valeur associée de <span class="math inline">\(0,09\)</span>.</p>
-<p><span class="citation">Ewan C. Goligher et al., “Extracorporeal Membrane Oxygenation for Severe Acute Respiratory Distress Syndrome and Posterior Probability of Mortality Benefit in a Post Hoc Bayesian Analysis of a Randomized Clinical Trial,” <em>JAMA</em> 320, no. 21 (2018): 2251, doi:<a href="https://doi.org/10.1001/jama.2018.14276" role="doc-biblioref">10.1001/jama.2018.14276</a>.</span> ont ré-analysé ces données avec une approche bayésienne, explorant différentes façon de quantifier et de résumer les résultats apportés par cette études.</p>
+<p><span class="citation">Ewan C. Goligher et al. “Extracorporeal Membrane Oxygenation for Severe Acute Respiratory Distress Syndrome and Posterior Probability of Mortality Benefit in a Post Hoc Bayesian Analysis of a Randomized Clinical Trial,” <em>JAMA</em> 320, no. 21 (2018): 2251, doi:<a href="https://doi.org/10.1001/jama.2018.14276" role="doc-biblioref">10.1001/jama.2018.14276</a>.</span> ont ré-analysé ces données avec une approche bayésienne, explorant différentes façon de quantifier et de résumer les résultats apportés par cette études.</p>
 <ol style="list-style-type: decimal">
-<li><p>Écrire le modèle Bayésien utilisé par <span class="citation">Goligher et al., “Extracorporeal Membrane Oxygenation for Severe Acute Respiratory Distress Syndrome and Posterior Probability of Mortality Benefit in a Post Hoc Bayesian Analysis of a Randomized Clinical Trial.”</span>.
+<li><p>Écrire le modèle Bayésien utilisé par <span class="citation">Goligher et al., “Extracorporeal Membrane Oxygenation for Severe Acute Respiratory Distress Syndrome and Posterior Probability of Mortality Benefit in a Post Hoc Bayesian Analysis of a Randomized Clinical Trial.”</span>.<br />
+:::Correction
 <strong><em>I) Question d’intérêt:</em></strong><br />
 <em>Le risque de décès avec traitement par ECMO est-il inférieur qu’avec traitement conventionel par ventilation mécanique ?</em><br />
 <strong><em>II) Model d’échantillonnage:</em></strong><br />
 <em>Soit <span class="math inline">\(Z_{control}\)</span> le nombre de décès dans le groupe contrôle, et <span class="math inline">\(Z_{ecmo}\)</span> le nombre de décès dans le groupe ECMO</em>
 <span class="math display">\[Z_{control} \sim Binomial(p_c, 125)\]</span><span class="math display">\[Z_{ecmo} \sim Binomial(RR\times p_c, 124)\]</span> <strong><em>III) Loi a priori::</em></strong><span class="math display">\[p_c\sim \mathcal{U}_{[0,1]}\]</span><span class="math display">\[log(RR)\sim \mathcal{N}(0,100)\]</span><strong><em>NB:</em></strong> On peut également définir le modèle d’échantillonnage au niveau individuel (strictement équivalent):<br />
 Soit <span class="math inline">\(Y_{control_i}\)</span> une variable binaire indiquant si le patient <span class="math inline">\(i\)</span> du groupe contrôle est décédé avant 60 jours, et <span class="math inline">\(Y_{ecmo_i}\)</span> une variable similaire pour le patient <span class="math inline">\(i\)</span> du groupe ECMO
-<span class="math display">\[Y_{control_i} \overset{iid}{\sim} Bernoulli(p_c)\]</span><span class="math display">\[Y_{ecmo_i} \overset{iid}{\sim} Bernoulli(RR\times p_c)\]</span></p></li>
-<li><p>Ecrire le modèle BUGS correspondant.</p></li>
+<span class="math display">\[Y_{control_i} \overset{iid}{\sim} Bernoulli(p_c)\]</span><span class="math display">\[Y_{ecmo_i} \overset{iid}{\sim} Bernoulli(RR\times p_c)\]</span>:::</p></li>
+<li><p>Ecrire le modèle BUGS correspondant.</p>
+<pre class="bash"><code># Modèle
+model{
+
+  # Vraisemblance
+  for (i in 1:ncontrol){
+    ycontrol[i]~dbern(pc)
+  }
+  for (i in 1:necmo){
+    yecmo[i]~dbern(RR*pc)
+  }
+
+
+
+  # A priori
+  logRR~dnorm(0,0.01)
+  pc~dunif(0,1) #probabilité de décès dans le groupe contrôle
+
+  #Re-parametrisation
+  RR &lt;- exp(logRR)  
+}</code></pre>
+<pre class="bash"><code> #Modèle populationel (strictement équivalent au précédent)
+ model{
+
+   # Vraisemblance
+   zcontrol~dbin(pc, ncontrol)
+   zecmo~dbin(RR*pc, necmo)
+
+   # A priori
+   logRR~dnorm(0,0.01)
+   pc~dunif(0,1) #probabilité de décès dans le groupe contrôle
+
+   #Re-parametrisation
+   RR &lt;- exp(logRR)
+ }</code></pre></li>
 </ol>
 <table>
 <caption>Données observés dans l’essai <em>EOLIA</em></caption>
@@ -54,8 +89,114 @@ Soit <span class="math inline">\(Y_{control_i}\)</span> une variable binaire ind
 </tbody>
 </table>
 <ol start="3" style="list-style-type: decimal">
-<li><p>Commencer par créer 2 vecteurs de données binaires (<code>1</code> ou <code>0</code>) <code>ycontrol</code> et <code>yecmo</code> encodant les observations individuelles résumées dans la table ci-dessus. Utiliser ensuite les fonctions <code>jags.model()</code> et <code>coda.samples()</code> pour reproduire les estimations de <span class="citation">Goligher et al., “Extracorporeal Membrane Oxygenation for Severe Acute Respiratory Distress Syndrome and Posterior Probability of Mortality Benefit in a Post Hoc Bayesian Analysis of a Randomized Clinical Trial.”</span> (<strong>ProTip:</strong> utiliser la fonction <code>window()</code> afin de retirer les observations correspondant à la phase de chauffe de <code>coda.samples</code> fonction).</p></li>
-<li><p>Évaluer la convergence, puis commenter les résultats et les estimations (<strong>ProTip:</strong> la fonction <code>R</code> <code>effectiveSize()</code> du package <code>coda</code> permet de calculer la taille d’échantillon effective).</p></li>
+<li><p>Commencer par créer 2 vecteurs de données binaires (<code>1</code> ou <code>0</code>) <code>ycontrol</code> et <code>yecmo</code> encodant les observations individuelles résumées dans la table ci-dessus. Utiliser ensuite les fonctions <code>jags.model()</code> et <code>coda.samples()</code> pour reproduire les estimations de <span class="citation">Goligher et al., “Extracorporeal Membrane Oxygenation for Severe Acute Respiratory Distress Syndrome and Posterior Probability of Mortality Benefit in a Post Hoc Bayesian Analysis of a Randomized Clinical Trial.”</span> (<strong>ProTip:</strong> utiliser la fonction <code>window()</code> afin de retirer les observations correspondant à la phase de chauffe de <code>coda.samples</code> fonction).</p>
+<pre class="r"><code># Données
+ycontrol &lt;- rep(0, 125)
+ycontrol[1:57] &lt;- 1
+yecmo &lt;- rep(0, 124)
+yecmo[1:44] &lt;- 1
+
+# Échantillonnage
+library(rjags)
+goligher_jags &lt;- jags.model(&quot;goligherBUGSmodel.txt&quot;, data = list(ycontrol = ycontrol, 
+    ncontrol = length(ycontrol), yecmo = yecmo, necmo = length(yecmo)), n.chains = 3, 
+    n.adapt = 1000)</code></pre>
+<pre><code>## Compiling model graph
+##    Resolving undeclared variables
+##    Allocating nodes
+## Graph information:
+##    Observed stochastic nodes: 249
+##    Unobserved stochastic nodes: 2
+##    Total graph size: 260
+## 
+## Initializing model</code></pre>
+<pre class="r"><code>res_goligher &lt;- coda.samples(model = goligher_jags, variable.names = c(&quot;pc&quot;, &quot;RR&quot;), 
+    n.iter = 20000)
+
+# Post-processing
+res_goligher_burnt_indiv &lt;- window(res_goligher, start = 5001)  #retirer la phase de chauffe afin d&#39;atteindre la convergence de la chaîne de Markov vers sa loi stationnaire
+
+# Données populationelles
+goligher_jags_pop &lt;- jags.model(file = &quot;goligherBUGSmodel_pop.txt&quot;, data = list(zcontrol = 57, 
+    ncontrol = 125, zecmo = 44, necmo = 124), n.chains = 3)</code></pre>
+<pre><code>## Compiling model graph
+##    Resolving undeclared variables
+##    Allocating nodes
+## Graph information:
+##    Observed stochastic nodes: 2
+##    Unobserved stochastic nodes: 2
+##    Total graph size: 12
+## 
+## Initializing model</code></pre>
+<pre class="r"><code>res_goligher_pop &lt;- coda.samples(model = goligher_jags_pop, variable.names = c(&quot;pc&quot;, 
+    &quot;RR&quot;), n.iter = 20000)
+
+# Post-processing
+res_goligher_burnt_pop &lt;- window(res_goligher_pop, start = 5001)  #retirer la phase de chauffe afin d&#39;atteindre la convergence de la chaîne de Markov vers sa loi stationnaire</code></pre></li>
+<li><p>Évaluer la convergence, puis commenter les résultats et les estimations (<strong>ProTip:</strong> la fonction <code>R</code> <code>effectiveSize()</code> du package <code>coda</code> permet de calculer la taille d’échantillon effective).</p>
+<pre class="r"><code>effectiveSize(res_goligher_burnt_pop)</code></pre>
+<pre><code>##       RR       pc 
+## 13191.37 13207.58</code></pre>
+<pre class="r"><code>plot(res_goligher_burnt_pop)</code></pre>
+<p><img src="/practicals/05-postmortem_files/figure-html/goligher-diagnoses-1.png" width="672" /></p>
+<pre class="r"><code>gelman.plot(res_goligher_burnt_pop)</code></pre>
+<p><img src="/practicals/05-postmortem_files/figure-html/goligher-diagnoses-2.png" width="672" /></p>
+<pre class="r"><code>acfplot(res_goligher_burnt_pop)</code></pre>
+<p><img src="/practicals/05-postmortem_files/figure-html/goligher-diagnoses-3.png" width="672" /></p>
+<pre class="r"><code>par(mfrow = c(3, 2))
+cumuplot(res_goligher_burnt_pop, ask = FALSE, auto.layout = FALSE)</code></pre>
+<p><img src="/practicals/05-postmortem_files/figure-html/goligher-diagnoses-4.png" width="672" /></p>
+<pre class="r"><code>par(mfrow = c(1, 1))
+
+summary(res_goligher_burnt_pop)</code></pre>
+<pre><code>## 
+## Iterations = 5001:21000
+## Thinning interval = 1 
+## Number of chains = 3 
+## Sample size per chain = 16000 
+## 
+## 1. Empirical mean and standard deviation for each variable,
+##    plus standard error of the mean:
+## 
+##      Mean      SD  Naive SE Time-series SE
+## RR 0.7769 0.12200 0.0005569      0.0010646
+## pc 0.4572 0.04395 0.0002006      0.0003825
+## 
+## 2. Quantiles for each variable:
+## 
+##      2.5%    25%    50%    75%  97.5%
+## RR 0.5612 0.6918 0.7690 0.8526 1.0397
+## pc 0.3707 0.4275 0.4571 0.4868 0.5435</code></pre>
+<pre class="r"><code>summary(res_goligher_burnt_indiv)</code></pre>
+<pre><code>## 
+## Iterations = 5001:21000
+## Thinning interval = 1 
+## Number of chains = 3 
+## Sample size per chain = 16000 
+## 
+## 1. Empirical mean and standard deviation for each variable,
+##    plus standard error of the mean:
+## 
+##      Mean      SD  Naive SE Time-series SE
+## RR 0.7793 0.08420 0.0003843      0.0006217
+## pc 0.4564 0.03916 0.0001787      0.0002886
+## 
+## 2. Quantiles for each variable:
+## 
+##      2.5%    25%    50%    75%  97.5%
+## RR 0.6257 0.7208 0.7750 0.8335 0.9542
+## pc 0.3815 0.4297 0.4557 0.4823 0.5352</code></pre>
+<pre class="r"><code># shortest 95% Credibility interval:
+HDInterval::hdi(res_goligher_burnt_pop)</code></pre>
+<pre><code>##              RR        pc
+## lower 0.5533892 0.3717606
+## upper 1.0262592 0.5443515
+## attr(,&quot;credMass&quot;)
+## [1] 0.95</code></pre>
+<pre class="r"><code># posterior porbability of RR &lt;1:
+mean(c(sapply(res_goligher_burnt_pop, &quot;[&quot;, , 1)) &lt; 1)</code></pre>
+<pre><code>## [1] 0.9559375</code></pre></li>
 <li><p>Changer pour une loi <em>a priori</em> plus informative en utilisant une distribution
-Gaussienne pour le <span class="math inline">\(log(RR)\)</span>, centrée en <code>log(0.78)</code> et avec un écart-type de <code>0.15</code> (dans l’échelle du log(RR), ce qui correspond à une précision <span class="math inline">\(\approx 45\)</span>). Commenter les resultats. Essayer d’autres distributions <em>a priori</em>.</p></li>
+Gaussienne pour le <span class="math inline">\(log(RR)\)</span>, centrée en <code>log(0.78)</code> et avec un écart-type de <code>0.15</code> (dans l’échelle du log(RR), ce qui correspond à une précision <span class="math inline">\(\approx 45\)</span>). Commenter les resultats. Essayer d’autres distributions <em>a priori</em>.</p>
+<pre class="bash"><code> logRR~dnorm(log(0.78), 45)</code></pre></li>
 </ol>
