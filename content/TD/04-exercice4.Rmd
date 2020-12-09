@@ -49,18 +49,61 @@ y_{i}^{A}=\left\{
 \]
 
 \noindent On note $\theta_A\in\lbrack0,1]$ la probabilité inconnue de contracter la
-maladie dans l'hôpital $A$ et l'on suppose que les variables aléatoires $\{Y_{i}^{A}\}_{i=1,\ldots,n_{A}}$ sont $iid$ conditionnellement à $\theta_A$.
+maladie dans l'hôpital $A$ et l'on suppose que les variables aléatoires $\{Y_{i}^{(A)}\}_{i=1,\ldots,n_{A}}$ sont $iid$ conditionnellement à $\theta_A$.
 
 
- 1. Écrire la vraisemblance des données $p(\boldsymbol{y}^{A} | \theta_A)$
+ 1. Écrire la vraisemblance des données $p\left(\boldsymbol{y}^{(A)} | \theta_A\right)$
+ 
+:::Correction
+On définit la quantité $\overline{y}_{A} = \dfrac{1}{n_A}\sum_{i=1}^{n_A}y_i^{(A)}$. On peut alors montrer que :
 
- 2. On utilise une approche bayésienne, et l'on suppose que $\theta_A$ suit *a priori* une distribution uniforme sur l'intervalle $[0,1]$. Donner la forme de la densité *a posteriori* $p(\theta_A | \boldsymbol{y}^{A})$. Montrer que celle-ci prend une forme paramétrique connue.
+\begin{align*}
+	  p(Y_{A} | \theta_{A}) & = \prod_{i=1}^{n_A} \theta_{A}^{y_i^{(A)}}(1-\theta_{A})^{\left(1-y_i^{(A)}\right)}\\
+ 		& = \theta_{A}^{n_A\,\overline{y}_A}(1-\theta_{A})^{n_A\,\left(1-\overline{y}_A\right)}
+\end{align*}
+:::
+
+ 2. On utilise une approche bayésienne, et l'on suppose que $\theta_A$ suit *a priori* une distribution uniforme sur l'intervalle $[0,1]$. Donner la forme de la densité *a posteriori* $p\left(\theta_A | \boldsymbol{y}^{A}\right)$. Montrer que celle-ci prend une forme paramétrique connue.
+
+:::Correction
+$\displaystyle p(\theta_{A}) = \mathbb{1}_{\{\theta_A\in[0,1]\}}$
+
+\begin{align*}
+	\displaystyle p(\theta_{A} | \boldsymbol{y}^{(A)}) & \propto p(\boldsymbol{y}^{A} | \theta_{A}) p(\theta_{A})\\
+	\displaystyle	& \propto \theta_A^{n_A\overline{y}_A}(1-\theta_A)^{n_A(1-\overline{y}_A)}\mathbb{1}_{\{\theta_A\in[0,1]\}}
+\end{align*}
+
+Par identification, on reconnaît la forme d'une loi Beta de paramètres $a=n_A\overline{y}_A + 1$ et $b=n_A(1-\overline{y}_A) + 1$
+:::
 
  3. Cette densité *a posteriori* est-elle propre? Pourquoi ?
+ 
+:::Correction
+Cette densité *a posteriori* est propre puisque $\displaystyle\int p(\theta_A | \boldsymbol{y}^{A})d\theta_A < \infty$ (il s'agit d'une loi Beta).
+:::
 
  4. Calculer la loi marginale des observations $f(\boldsymbol{y}^{A})$.
+ 
+:::Correction
+\begin{align*}
+ p(\boldsymbol{y}^{(A)}) & = \int p(\boldsymbol{y}^{(A)} | \theta_A)p(\theta_A)d\theta_A\\
+	                     & = \int_{-\infty}^{+\infty}\theta_A^{n_A\overline{y}_A}(1-\theta_A)^{n_A(1-\overline{y}_{A})}\mathbb{1}_{\{\theta_A\in[0,1]\}}d\theta_A \\
+	                     & = \int_{0}^{1} \theta_A^{n_A\overline{y}_A}(1-\theta_A)^{n_A(1-\overline{y}_A)}d\theta_A\\
+                       & = \dfrac{\Gamma(n_A\overline{y}_A +1)\Gamma(n_A[1-\overline{y}_A] + 1)}{\Gamma(n_A + 2)}\\
+                       & = \dfrac{(n_A\overline{y}_A )!(n_A[1-\overline{y}_A])!}{(n_A + 1)!}
+\end{align*}
+:::
 
- 5. Donner la probabilité $p(y_{n_{A}+1}^{A} = 1|\boldsymbol{y}^{A})$ qu'un nouveau patient $n_{A}+1$ contracte la maladie sachant $\boldsymbol{y}^{A} = \{y_{1}^{A},\ldots,y_{n_{A}}^{A}\}$.
+ 5. Donner la probabilité $p(y_{n_{A}+1}^{(A)} = 1|\boldsymbol{y}^{(A)})$ qu'un nouveau patient $n_{A}+1$ contracte la maladie sachant $\boldsymbol{y}^{(A)} = \{y_{1}^{(A)},\ldots,y_{n_{A}}^{(A)}\}$.
+
+:::Correction
+\begin{align*}
+  p\left(y_{n_{A}+1}^{(A)} | \boldsymbol{y}^{(A)}\right) & = \int p(y_{n_{A}+1}^{(A)}|\theta_A)p(\theta_A|\boldsymbol{y}^{(A)})d\theta\\
+	                                        & = \int_0^1 \theta_A^{n_A\,\overline{y}_A + y_{n_{A}+1}^{(A)}}(1-\theta_A)^{n_A(1-\overline{y}_A) + 1 - y_{n_{A}+1}}d\theta_A
+\end{align*}
+
+On en déduit donc $p(y_{n_{A}+1}^{(A)} = 1|\boldsymbol{y}_{A}) = \dfrac{(n_A\overline{y}_A + 1 )!(n_A[1-\overline{y}_A])!}{(n_A + 2)!}$
+:::
 
  6. On dispose maintenant des données $y_{1}^{B},\ldots,y_{n_{B}}^{B}$ de contraction de la maladie pour $n_{B}$ patients d'un second hôpital $B$. On note $\theta_B$ la probabilité que le patient $i$ de l'hôpital $B$ ait contracté la maladie, et l'on suppose toujours l'indépendance conditionnellement à $\theta_B.$ On souhaite tester l'hypothèse $H_{0}$ selon laquelle les taux de contraction de la maladie sont les mêmes dans les hôpitaux $A$ et $B$, versus l'hypothèse $H_{1}$ que ces taux sont différents:
 $$

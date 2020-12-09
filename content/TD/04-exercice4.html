@@ -37,13 +37,57 @@ y_{i}^{A}=\left\{
 \right.
 \]</span></p>
 <p>On note <span class="math inline">\(\theta_A\in\lbrack0,1]\)</span> la probabilité inconnue de contracter la
-maladie dans l’hôpital <span class="math inline">\(A\)</span> et l’on suppose que les variables aléatoires <span class="math inline">\(\{Y_{i}^{A}\}_{i=1,\ldots,n_{A}}\)</span> sont <span class="math inline">\(iid\)</span> conditionnellement à <span class="math inline">\(\theta_A\)</span>.</p>
+maladie dans l’hôpital <span class="math inline">\(A\)</span> et l’on suppose que les variables aléatoires <span class="math inline">\(\{Y_{i}^{(A)}\}_{i=1,\ldots,n_{A}}\)</span> sont <span class="math inline">\(iid\)</span> conditionnellement à <span class="math inline">\(\theta_A\)</span>.</p>
 <ol style="list-style-type: decimal">
-<li><p>Écrire la vraisemblance des données <span class="math inline">\(p(\boldsymbol{y}^{A} | \theta_A)\)</span></p></li>
-<li><p>On utilise une approche bayésienne, et l’on suppose que <span class="math inline">\(\theta_A\)</span> suit <em>a priori</em> une distribution uniforme sur l’intervalle <span class="math inline">\([0,1]\)</span>. Donner la forme de la densité <em>a posteriori</em> <span class="math inline">\(p(\theta_A | \boldsymbol{y}^{A})\)</span>. Montrer que celle-ci prend une forme paramétrique connue.</p></li>
-<li><p>Cette densité <em>a posteriori</em> est-elle propre? Pourquoi ?</p></li>
-<li><p>Calculer la loi marginale des observations <span class="math inline">\(f(\boldsymbol{y}^{A})\)</span>.</p></li>
-<li><p>Donner la probabilité <span class="math inline">\(p(y_{n_{A}+1}^{A} = 1|\boldsymbol{y}^{A})\)</span> qu’un nouveau patient <span class="math inline">\(n_{A}+1\)</span> contracte la maladie sachant <span class="math inline">\(\boldsymbol{y}^{A} = \{y_{1}^{A},\ldots,y_{n_{A}}^{A}\}\)</span>.</p></li>
+<li>Écrire la vraisemblance des données <span class="math inline">\(p\left(\boldsymbol{y}^{(A)} | \theta_A\right)\)</span></li>
+</ol>
+<div class="Correction">
+<p>On définit la quantité <span class="math inline">\(\overline{y}_{A} = \dfrac{1}{n_A}\sum_{i=1}^{n_A}y_i^{(A)}\)</span>. On peut alors montrer que :</p>
+<p><span class="math display">\[\begin{align*}
+      p(Y_{A} | \theta_{A}) &amp; = \prod_{i=1}^{n_A} \theta_{A}^{y_i^{(A)}}(1-\theta_{A})^{\left(1-y_i^{(A)}\right)}\\
+        &amp; = \theta_{A}^{n_A\,\overline{y}_A}(1-\theta_{A})^{n_A\,\left(1-\overline{y}_A\right)}
+\end{align*}\]</span></p>
+</div>
+<ol start="2" style="list-style-type: decimal">
+<li>On utilise une approche bayésienne, et l’on suppose que <span class="math inline">\(\theta_A\)</span> suit <em>a priori</em> une distribution uniforme sur l’intervalle <span class="math inline">\([0,1]\)</span>. Donner la forme de la densité <em>a posteriori</em> <span class="math inline">\(p\left(\theta_A | \boldsymbol{y}^{A}\right)\)</span>. Montrer que celle-ci prend une forme paramétrique connue.</li>
+</ol>
+<div class="Correction">
+<p><span class="math inline">\(\displaystyle p(\theta_{A}) = \mathbb{1}_{\{\theta_A\in[0,1]\}}\)</span></p>
+<p><span class="math display">\[\begin{align*}
+    \displaystyle p(\theta_{A} | \boldsymbol{y}^{(A)}) &amp; \propto p(\boldsymbol{y}^{A} | \theta_{A}) p(\theta_{A})\\
+    \displaystyle   &amp; \propto \theta_A^{n_A\overline{y}_A}(1-\theta_A)^{n_A(1-\overline{y}_A)}\mathbb{1}_{\{\theta_A\in[0,1]\}}
+\end{align*}\]</span></p>
+<p>Par identification, on reconnaît la forme d’une loi Beta de paramètres <span class="math inline">\(a=n_A\overline{y}_A + 1\)</span> et <span class="math inline">\(b=n_A(1-\overline{y}_A) + 1\)</span></p>
+</div>
+<ol start="3" style="list-style-type: decimal">
+<li>Cette densité <em>a posteriori</em> est-elle propre? Pourquoi ?</li>
+</ol>
+<div class="Correction">
+<p>Cette densité <em>a posteriori</em> est propre puisque <span class="math inline">\(\displaystyle\int p(\theta_A | \boldsymbol{y}^{A})d\theta_A &lt; \infty\)</span> (il s’agit d’une loi Beta).</p>
+</div>
+<ol start="4" style="list-style-type: decimal">
+<li>Calculer la loi marginale des observations <span class="math inline">\(f(\boldsymbol{y}^{A})\)</span>.</li>
+</ol>
+<div class="Correction">
+<p><span class="math display">\[\begin{align*}
+ p(\boldsymbol{y}^{(A)}) &amp; = \int p(\boldsymbol{y}^{(A)} | \theta_A)p(\theta_A)d\theta_A\\
+                         &amp; = \int_{-\infty}^{+\infty}\theta_A^{n_A\overline{y}_A}(1-\theta_A)^{n_A(1-\overline{y}_{A})}\mathbb{1}_{\{\theta_A\in[0,1]\}}d\theta_A \\
+                         &amp; = \int_{0}^{1} \theta_A^{n_A\overline{y}_A}(1-\theta_A)^{n_A(1-\overline{y}_A)}d\theta_A\\
+                       &amp; = \dfrac{\Gamma(n_A\overline{y}_A +1)\Gamma(n_A[1-\overline{y}_A] + 1)}{\Gamma(n_A + 2)}\\
+                       &amp; = \dfrac{(n_A\overline{y}_A )!(n_A[1-\overline{y}_A])!}{(n_A + 1)!}
+\end{align*}\]</span></p>
+</div>
+<ol start="5" style="list-style-type: decimal">
+<li>Donner la probabilité <span class="math inline">\(p(y_{n_{A}+1}^{(A)} = 1|\boldsymbol{y}^{(A)})\)</span> qu’un nouveau patient <span class="math inline">\(n_{A}+1\)</span> contracte la maladie sachant <span class="math inline">\(\boldsymbol{y}^{(A)} = \{y_{1}^{(A)},\ldots,y_{n_{A}}^{(A)}\}\)</span>.</li>
+</ol>
+<div class="Correction">
+<p><span class="math display">\[\begin{align*}
+  p\left(y_{n_{A}+1}^{(A)} | \boldsymbol{y}^{(A)}\right) &amp; = \int p(y_{n_{A}+1}^{(A)}|\theta_A)p(\theta_A|\boldsymbol{y}^{(A)})d\theta\\
+                                            &amp; = \int_0^1 \theta_A^{n_A\,\overline{y}_A + y_{n_{A}+1}^{(A)}}(1-\theta_A)^{n_A(1-\overline{y}_A) + 1 - y_{n_{A}+1}}d\theta_A
+\end{align*}\]</span></p>
+<p>On en déduit donc <span class="math inline">\(p(y_{n_{A}+1}^{(A)} = 1|\boldsymbol{y}_{A}) = \dfrac{(n_A\overline{y}_A + 1 )!(n_A[1-\overline{y}_A])!}{(n_A + 2)!}\)</span></p>
+</div>
+<ol start="6" style="list-style-type: decimal">
 <li><p>On dispose maintenant des données <span class="math inline">\(y_{1}^{B},\ldots,y_{n_{B}}^{B}\)</span> de contraction de la maladie pour <span class="math inline">\(n_{B}\)</span> patients d’un second hôpital <span class="math inline">\(B\)</span>. On note <span class="math inline">\(\theta_B\)</span> la probabilité que le patient <span class="math inline">\(i\)</span> de l’hôpital <span class="math inline">\(B\)</span> ait contracté la maladie, et l’on suppose toujours l’indépendance conditionnellement à <span class="math inline">\(\theta_B.\)</span> On souhaite tester l’hypothèse <span class="math inline">\(H_{0}\)</span> selon laquelle les taux de contraction de la maladie sont les mêmes dans les hôpitaux <span class="math inline">\(A\)</span> et <span class="math inline">\(B\)</span>, versus l’hypothèse <span class="math inline">\(H_{1}\)</span> que ces taux sont différents:
 <span class="math display">\[
 H_{0}:\theta_{B}=\theta_{A}\text{, }\theta_{A}\sim U(0,1)\text{ vs }%
