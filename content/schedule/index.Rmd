@@ -33,15 +33,12 @@ Dû au format distanciel actuel, nous allons adopter une organisation de "classe
 | **Vendredi 4 décembre** | 14h-14h45  | `r emo::ji("scroll")` `r emo::ji("pen")` TD en autonomie  | [Exercice 3](/td/03-exercice3/) |
 |                | 15h-15h30   | `r emo::ji("video_camera")` `r emo::ji("man_technologist")` `r emo::ji("check")` Correction sur zoom |  [Exercice 3](/td/03-exercice3/) |
 |                | 15h30pm- 16h15  | `r emo::ji("scroll")` `r emo::ji("pen")` TD en autonomie  | [Exercice 4](/td/04-exercice4/) |
-|                | 16h30-17h      | `r emo::ji("video_camera")` `r emo::ji("man_technologist")` `r emo::ji("check")` Correction sur zoom |  Exercice 4 |
+|                | 16h30-17h      | `r emo::ji("video_camera")` `r emo::ji("man_technologist")` `r emo::ji("check")` Correction sur zoom |  [Exercice 4](/td/04-exercice4/)  |
 | **Lundi 7 décembre** | 14h-17h    | `r emo::ji("computer")` `r emo::ji("video_camera")` `r emo::ji("speaking_head")` `r emo::ji("busts_in_silhouette")` Travaux pratiques en *break-out rooms* sur zoom            | • [Exercice 1: "Monte-Carlo"](/practicals/01-piMCestimateQuestions/)  <br> • [Exercice 2: "Transformée inverse"](/practicals/02-inverseTransfoQuestions/) <br> • [Exercice 3: "Metropolis-Hastings"](/practicals/03-mhquestions/) |
 | **Mardi 8 décembre** | 9h-12h    | `r emo::ji("computer")` `r emo::ji("video_camera")` `r emo::ji("speaking_head")` `r emo::ji("busts_in_silhouette")` Travaux pratiques en *break-out rooms* sur zoom            | • [Exercice 3: "Metropolis-Hastings"](/practicals/03-mhquestions/) <br> • [Exercice 4: "`BUGS` & `JAGS`"](/practicals/04-JAGSstart/) |
-|                | 14h-16h  | `r emo::ji("clapper_board")` `r emo::ji("popcorn")` `r emo::ji("open_book")` Visionnage des vidéos et lectures en autonomie  | Chapitre IV |
-|                | 16h15-17h | `r emo::ji("video_camera")` `r emo::ji("man_technologist")` `r emo::ji("question")` Zoom questions-réponses | Chapitre IV |
-| **Mercredi 9 décembre** | 9h-12h    | `r emo::ji("computer")` `r emo::ji("video_camera")` `r emo::ji("speaking_head")` `r emo::ji("busts_in_silhouette")` Travaux pratiques en *break-out rooms* sur zoom |  • Exercice 5: "Post-mortem Bayes" <br> • Exercice 6: "Bayesian meta-analysis" <br> • Exercice 7: "How not to report a CRM" <br>|
-| **Jeudi 10 décembre** | 14h-14h45  | `r emo::ji("scroll")` `r emo::ji("pen")` TD en autonomie  | Exercice 3 |
-|                | 15h-15h30   | `r emo::ji("video_camera")` `r emo::ji("man_technologist")` `r emo::ji("check")` Correction sur zoom |  Exercice 3 |
-|                | 15h30pm- 16h15  | `r emo::ji("scroll")` `r emo::ji("pen")` TD en autonomie  | Exercice 4 |
-|                | 16h30-17h      | `r emo::ji("video_camera")` `r emo::ji("man_technologist")` `r emo::ji("check")` Correction sur zoom |  Exercice 4 |
+|                | 14h-16h  | `r emo::ji("clapper_board")` `r emo::ji("popcorn")` `r emo::ji("open_book")` Lectures en autonomie  | [Chapitre IV](/cours/10-diffposterior/15-ecmo/) & [Lectures](/readings/) |
+|                | 16h15-17h | `r emo::ji("video_camera")` `r emo::ji("man_technologist")` `r emo::ji("question")` Zoom questions-réponses | [Chapitre IV](/cours/10-diffposterior/15-ecmo/) & [Lectures](/readings/) |
+| **Mercredi 9 décembre** | 9h-12h    | `r emo::ji("computer")` `r emo::ji("video_camera")` `r emo::ji("speaking_head")` `r emo::ji("busts_in_silhouette")` Travaux pratiques en *break-out rooms* sur zoom |  • [Exercice 5: "Post-mortem Bayes"](/practicals/05-postmortem/) <br> • [Exercice 6: "Méta-analyse bayésienne"](/practicals/06-bayesmetaCrins/) <br> • [Exercice 7: "How not to report a CRM"](/practicals/07-CRM/) <br>|
+| **Jeudi 10 décembre** | 14h-17h | `r emo::ji("video_camera")` `r emo::ji("man_technologist")` `r emo::ji("question")` Suivi de Projet | [Évaluation](/projet/) |
 | **Mardi 15 décembre** | 9h-12h | `r emo::ji("video_camera")` `r emo::ji("man_technologist")` `r emo::ji("question")` Suivi de Projet | [Évaluation](/projet/) |
 ***

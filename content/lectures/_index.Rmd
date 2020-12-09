@@ -17,5 +17,5 @@ Cliquer les différentes sous-sections afin d'accéder à leur contenu.
 ### Diaporamas
 
  - Le diaporama complet couvrant les chapitres I & II est téléchargeable [ici](/slides/BAYESdia.pdf)
- - Le diaporama complet couvrant le chapitre III sera téléchargeable [ici]()
- - Le diaporama complet couvrant le chapitre IV sera téléchargeable [ici]()
+ - Le diaporama complet couvrant le chapitre III est téléchargeable [ici](/slides/MCMCdia.pdf)
+ - Le diaporama complet couvrant le chapitre IV est téléchargeable [ici](/slides/BAYESAppdia.pdf)
