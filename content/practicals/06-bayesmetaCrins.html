@@ -77,9 +77,139 @@ crins.es[, c(&quot;publication&quot;, &quot;yi&quot;, &quot;vi&quot;)]</code></p
 On aurait pu également utiliser des <em>log-RR</em> (<em>risk ratios</em>) afin de se rapprocher de l’analyse faite par Crins <em>et al.</em> en spécifiant <code>measure="RR"</code> dans la fonction <code>escalc()</code>, mais ce n’est pas ce qui est fait dans l’application shiny implémentant <code>bayesmeta</code><a href="#fn4" class="footnote-ref" id="fnref4"><sup>4</sup></a>.</p></li>
 </ol>
 <ol start="3" style="list-style-type: decimal">
-<li><p>Effectuer une méta-analyse avec un effet-aléatoire sur ces données avec la fonction <code>bayesmeta()</code> du package <code>R</code> <code>bayesmeta</code>, depuis le logiciel <code>R</code>. Utiliser une loi <em>a priori</em> uniforme sur <span class="math inline">\([0,4]\)</span> pour <span class="math inline">\(\tau\)</span> (la précision) et une loi <em>a priori</em> Gaussienne centrée autour de <span class="math inline">\(0\)</span> et avec un écart-type de 4 pour <span class="math inline">\(\mu\)</span> la moyenne.</p></li>
-<li><p>Écrire le modèle Bayésien correspondant à cette méta-analyse à effet aléatoire (mathématiquement, sans utilisé <code>R</code> — pour le moment).</p></li>
-<li><p>Utiliser <code>rjags</code> pour estimer ce même modèle, en enregistrant le model écrit en <code>BUGS</code> dans un fichier <code>.txt</code> (nommé <code>crinsBUGSmodel.txt</code> par exemple). Commenter vos résultats.</p></li>
+<li><p>Effectuer une méta-analyse avec un effet-aléatoire sur ces données avec la fonction <code>bayesmeta()</code> du package <code>R</code> <code>bayesmeta</code>, depuis le logiciel <code>R</code>. Utiliser une loi <em>a priori</em> uniforme sur <span class="math inline">\([0,4]\)</span> pour <span class="math inline">\(\tau\)</span> (la précision) et une loi <em>a priori</em> Gaussienne centrée autour de <span class="math inline">\(0\)</span> et avec un écart-type de 4 pour <span class="math inline">\(\mu\)</span> la moyenne.</p>
+<pre><code>```r
+res_crins_bayesmeta &lt;- bayesmeta(y = crins.es$yi, sigma = sqrt(crins.es$vi), labels = crins.es$publication, 
+    tau.prior = function(t) {
+        dunif(t, max = 4)
+    }, mu.prior = c(0, 4), interval.type = &quot;central&quot;)
+summary(res_crins_bayesmeta)
+```
+
+```
+##  &#39;bayesmeta&#39; object.
+## data (6 estimates):
+##                          y     sigma
+## Heffron (2003)  -2.3097026 0.5994763
+## Gibelli (2004)  -0.4595323 0.5563956
+## Schuller (2005) -2.3025851 0.8803408
+## Ganschow (2005) -1.7578579 0.4558685
+## Spada (2006)    -1.2584610 0.6419962
+## Gras (2008)     -2.4178959 1.5288107
+## 
+## tau prior (proper):
+## function(t) {
+##         dunif(t, max = 4)
+##     }
+## &lt;bytecode: 0x7f8ba6599850&gt;
+## 
+## mu prior (proper):
+## normal(mean=0, sd=4)
+## 
+## ML and MAP estimates:
+##                    tau        mu
+## ML joint     0.3258895 -1.578317
+## ML marginal  0.4644136 -1.587347
+## MAP joint    0.3244300 -1.569497
+## MAP marginal 0.4644205 -1.576092
+## 
+## marginal posterior summary:
+##                  tau         mu      theta
+## mode      0.46442045 -1.5760916 -1.5656380
+## median    0.61810119 -1.5866193 -1.5806176
+## mean      0.73768542 -1.5935568 -1.5935568
+## sd        0.56879971  0.4698241  1.0448965
+## 95% lower 0.03724555 -2.5605641 -3.7989794
+## 95% upper 2.22766946 -0.6704235  0.5580817
+## 
+## (quoted intervals are central, equal-tailed credible intervals.)
+## 
+## Bayes factors:
+##             tau=0        mu=0
+## actual  2.6800815 0.094852729
+## minimum 0.7442665 0.008342187
+## 
+## relative heterogeneity I^2 (posterior median): 0.4718317
+```
+
+```r
+plot(res_crins_bayesmeta)
+```
+
+&lt;img src=&quot;06-bayesmetaCrins_files/figure-html/bayesmeta-crins-1.png&quot; width=&quot;672&quot; /&gt;&lt;img src=&quot;06-bayesmetaCrins_files/figure-html/bayesmeta-crins-2.png&quot; width=&quot;672&quot; /&gt;&lt;img src=&quot;06-bayesmetaCrins_files/figure-html/bayesmeta-crins-3.png&quot; width=&quot;672&quot; /&gt;&lt;img src=&quot;06-bayesmetaCrins_files/figure-html/bayesmeta-crins-4.png&quot; width=&quot;672&quot; /&gt;</code></pre></li>
+<li><p>Écrire le modèle Bayésien correspondant à cette méta-analyse à effet aléatoire (mathématiquement, sans utilisé <code>R</code> — pour le moment).
+<strong><em>I) Question d’intérêt :</em></strong><br />
+<em>Le traitement (IL2RA) réduit-il la fréquence des rejets aigu ?</em><br />
+<strong><em>II) Modèle d’échantillonnage :</em></strong><br />
+<em>Soit <span class="math inline">\(log(OR_{i})\)</span> le log-odds-ratio raporté par l’étude <span class="math inline">\(i\)</span> et <span class="math inline">\(\sigma_i^2\)</span> sa variance d’échantillonnage</em>
+<span class="math display">\[log(OR_i) \overset{iid}{\sim} N(\theta_i, \sigma_i^2)\]</span><span class="math display">\[\theta_i \overset{iid}{\sim} N(\mu, \tau^2)\]</span> <strong><em>III) Lois a priori:</em></strong><span class="math display">\[\mu\sim N(0,4^2)\]</span><span class="math display">\[\tau \sim U_{[0,4]}\]</span></p></li>
+<li><p>Utiliser <code>rjags</code> pour estimer ce même modèle, en enregistrant le modèle écrit en <code>BUGS</code> dans un fichier <code>.txt</code> (nommé <code>crinsBUGSmodel.txt</code> par exemple). Commenter vos résultats.</p>
+<pre class="bash"><code>#Modèle à effet aléatoire pour la méta-analyse des Rejet Aigu de Crins et al. 2014
+model{
+
+  # Modèle d&#39;échantillonnage/Vraisemblance
+  for (i in 1:N){
+    logOR[i] &lt;- theta[i] + epsilon[i]
+    epsilon[i]~dnorm(0, sigma.precision[i])
+    theta[i]~dnorm(mu, precision.tau)
+  }
+
+  #A priori
+  mu~dnorm(0, 0.0625) # 1/16 = 0.0625
+  tau~dunif(0, 4)
+
+  # Re-parametrisation
+  for(i in 1:N){
+    sigma.precision[i] &lt;- pow(sigma[i], -2)
+  }
+  precision.tau &lt;- pow(tau, -2)
+
+}</code></pre>
+<pre class="r"><code># Échantillonnage
+library(rjags)
+crins_jags_res &lt;- jags.model(file = &quot;crinsBUGSmodel.txt&quot;, data = list(logOR = crins.es$yi, 
+    sigma = sqrt(crins.es$vi), N = length(crins.es$yi)), n.chains = 3)</code></pre>
+<pre><code>## Compiling model graph
+##    Resolving undeclared variables
+##    Allocating nodes
+## Graph information:
+##    Observed stochastic nodes: 6
+##    Unobserved stochastic nodes: 8
+##    Total graph size: 33
+## 
+## Initializing model</code></pre>
+<pre class="r"><code>res_crins_jags_res &lt;- coda.samples(model = crins_jags_res, variable.names = c(&quot;mu&quot;, 
+    &quot;tau&quot;), n.iter = 20000)
+
+# Post-processing
+res_crins_jags_res &lt;- window(res_crins_jags_res, start = 5001)  #retirer la phase de chauffe afin d&#39;atteindre la convergence de la chaîne de Markov vers sa loi stationnaire
+summary(res_crins_jags_res)</code></pre>
+<pre><code>## 
+## Iterations = 5001:21000
+## Thinning interval = 1 
+## Number of chains = 3 
+## Sample size per chain = 16000 
+## 
+## 1. Empirical mean and standard deviation for each variable,
+##    plus standard error of the mean:
+## 
+##        Mean     SD Naive SE Time-series SE
+## mu  -1.5905 0.4704 0.002147       0.004206
+## tau  0.7406 0.5741 0.002620       0.011781
+## 
+## 2. Quantiles for each variable:
+## 
+##         2.5%     25%     50%     75%   97.5%
+## mu  -2.55167 -1.8550 -1.5870 -1.3172 -0.6618
+## tau  0.03983  0.3326  0.6153  0.9956  2.2332</code></pre>
+<pre class="r"><code>HDInterval::hdi(res_crins_jags_res)</code></pre>
+<pre><code>##              mu          tau
+## lower -2.539326 0.0002244746
+## upper -0.650806 1.8436695095
+## attr(,&quot;credMass&quot;)
+## [1] 0.95</code></pre>
+<pre class="r"><code>plot(res_crins_jags_res)</code></pre>
+<p><img src="/practicals/06-bayesmetaCrins_files/figure-html/crins-rjags-fit-1.png" width="95%" /></p></li>
 </ol>
 <div class="footnotes">
 <hr />

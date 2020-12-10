@@ -32,7 +32,7 @@ Le modèle à effets aléatoires est l'une des approches les plus courante pour 
 $$y_i \sim \mathcal{N}(\theta_i, \sigma_i^2) $$
 $$\theta_i \sim \mathcal{N}(\mu, \tau^2)$$
 
-On peut l'envisager comme une généralisation hiérarchique du modèle à effet fixe $y_i \sim \mathcal{N}(\mu, \sigma_i^2)$, qui suppose lui le même effet moyen dans chaque étude inclus, tandis que le modèle à effets aléatoires permet de modéliser la variabilité entre études autour de cet effet moyen grâce au paramètre $\tau$ : $y_i \sim \mathcal{N}(\mu, \sigma_i^2 + \tau)$.
+On peut l'envisager comme une généralisation hiérarchique du modèle à effet fixe $y_i \sim \mathcal{N}(\mu, \sigma_i^2)$, qui suppose lui le même effet moyen dans chaque étude inclus, tandis que le modèle à effets aléatoires permet de modéliser la variabilité entre études autour de cet effet moyen grâce au paramètre $\tau^2$ : $y_i \sim \mathcal{N}(\mu, \sigma_i^2 + \tau^2)$.
 
 
 
