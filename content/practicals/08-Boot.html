@@ -1,0 +1,225 @@
+---
+title: "Exercice BONUS : Bootstrap pour le t-test (alias: Monte-Carlo, le retour)"
+linktitle: "Exercice BONUS : Monte-Carlo, le retour"
+date: "2020-11-30"
+read_date: "2020-12-10"
+menu:
+  practicals:
+    parent: "TP"
+    weight: 8
+type: docs
+output:
+  blogdown::html_page:
+    toc: false
+    number_sections: false
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/chicago-syllabus-no-bib.csl"
+---
+
+
+
+<p>On veut comparer deux moyennes.</p>
+<ol start="0" style="list-style-type: decimal">
+<li><p>Commencer par générer 2 échantillons chacun de taille <span class="math inline">\(n=15\)</span>, de même variance <span class="math inline">\(s^2 = 9\)</span> et de moyenne respective <span class="math inline">\(10\)</span> et <span class="math inline">\(8\)</span>. On les notera échantillons <code>a</code> et <code>b</code>.</p></li>
+<li><p>Comparaison du t-test asymptotique, Monte-Carlo, Bootstrap</p>
+<ol style="list-style-type: lower-alpha">
+<li>Rappeler les hypothèses du <em>t</em>-test de Student, et effectuer un test unilatérale de l’hypothèse alternative unilatérale <span class="math inline">\(H_1 : \mu_a &gt;\mu_b\)</span> au niveau de risque de l’erreur de type I <span class="math inline">\(\alpha=5%\)</span></li>
+</ol>
+<pre class="r"><code>n &lt;- 15
+a &lt;- rnorm(n = n, mean = 10, sd = 3)
+b &lt;- rnorm(n = n, mean = 8, sd = 3)
+obs &lt;- cbind(a = a, b = b)
+obs_meandif &lt;- mean(a) - mean(b)
+boxplot(obs, ylab = &quot;Signal&quot;)</code></pre>
+<p><img src="/practicals/08-Boot_files/figure-html/asymptotic-1.png" width="70%" /></p>
+<pre class="r"><code>asym_tt &lt;- t.test(x = a, y = b, var.equal = TRUE, alternative = &quot;greater&quot;, conf.level = 0.95)
+asym_tt</code></pre>
+<pre><code>## 
+##    Two Sample t-test
+## 
+## data:  a and b
+## t = 1.1706, df = 28, p-value = 0.1258
+## alternative hypothesis: true difference in means is greater than 0
+## 95 percent confidence interval:
+##  -0.6543106        Inf
+## sample estimates:
+## mean of x mean of y 
+## 10.237675  8.794132</code></pre>
+<pre class="r"><code># mean(a)-mean(b) - qt(0.95, df=2*n-2)*sqrt(var(a)/n+var(b)/n)</code></pre>
+<ol start="2" style="list-style-type: lower-alpha">
+<li><p>Calculer la borne inférieure de l’intervalle de confiance <strong>bootstrap</strong> de la différence de moyenne à partir de <span class="math inline">\(20\;000\)</span> échantillons <em>bootstrap</em>. Calculer également la p-valeur associée au test unilatéral. Enfin, représenter la distribution des différences bootstrap, et faire figurer la valeur observée.</p>
+<pre class="r"><code>nboot &lt;- 20000
+boot_dm &lt;- numeric(length = nboot)
+for (i in 1:nboot) {
+    a_boot &lt;- a[sample(x = 1:n, size = n, replace = TRUE)]
+    b_boot &lt;- b[sample(x = 1:n, size = n, replace = TRUE)]
+    boot_dm[i] &lt;- mean(a_boot) - mean(b_boot)
+}
+quantile(boot_dm, 0.05)</code></pre>
+<pre><code>##         5% 
+## -0.4720544</code></pre>
+<pre class="r"><code>1 - mean(boot_dm &gt; 0)</code></pre>
+<pre><code>## [1] 0.1092</code></pre>
+<pre class="r"><code>plot(density(boot_dm), ylab = &quot;Densité&quot;, xlab = &quot;Différence de moyenne entre a et b&quot;, 
+    main = &quot;Distribution des bootstrap de la\ndifférence de moyenne entre a et b&quot;)
+abline(h = 0, col = &quot;black&quot;)
+abline(v = obs_meandif, col = &quot;red&quot;)
+legend(&quot;topleft&quot;, &quot;Différence\nobservée&quot;, col = &quot;red&quot;, lty = 1)</code></pre>
+<p><img src="/practicals/08-Boot_files/figure-html/density-boot-1.png" width="80%" /></p></li>
+<li><p>Grâce au bootstrap, estimer l’écart-type de la différence de moyenne, ainsi que d’autres quantités d’intérêt telles que la borne inférieure de l’intervalle de confiance et la p-valeur. Commenter (notamment en comparantl’estimation de l’écart-type au résultat de la formule asymptotique <span class="math inline">\(\sqrt{\frac{Var(a)}{n} + \frac{Var(b)}{n}}\)</span>).</p>
+<pre class="r"><code>sd(boot_dm)</code></pre>
+<pre><code>## [1] 1.185741</code></pre>
+<pre class="r"><code>sqrt(var(a)/n + var(b)/n)</code></pre>
+<pre><code>## [1] 1.233212</code></pre>
+<pre class="r"><code>1 - pnorm(obs_meandif/sd(boot_dm))</code></pre>
+<pre><code>## [1] 0.1117225</code></pre></li>
+<li><p>Recommencer avec <span class="math inline">\(n=200\)</span> (au lieu de <span class="math inline">\(n=15\)</span>) et commenter à nouveau.</p>
+<pre class="r"><code>n &lt;- 200
+a200 &lt;- rnorm(n = n, mean = 10, sd = 3)
+b200 &lt;- rnorm(n = n, mean = 8, sd = 3)
+asym_tt200 &lt;- t.test(x = a200, y = b200, var.equal = TRUE, alternative = &quot;greater&quot;, 
+    conf.level = 0.95)
+asym_tt200</code></pre>
+<pre><code>## 
+##  Two Sample t-test
+## 
+## data:  a200 and b200
+## t = 7.6352, df = 398, p-value = 8.451e-14
+## alternative hypothesis: true difference in means is greater than 0
+## 95 percent confidence interval:
+##  1.777355      Inf
+## sample estimates:
+## mean of x mean of y 
+## 10.377150  8.110311</code></pre>
+<pre class="r"><code>nboot &lt;- 20000
+boot_dm200 &lt;- numeric(length = nboot)
+for (i in 1:nboot) {
+    a_boot &lt;- a200[sample(x = 1:n, size = n, replace = TRUE)]
+    b_boot &lt;- b200[sample(x = 1:n, size = n, replace = TRUE)]
+    boot_dm200[i] &lt;- mean(a_boot) - mean(b_boot)
+}
+
+quantile(boot_dm200, 0.05)</code></pre>
+<pre><code>##       5% 
+## 1.776998</code></pre>
+<pre class="r"><code>1 - mean(boot_dm200 &gt; 0)  # manque de précision</code></pre>
+<pre><code>## [1] 0</code></pre>
+<pre class="r"><code>1/nboot</code></pre>
+<pre><code>## [1] 5e-05</code></pre>
+<pre class="r"><code>sd(boot_dm200)</code></pre>
+<pre><code>## [1] 0.2953391</code></pre>
+<pre class="r"><code>sqrt(var(a)/n + var(b)/n)</code></pre>
+<pre><code>## [1] 0.3377289</code></pre>
+<pre class="r"><code>mean(boot_dm200)/sd(boot_dm200)</code></pre>
+<pre><code>## [1] 7.669407</code></pre></li>
+<li><p>Utiliser maintenant la méthode de Monte-Carlo pour estimer la variabilité de la différence de moyenne étudiée (on appelle également cette technique le <strong>bootstrap paramétrique</strong>). Puis utiliser à nouveau Monte-Carlo pour calculer la p-valeur associée. Comparer aux résultats précédents et commenter.</p>
+<pre class="r"><code>nMC &lt;- 20000
+n &lt;- 15
+
+# bootstrap paramétrique
+mc_dm &lt;- numeric(length = nMC)
+for (i in 1:nMC) {
+    aMC &lt;- rnorm(n = n, mean = mean(a), sd = sd(a))
+    bMC &lt;- rnorm(n = n, mean = mean(b), sd = sd(b))
+    mc_dm[i] &lt;- mean(aMC) - mean(bMC)
+}
+
+obs_meandif</code></pre>
+<pre><code>## [1] 1.443544</code></pre>
+<pre class="r"><code>mean(mc_dm)</code></pre>
+<pre><code>## [1] 1.444101</code></pre>
+<pre class="r"><code>obs_meandif/sd(mc_dm)</code></pre>
+<pre><code>## [1] 1.166931</code></pre>
+<pre class="r"><code>quantile(mc_dm, 0.05)</code></pre>
+<pre><code>##        5% 
+## -0.604142</code></pre>
+<pre class="r"><code># p-valeur par Monte-Carlo
+ttstat_mc &lt;- rt(n = nMC, df = n - 2)
+sd(ttstat_mc)</code></pre>
+<pre><code>## [1] 1.078197</code></pre>
+<pre class="r"><code>mean(ttstat_mc &gt; obs_meandif/sd(mc_dm))</code></pre>
+<pre><code>## [1] 0.13045</code></pre></li>
+</ol></li>
+<li><p>À l’aide de la méthode de Monte-Carlo verifier que le <em>t</em>-test de Student contrôle bien l’erreur de type I au niveau <span class="math inline">\(\alpha = 5%\)</span> voulu lorsque <span class="math inline">\(n=15\)</span>?</p>
+<pre class="r"><code>nMC = 20000
+mc_ttstat &lt;- list()
+n = 15
+for (i in 1:nMC) {
+    aMC &lt;- rnorm(n = n, mean = 10, sd = 3)
+    bMC &lt;- rnorm(n = n, mean = 10, sd = 3)
+    mc_ttstat[[i]] &lt;- t.test(x = aMC, y = bMC, var.equal = TRUE, alternative = &quot;greater&quot;, 
+        conf.level = 0.95)
+}
+erreurTypeI &lt;- mean(sapply(mc_ttstat, &quot;[[&quot;, &quot;p.value&quot;) &lt; 0.05)
+erreurTypeI</code></pre>
+<pre><code>## [1] 0.05465</code></pre></li>
+<li><p>À l’aide de la méthode de Monte-Carlo , représenter la puissance du <em>t</em>-test de Student pour différentes valeur de <span class="math inline">\(n\)</span> ?</p>
+<pre class="r"><code>puissance_diffmoy_ttest &lt;- function(n = 15, nMC = 2000, alternative = &quot;greater&quot;, 
+    alpha = 0.05) {
+    mc_ttpval &lt;- numeric(nMC)
+    for (i in 1:nMC) {
+        aMC &lt;- rnorm(n = n, mean = 10, sd = 3)
+        bMC &lt;- rnorm(n = n, mean = 8, sd = 3)
+        mc_ttpval[i] &lt;- t.test(x = aMC, y = bMC, var.equal = TRUE, alternative = alternative, 
+            conf.level = 0.95)$p.value
+    }
+    return(mean(mc_ttpval &lt; alpha))
+}
+n_eval &lt;- c(5, 10, 15, 20, 25, 30, 50, 100, 200)
+mes_puissances &lt;- sapply(n_eval, puissance_diffmoy_ttest, nMC = 20000)
+plot(x = n_eval, y = mes_puissances, col = &quot;blue&quot;, type = &quot;b&quot;, ylab = &quot;Puissance statistique&quot;, 
+    xlab = &quot;Taille d&#39;échantillon&quot;, ylim = c(0, 1), pch = 16, main = &quot;Estimation de la puissance par simulations de Monte-Carlo&quot;)</code></pre>
+<p><img src="/practicals/08-Boot_files/figure-html/puissance-1.png" width="73%" /></p></li>
+<li><p><strong>BONUS :</strong> utiliser un test par permutation, et comparer aux résultats précédents. On pourra lire l’article de <span class="citation">Belinda Phipson and Gordon K Smyth, “Permutation P-Values Should Never Be Zero: Calculating Exact P-Values When Permutations Are Randomly Drawn,” <em>Statistical Applications in Genetics and Molecular Biology</em> 9, no. 1 (2010): 1544–6115, doi:<a href="https://doi.org/10.2202/1544-6115.1585" role="doc-biblioref">10.2202/1544-6115.1585</a>.</span> à propos du calcul de la p-valeur pour un test par permutation.</p>
+<pre class="r"><code>diffmoy_perm = function(x, y, nperm = 20000) {
+
+    obs_diffmoy &lt;- mean(x) - mean(y)
+
+    perm_dm &lt;- numeric(length = nperm)
+    nx &lt;- length(x)
+    ny &lt;- length(y)
+    nobs &lt;- nx + ny
+
+    for (i in 1:nperm) {
+        perms &lt;- c(x, y)[sample(x = 1:nobs, size = nobs, replace = FALSE)]
+        perm_dm[i] &lt;- mean(perms[1:nx]) - mean(perms[nx + 1:ny])
+    }
+
+    # p-valeur du test par permutation
+    pval &lt;- (sum(perm_dm &gt; obs_diffmoy) + 1)/(length(perm_dm) + 1)
+
+    return(list(obs_diffmoy = obs_diffmoy, perm_dm = perm_dm, pval = pval))
+}
+
+res_perm &lt;- diffmoy_perm(a, b)
+
+plot(density(res_perm$perm_dm), ylab = &quot;Densité&quot;, xlab = &quot;Différence de moyenne entre a et b&quot;, 
+    main = &quot;Distribution des bootstrap de la\ndifférence de moyenne entre a et b&quot;)
+abline(h = 0, col = &quot;black&quot;)
+abline(v = res_perm$obs_diffmoy, col = &quot;red&quot;)
+abline(v = quantile(res_perm$perm_dm, 0.95), col = &quot;blue&quot;, lty = 2)
+legend(&quot;topleft&quot;, c(&quot;Différence\nobservée\n&quot;, &quot;Quantile à 95%\nestimé sous H0\n&quot;), 
+    col = c(&quot;red&quot;, &quot;blue&quot;), lty = c(1, 2), cex = 0.8)</code></pre>
+<p><img src="/practicals/08-Boot_files/figure-html/permutations-1.png" width="73%" /></p>
+<pre class="r"><code>puissance_diffmoy_perm &lt;- function(n = 15, nMC = 1000, nperm = 500, alpha = 0.05) {
+    mc_perm_pval &lt;- numeric(nMC)
+    for (i in 1:nMC) {
+        aMC &lt;- rnorm(n = n, mean = 10, sd = 3)
+        bMC &lt;- rnorm(n = n, mean = 8, sd = 3)
+        mc_perm_pval[i] &lt;- diffmoy_perm(x = aMC, y = bMC, nperm = nperm)$pval
+    }
+    return(mean(mc_perm_pval &lt; alpha))
+}
+n_eval &lt;- c(5, 10, 15, 20, 25, 30, 50, 100, 200)
+mes_puissances_perm &lt;- sapply(n_eval, puissance_diffmoy_perm, nMC = 1000)
+mes_puissances_unilat &lt;- sapply(n_eval, puissance_diffmoy_ttest, nMC = 1000)
+mes_puissances_bilat &lt;- sapply(n_eval, puissance_diffmoy_ttest, nMC = 1000, alternative = &quot;two.sided&quot;)</code></pre>
+<pre class="r"><code>plot(x = n_eval, y = mes_puissances_perm, col = &quot;blue&quot;, type = &quot;b&quot;, ylab = &quot;Puissance statistique&quot;, 
+    xlab = &quot;Taille d&#39;échantillon&quot;, ylim = c(0, 1), pch = 16, lty = 3, main = &quot;Estimation de la puissance par simulations de Monte-Carlo\npour différents tests&quot;)
+lines(x = n_eval, y = mes_puissances_bilat, col = &quot;red&quot;, type = &quot;b&quot;, pch = 2, lty = 2)
+lines(x = n_eval, y = mes_puissances_unilat, col = &quot;darkolivegreen3&quot;, type = &quot;b&quot;, 
+    pch = 3, lty = 1)
+legend(&quot;bottomright&quot;, c(&quot;t.test bilateral&quot;, &quot;t.test unilateral&quot;, &quot;permutations&quot;), 
+    col = c(&quot;red&quot;, &quot;darkolivegreen3&quot;, &quot;blue&quot;), pch = c(2, 3, 16), lty = c(2, 1, 3))</code></pre>
+<p><img src="/practicals/08-Boot_files/figure-html/puissance-plot-all-1.png" width="73%" /></p></li>
+</ol>

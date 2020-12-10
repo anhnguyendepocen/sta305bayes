@@ -1,0 +1,45 @@
+---
+title: "Exercice 7 : comment NE PAS reporter un essai en CRM"
+linktitle: "Exercice 7 : essai en CRM"
+date: "2020-11-30"
+read_date: "2020-12-10"
+menu:
+  practicals:
+    parent: "TP"
+    weight: 7
+type: docs
+output:
+  blogdown::html_page:
+    toc: false
+    number_sections: false
+bibliography: "../../static/bib/references.bib"
+csl: "../../static/bib/chicago-syllabus-no-bib.csl"
+---
+
+
+
+<p>Nous allons commencer par une lecture critique de l’article de Kaguelidou <em>et al.</em><a href="#fn1" class="footnote-ref" id="fnref1"><sup>1</sup></a>.</p>
+<ol style="list-style-type: decimal">
+<li><p>Lister les éléments méthodologiques qui manquent dans cet article.</p>
+<ul>
+<li><em>la distribution a priori</em></li>
+<li><em>le modèle d’échantillonnage (la vraisemblance)</em></li>
+<li><em>les hypothèses PK/PD sous-jacentes</em></li>
+<li><em>une analyse de sensibilité avec des lois a priori différentes (e.g. en utilisant des simulations)</em><br />
+</li>
+<li><em>BONUS: erreurs dans la table 3 (certains nombres en gras ne sont pas les bons…)</em></li>
+</ul></li>
+<li><p>Lire et discuter la Table 3.</p></li>
+<li><p>Charger le package <code>R</code> <code>bcrm</code>, et mener un essai <em>CRM</em> imaginaire en utilisant les commandes suivantes :</p>
+<pre class="r"><code>library(bcrm)
+sdose &lt;- c(1, 1.5, 2, 2.5, 3)
+dose.label &lt;- c(5, 10, 15, 25, 40, 50, 60)
+bcrm(stop = list(nmax = 42), p.tox0 = p.tox0, dose = dose.label, ff = &quot;power&quot;, prior.alpha = list(1, 
+    1, 1), target.tox = 0.3, start = 1)</code></pre></li>
+</ol>
+<div class="footnotes">
+<hr />
+<ol>
+<li id="fn1"><p><span class="citation">Florentia Kaguelidou et al. “Dose-Finding Study of Omeprazole on Gastric pH in Neonates with Gastro-Esophageal Acid Reflux Using a Bayesian Sequential Approach,” ed. Imti Choonara, <em>PLOS ONE</em> 11, no. 12 (2016): e0166207, doi:<a href="https://doi.org/10.1371/journal.pone.0166207" role="doc-biblioref">10.1371/journal.pone.0166207</a>.</span><a href="#fnref1" class="footnote-back">↩︎</a></p></li>
+</ol>
+</div>

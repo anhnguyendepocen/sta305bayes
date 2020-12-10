@@ -1,6 +1,6 @@
 ---
-title: "Exercice 5: Ré-analyse bayésienne post-mortem d’un essai clinique randomisé sous-dimensionné"
-linktitle: "Exercice 5: Réanalyse bayésienne post-mortem"
+title: "Exercice 5 : Ré-analyse bayésienne post-mortem d’un essai clinique randomisé sous-dimensionné"
+linktitle: "Exercice 5 : Réanalyse bayésienne post-mortem"
 date: "2020-11-30"
 read_date: "2020-12-08"
 menu:
@@ -136,7 +136,7 @@ res_goligher_burnt_pop &lt;- window(res_goligher_pop, start = 5001)  #retirer la
 <li><p>Évaluer la convergence, puis commenter les résultats et les estimations (<strong>ProTip:</strong> la fonction <code>R</code> <code>effectiveSize()</code> du package <code>coda</code> permet de calculer la taille d’échantillon effective).</p>
 <pre class="r"><code>effectiveSize(res_goligher_burnt_pop)</code></pre>
 <pre><code>##       RR       pc 
-## 13191.37 13207.58</code></pre>
+## 13326.43 14070.26</code></pre>
 <pre class="r"><code>plot(res_goligher_burnt_pop)</code></pre>
 <p><img src="/practicals/05-postmortem_files/figure-html/goligher-diagnoses-1.png" width="672" /></p>
 <pre class="r"><code>gelman.plot(res_goligher_burnt_pop)</code></pre>
@@ -159,14 +159,14 @@ summary(res_goligher_burnt_pop)</code></pre>
 ##    plus standard error of the mean:
 ## 
 ##      Mean      SD  Naive SE Time-series SE
-## RR 0.7769 0.12200 0.0005569      0.0010646
-## pc 0.4572 0.04395 0.0002006      0.0003825
+## RR 0.7775 0.12063 0.0005506      0.0010455
+## pc 0.4566 0.04373 0.0001996      0.0003688
 ## 
 ## 2. Quantiles for each variable:
 ## 
-##      2.5%    25%    50%    75%  97.5%
-## RR 0.5612 0.6918 0.7690 0.8526 1.0397
-## pc 0.3707 0.4275 0.4571 0.4868 0.5435</code></pre>
+##      2.5%    25%    50%   75%  97.5%
+## RR 0.5633 0.6924 0.7686 0.854 1.0367
+## pc 0.3723 0.4265 0.4568 0.486 0.5431</code></pre>
 <pre class="r"><code>summary(res_goligher_burnt_indiv)</code></pre>
 <pre><code>## 
 ## Iterations = 5001:21000
@@ -178,24 +178,24 @@ summary(res_goligher_burnt_pop)</code></pre>
 ##    plus standard error of the mean:
 ## 
 ##      Mean      SD  Naive SE Time-series SE
-## RR 0.7793 0.08420 0.0003843      0.0006217
-## pc 0.4564 0.03916 0.0001787      0.0002886
+## RR 0.7797 0.08312 0.0003794      0.0006019
+## pc 0.4565 0.03900 0.0001780      0.0002831
 ## 
 ## 2. Quantiles for each variable:
 ## 
 ##      2.5%    25%    50%    75%  97.5%
-## RR 0.6257 0.7208 0.7750 0.8335 0.9542
-## pc 0.3815 0.4297 0.4557 0.4823 0.5352</code></pre>
+## RR 0.6286 0.7216 0.7752 0.8331 0.9543
+## pc 0.3813 0.4298 0.4563 0.4825 0.5339</code></pre>
 <pre class="r"><code># shortest 95% Credibility interval:
 HDInterval::hdi(res_goligher_burnt_pop)</code></pre>
 <pre><code>##              RR        pc
-## lower 0.5533892 0.3717606
-## upper 1.0262592 0.5443515
+## lower 0.5475413 0.3743449
+## upper 1.0151128 0.5449928
 ## attr(,&quot;credMass&quot;)
 ## [1] 0.95</code></pre>
 <pre class="r"><code># posterior porbability of RR &lt;1:
 mean(c(sapply(res_goligher_burnt_pop, &quot;[&quot;, , 1)) &lt; 1)</code></pre>
-<pre><code>## [1] 0.9559375</code></pre></li>
+<pre><code>## [1] 0.9575833</code></pre></li>
 <li><p>Changer pour une loi <em>a priori</em> plus informative en utilisant une distribution
 Gaussienne pour le <span class="math inline">\(log(RR)\)</span>, centrée en <code>log(0.78)</code> et avec un écart-type de <code>0.15</code> (dans l’échelle du log(RR), ce qui correspond à une précision <span class="math inline">\(\approx 45\)</span>). Commenter les resultats. Essayer d’autres distributions <em>a priori</em>.</p>
 <pre class="bash"><code> logRR~dnorm(log(0.78), 45)</code></pre></li>
