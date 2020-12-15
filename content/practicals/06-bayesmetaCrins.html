@@ -2,7 +2,7 @@
 title: "Exercice 6 : Méta-analyse bayésienne"
 linktitle: "Exercice 6 :  Méta-analyse bayésienne"
 date: "2020-11-30"
-read_date: "2020-12-09"
+exo_date: "2020-12-09"
 menu:
   practicals:
     parent: "TP"
@@ -101,7 +101,7 @@ summary(res_crins_bayesmeta)
 ## function(t) {
 ##         dunif(t, max = 4)
 ##     }
-## &lt;bytecode: 0x7f8ba6599850&gt;
+## &lt;bytecode: 0x7ff9f2be66b0&gt;
 ## 
 ## mu prior (proper):
 ## normal(mean=0, sd=4)
@@ -194,18 +194,18 @@ summary(res_crins_jags_res)</code></pre>
 ##    plus standard error of the mean:
 ## 
 ##        Mean     SD Naive SE Time-series SE
-## mu  -1.5905 0.4704 0.002147       0.004206
-## tau  0.7406 0.5741 0.002620       0.011781
+## mu  -1.5922 0.4648 0.002122       0.004064
+## tau  0.7314 0.5708 0.002605       0.011792
 ## 
 ## 2. Quantiles for each variable:
 ## 
 ##         2.5%     25%     50%     75%   97.5%
-## mu  -2.55167 -1.8550 -1.5870 -1.3172 -0.6618
-## tau  0.03983  0.3326  0.6153  0.9956  2.2332</code></pre>
+## mu  -2.55277 -1.8500 -1.5830 -1.3282 -0.6718
+## tau  0.03174  0.3289  0.6098  0.9812  2.2316</code></pre>
 <pre class="r"><code>HDInterval::hdi(res_crins_jags_res)</code></pre>
-<pre><code>##              mu          tau
-## lower -2.539326 0.0002244746
-## upper -0.650806 1.8436695095
+<pre><code>##               mu          tau
+## lower -2.5030200 0.0002024947
+## upper -0.6260699 1.8432354655
 ## attr(,&quot;credMass&quot;)
 ## [1] 0.95</code></pre>
 <pre class="r"><code>plot(res_crins_jags_res)</code></pre>
